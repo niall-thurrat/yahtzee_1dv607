@@ -32,8 +32,8 @@ namespace Yahtzee.model
 
 		public void UpdateScore(int a_score)
         {
-            // if bla bla
-			m_score = a_score;	////////////////////////// shouldn't this be a simple getter and setter?
+            // if (m_score hasn't been updated already) {update}
+			m_score = a_score;	////////////////////////// shouldn't this be a simple getter and setter? 
 		}
 	}
 }
