@@ -17,12 +17,23 @@ namespace Yahtzee.model
 
         public void CheckDice(List<Die> dice)
         {
+            int result = CheckOnes(dice);
+            Console.WriteLine($"The total number of ONEs is: {result}");
+        }
+
+        private int CheckOnes(List<Die> dice)
+        {
+            int totalOnes = 0;
+
             foreach (Die die in dice)
             {
-                Console.Write($"-  {die.GetValue()}  ");
+                if (die.GetValue() == 1)
+                {
+                    totalOnes += 1;
+                }
             }
-                Console.WriteLine();
-                Console.WriteLine($"TOTAL ROLL VALUE:   "); // {this.CalcScore()}
+
+            return totalOnes;
         }
 	}
 }

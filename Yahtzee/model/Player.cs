@@ -8,7 +8,7 @@ namespace Yahtzee.model
     class Player
     {
         private ScoreCard m_scoreCard = new ScoreCard();
-        private List<Die> m_rolledDice = new List<Die>();
+        private List<Die> m_dice = new List<Die>();
 
         public void RollDice()
         {
@@ -16,8 +16,8 @@ namespace Yahtzee.model
 
             for (int i = 0; i < 5; i++)
             {
-                m_rolledDice.Add(new Die());
-                m_rolledDice[i].Roll();
+                m_dice.Add(new Die());
+                m_dice[i].Roll();
             }
         }
 
@@ -25,27 +25,27 @@ namespace Yahtzee.model
         {
             RollDice();
 
-            /*
-            foreach (Die die in m_rolledDice)
+            // /*
+            foreach (Die die in m_dice)
             {
                 Console.Write($"-  {die.GetValue()}  ");
             }
                 Console.WriteLine();
-                Console.WriteLine($"TOTAL ROLL VALUE: {this.CalcScore()}  "); */
+                Console.WriteLine($"TOTAL ROLL VALUE: {this.CalcScore()}  "); //*/
 
-                m_scoreCard.CheckDice(m_rolledDice);
+                m_scoreCard.CheckDice(m_dice);
         }
 
         public void ClearDice()
         {
-            m_rolledDice.Clear();
+            m_dice.Clear();
         }
 
         public int CalcScore()
         {
             int score = 0;
 
-            foreach (Die die in m_rolledDice)
+            foreach (Die die in m_dice)
             {
                 score += die.GetValue();
             }

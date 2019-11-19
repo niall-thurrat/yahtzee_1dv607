@@ -8,6 +8,10 @@ namespace Yahtzee
         {
             model.Player p = new model.Player();
             p.GetValues();
+            p.GetValues();
+            p.GetValues();
+            p.GetValues();
+            p.GetValues();
         }
     }
 }
