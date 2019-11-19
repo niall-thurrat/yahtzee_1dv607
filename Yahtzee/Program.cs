@@ -6,7 +6,9 @@ namespace Yahtzee
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            model.Player p = new model.Player();
+            p.GetValues();
+        //    p.GetValues();
         }
     }
 }
