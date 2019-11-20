@@ -20,15 +20,15 @@ namespace Yahtzee.model
 
 		public Category(string a_name, Section a_section)
 		{
-			m_name = a_name;
+			Name = a_name;
             m_section = a_section;
 		}
 
-		public string m_name { get; }
+		public string Name { get; }
 
 		public string GetName()
 		{
-			return m_name;
+			return Name;
 		}
 
 		public bool IsUsed()
@@ -45,8 +45,8 @@ namespace Yahtzee.model
 
 		public override string ToString()
 		{
-			return IsUsed() ? $"Name: {m_name}, Section: {m_section}, Score: {m_score}"
-				: $"Name: {m_name}, Section: {m_section}, Score: EMPTY";
+			return IsUsed() ? $"Name: {Name}, Section: {m_section}, Score: {m_score}"
+				: $"Name: {Name}, Section: {m_section}, Score: EMPTY";
 		}
 	}
 }

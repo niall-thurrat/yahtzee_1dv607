@@ -11,7 +11,7 @@ namespace Yahtzee.model
 
         public Game()
         {
-            m_players.Add(new Player("NiallBot", Player.Type.Computer));
+            m_players.Add(new Player("NiallBot", Player.Type.Computer, new rules.RulesFactory()));
         }
 
         public void PlayGame()

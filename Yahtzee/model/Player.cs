@@ -18,18 +18,20 @@ namespace Yahtzee.model
         private ScoreCard m_scoreCard = new ScoreCard();
         private List<Die> m_dice = new List<Die>();
         private int rollsLeft = 3; //////////////////////////////////////// should this be here?
+        private rules.IPlayStrategy m_playStrategy;
 
-        public Player(String a_name, Type a_playerType)
+        public Player(String a_name, Type a_playerType, rules.RulesFactory a_rulesFactory)
         {
             m_name = a_name;
             m_playerType = a_playerType;
+            m_playStrategy = a_rulesFactory.GetPlayStrategy();
         }
 
         public void PlayRound()
         {
             RollDice();
             GetValues();
-            Strategy();
+            m_playStrategy.Use(m_scoreCard, m_dice, rollsLeft);
         }
 
         private void RollDice()
@@ -67,36 +69,5 @@ namespace Yahtzee.model
         {
             m_dice.Clear();
         }
-
-       public void Strategy() // WILL BE REQUIRED: ScoreCard m_scoreCard, List<Die> m_dice, int rollsLeft
-        {
-            // m_scoreCard.GetScores(m_dice); returns a dictionary?? Ones: 2, Twos: 0  ...
-
-          //  if (rollsLeft == 0)
-         //   {
-                m_scoreCard.UpdateScoreCard("Ones", m_dice); // which! m_scoreCard.m_categories[0].GetName() , m_dice
-                m_scoreCard.PrintScoreCard();
-         //   }
-            /* foreach (Die d in m_dice)
-            {
-                if (d.GetValue() == 5)
-                {
-                    d.ChangeStatus(Die.Status.Freeze);
-                }
-            } 
-        }        */
-        } 
-
-        public int CalcScore()
-        {
-            int score = 0; /// total of dice value - move into scorecard or strategy??
-
-            foreach (Die die in m_dice)
-            {
-                score += die.GetValue();
-            }
-
-            return score;
-       }
     }
 }
