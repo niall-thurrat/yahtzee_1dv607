@@ -7,15 +7,35 @@ namespace Yahtzee.model
 {
     class Player
     {
+        public enum Type
+        {
+            Computer = 0,
+            Gamer
+        }
+
+        private String m_name;
+        private Type m_playerType;
         private ScoreCard m_scoreCard = new ScoreCard();
         private List<Die> m_dice = new List<Die>();
         private int rollsLeft = 3; //////////////////////////////////////// should this be here?
 
+        public Player(String a_name, Type a_playerType)
+        {
+            m_name = a_name;
+            m_playerType = a_playerType;
+        }
+
         public void Strategy(ScoreCard m_scoreCard, List<Die> m_dice, int rollsLeft)
         {
-            // will become separate class which plugs into  interface
+            // will become separate class which plugs into interface
             // decision making
         }
+
+        public void PlayRound()
+        {
+            GetValues();
+        }
+
 
         private void RollDice()
         {
@@ -44,7 +64,7 @@ namespace Yahtzee.model
             // do something
         }
 
-        public void GetValues()
+        private void GetValues()
         {
             RollDice();
 

@@ -24,7 +24,7 @@ namespace Yahtzee.model
             int total_2s = CheckTwos(dice);
             Console.WriteLine($"The total number of TWOs is: {total_2s}");
 
-            int total_3s = CheckTwos(dice);
+            int total_3s = CheckThrees(dice);
             Console.WriteLine($"The total number of THREEs is: {total_3s}");
         }
 

@@ -6,12 +6,8 @@ namespace Yahtzee
     {
         static void Main(string[] args)
         {
-            model.Player p = new model.Player();
-            p.GetValues();
-            p.GetValues();
-            p.GetValues();
-            p.GetValues();
-            p.GetValues();
+            model.Game g = new model.Game();
+            g.PlayGame();
         }
     }
 }
