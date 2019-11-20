@@ -7,70 +7,43 @@ namespace Yahtzee.model
 {
 	class ScoreCard
 	{   
-        private List<Category> m_categories = new List<Category>();
+        public List<Category> m_categories = new List<Category>();
 
         public ScoreCard()
         {
-            m_categories.Add(new Category("Ones", 0, 5));
-            m_categories.Add(new Category("Twos", 0, 10));
-            m_categories.Add(new Category("Threes", 0, 15));
+            m_categories.Add(new Category("Ones", 0));
+            m_categories.Add(new Category("Twos", 0));
+            m_categories.Add(new Category("Threes", 0));
         }
 
-        public void CheckDice(List<Die> dice)
+        public void UpdateScoreCard(string category, List<Die> dice)
         {
-            int total_1s = CheckOnes(dice);
-            Console.WriteLine($"The total number of ONEs is: {total_1s}");
-
-            int total_2s = CheckTwos(dice);
-            Console.WriteLine($"The total number of TWOs is: {total_2s}");
-
-            int total_3s = CheckThrees(dice);
-            Console.WriteLine($"The total number of THREEs is: {total_3s}");
+            if (category == "Ones")
+            {
+                UpdateOnes(dice);
+            }
         }
 
-        private int CheckOnes(List<Die> dice) ////////////////////////////////////// refactor these - CheckUpperScores???
+        private void UpdateOnes(List<Die> dice)
         {
-            int total_1s = 0;
-
+            int score = 0;
             foreach (Die die in dice)
             {
                 if (die.GetValue() == 1)
                 {
-                    total_1s += 1;
+                    score += 1;
                 }
             }
-
-            return total_1s;
+            m_categories[0].UpdateScore(score);
         }
 
-        private int CheckTwos(List<Die> dice)
+        public void PrintScoreCard()
         {
-            int total_2s = 0;
-
-            foreach (Die die in dice)
+            foreach (Category c in m_categories)
             {
-                if (die.GetValue() == 2)
-                {
-                    total_2s += 1;
-                }
+                Console.WriteLine(c.ToString());
             }
-
-            return total_2s;
-        }
-
-        private int CheckThrees(List<Die> dice)
-        {
-            int total_3s = 0;
-
-            foreach (Die die in dice)
-            {
-                if (die.GetValue() == 3)
-                {
-                    total_3s += 1;
-                }
-            }
-
-            return total_3s;
+            
         }
 	}
 }

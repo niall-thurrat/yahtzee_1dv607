@@ -10,30 +10,43 @@ namespace Yahtzee.model
         public enum Section
         {
             Upper = 0,
-            Lower
+            Lower,
+			Bonus
         }
 
-		private string m_name;
         private Section m_section;
-        private int m_possibleScore;
+		private bool m_isUsed = false;
         private int m_score;
 
-		public Category(string a_name, Section a_section, int a_possibleScore)
+		public Category(string a_name, Section a_section)
 		{
 			m_name = a_name;
             m_section = a_section;
-            m_possibleScore = a_possibleScore;
 		}
 
-		public void CheckDice()
+		public string m_name { get; }
+
+		public string GetName()
 		{
-            // do something
+			return m_name;
+		}
+
+		public bool IsUsed()
+		{
+			return m_isUsed ? true : false;
 		}
 
 		public void UpdateScore(int a_score)
         {
-            // if (m_score hasn't been updated already) {update}
-			m_score = a_score;	////////////////////////// shouldn't this be a simple getter and setter? 
+            //if (m_score){} ////////////////////////// shouldn't this be a simple getter and setter? should a Status enum be used here to avoid score changing?
+				m_score = a_score;
+				m_isUsed = true;
+		}
+
+		public override string ToString()
+		{
+			return IsUsed() ? $"Name: {m_name}, Section: {m_section}, Score: {m_score}"
+				: $"Name: {m_name}, Section: {m_section}, Score: EMPTY";
 		}
 	}
 }

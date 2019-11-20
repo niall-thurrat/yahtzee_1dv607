@@ -25,17 +25,12 @@ namespace Yahtzee.model
             m_playerType = a_playerType;
         }
 
-        public void Strategy(ScoreCard m_scoreCard, List<Die> m_dice, int rollsLeft)
-        {
-            // will become separate class which plugs into interface
-            // decision making
-        }
-
         public void PlayRound()
         {
+            RollDice();
             GetValues();
+            Strategy();
         }
-
 
         private void RollDice()
         {
@@ -59,30 +54,38 @@ namespace Yahtzee.model
             }
         }
 
-        private void updateScoreCard()
-        {
-            // do something
-        }
-
         private void GetValues()
         {
-            RollDice();
-
-            // /*
             foreach (Die die in m_dice)
             {
                 Console.Write($"-  {die.GetValue()}  ");
             }
-                Console.WriteLine();
-                Console.WriteLine($"TOTAL ROLL VALUE: {this.CalcScore()}  "); //*/
-
-                m_scoreCard.CheckDice(m_dice);
+            Console.WriteLine();
         }
 
         public void ClearDice()
         {
             m_dice.Clear();
         }
+
+       public void Strategy() // WILL BE REQUIRED: ScoreCard m_scoreCard, List<Die> m_dice, int rollsLeft
+        {
+            // m_scoreCard.GetScores(m_dice); returns a dictionary?? Ones: 2, Twos: 0  ...
+
+          //  if (rollsLeft == 0)
+         //   {
+                m_scoreCard.UpdateScoreCard("Ones", m_dice); // which! m_scoreCard.m_categories[0].GetName() , m_dice
+                m_scoreCard.PrintScoreCard();
+         //   }
+            /* foreach (Die d in m_dice)
+            {
+                if (d.GetValue() == 5)
+                {
+                    d.ChangeStatus(Die.Status.Freeze);
+                }
+            } 
+        }        */
+        } 
 
         public int CalcScore()
         {
