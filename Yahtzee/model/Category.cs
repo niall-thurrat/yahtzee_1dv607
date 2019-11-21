@@ -7,6 +7,24 @@ namespace Yahtzee.model
 {
 	class Category
 	{
+		public enum Type
+        {
+            Ones = 0,
+            Twos,
+			Threes,
+			Fours,
+			Fives,
+			Sixes,
+			x3,
+			x4,
+			FullHouse,
+			Small,
+			Large,
+			Yahtzee,
+			Chance,
+			NoCategory
+        }
+
         public enum Section
         {
             Upper = 0,
@@ -18,18 +36,13 @@ namespace Yahtzee.model
 		private bool m_isUsed = false;
         private int m_score;
 
-		public Category(string a_name, Section a_section)
+		public Category(Type a_type, Section a_section)
 		{
-			Name = a_name;
+			type = a_type;
             m_section = a_section;
 		}
 
-		public string Name { get; }
-
-		public string GetName()
-		{
-			return Name;
-		}
+		public Type type { get; }
 
 		public bool IsUsed()
 		{
@@ -45,8 +58,8 @@ namespace Yahtzee.model
 
 		public override string ToString()
 		{
-			return IsUsed() ? $"Name: {Name}, Section: {m_section}, Score: {m_score}"
-				: $"Name: {Name}, Section: {m_section}, Score: EMPTY";
+			return IsUsed() ? $"CATEGORY: {type}, SECTION: {m_section}, SCORE: {m_score}"
+				: $"CATEGORY: {type}, SECTION: {m_section}, SCORE: empty";
 		}
 	}
 }

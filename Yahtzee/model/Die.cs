@@ -11,35 +11,24 @@ namespace Yahtzee.model
     /// </summary>
 	class Die
 	{
-        public enum Status
-        {
-            Roll = 0,
-            Freeze
-        }
-
 		private int m_value;
-        private Status m_status;
-
 		private static System.Random g_random = new System.Random();
 
 		public Die()
 		{
 			m_value = 0;
-            m_status = Status.Roll;
+            IsHeld = false;
 		}
+
+		public bool IsHeld { get; set; }
 
 		public void Roll()
 		{
-			m_value = g_random.Next(1, 7);
+			m_value = 4; //g_random.Next(1, 7);
 		}
 
 		public int GetValue() {
-			return m_value;	
+			return m_value;	//////////////// just a getter
 		}
-
-        public void ChangeStatus(Status newStatus)
-        {
-            m_status = newStatus; /////////////////////////////////////// should this just be a setter?
-        }
 	}
 }

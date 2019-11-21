@@ -29,29 +29,60 @@ namespace Yahtzee.model
 
         public void PlayRound()
         {
-            RollDice();
-            GetValues();
-            m_playStrategy.Use(m_scoreCard, m_dice, rollsLeft);
+            bool rollAgain = true;
+
+            while (rollAgain)
+            {
+                RollDice();
+                GetValues(); // Just for console print - remove
+
+                var decision = m_playStrategy.Use(this);
+
+                if (decision != Category.Type.NoCategory)
+                {
+                    m_scoreCard.Update(decision, m_dice);
+                }
+                else
+                {
+                    Console.WriteLine("No Yahtzee");
+                }
+
+                rollAgain = false; /////////////////////////////////////////////////// deal with rollAgain
+                
+                m_scoreCard.Print();
+            }
         }
 
         private void RollDice()
         {
-            ClearDice(); // will need changed as dice are held /////////////////////////////
-
-            for (int i = 0; i < 5; i++)
+            if (m_dice.Count() != 5)
             {
-                m_dice.Add(new Die());
-                m_dice[i].Roll();
+                for (int i = 0; i < 5; i++)
+                {
+                    m_dice.Add(new Die());
+                }
             }
+
+            // ClearDice(); // will need changed as dice are held /////////////////////////////
+
+            foreach (Die d in m_dice)
+            {
+                if (!d.IsHeld)
+                {
+                    d.Roll();
+                }
+            }
+
+            rollsLeft--;
         }
 
-        private void FreezeDie(int dieNumber)
+        private void HoldDie(int dieIndex)
         {
             for (int i = 0; i < 5; i++)
             {
-                if (dieNumber == i)
+                if (dieIndex == i)
                 {
-                    m_dice[i].ChangeStatus(0); ////////////////////// adapt this method to freeze AND roll??
+                    m_dice[i].IsHeld = true; /////////// perhaps IsHeld should not be so public?
                 }
             }
         }
@@ -68,6 +99,16 @@ namespace Yahtzee.model
         public void ClearDice()
         {
             m_dice.Clear();
+        }
+
+        public ScoreCard GetScoreCard()
+        {
+            return m_scoreCard;
+        }
+
+        public List<Die> GetDice()
+        {
+            return m_dice != null ? m_dice : throw new Exception();
         }
     }
 }

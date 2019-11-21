@@ -7,15 +7,23 @@ namespace Yahtzee.model.rules
 {
     class OriginalPlayStrategy : IPlayStrategy
     {
-        public void Use(ScoreCard scoreCard, List<Die> dice, int rollsLeft) 
+        /// returns a Category.Type which inform Player which category to score with or else NoCategory
+        public Category.Type Use(Player player)
         {
-            // maybe model. needed
-            // m_scoreCard.GetScores(m_dice); returns a dictionary?? Ones: 2, Twos: 0  ...
+            //var scoreCard = player.GetScoreCard();
+            // var dice = player.GetDice();
+
+            // CHECK YAHTZEE
+            if (player.GetScoreCard().IsYahtzee(player.GetDice()))
+            {
+                return Category.Type.Yahtzee;
+            }
 
             //  if (rollsLeft == 0)
             //   {
-                scoreCard.UpdateScoreCard("Ones", dice); // which! m_scoreCard.m_categories[0].GetName() , m_dice
-                scoreCard.PrintScoreCard();
+             //  TEST
+             //   scoreCard.UpdateScoreCard("Ones", dice); // which! m_scoreCard.m_categories[0].GetName() , m_dice
+            //    scoreCard.PrintScoreCard();
             //   }
         /* foreach (Die d in m_dice)
             {
@@ -25,6 +33,7 @@ namespace Yahtzee.model.rules
                 }
             } 
         }        */
+            return Category.Type.NoCategory;
         }
 
         public int CalcScore(List<Die> m_dice)

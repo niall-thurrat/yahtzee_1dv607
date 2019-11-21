@@ -7,7 +7,7 @@ namespace Yahtzee.model.rules
 {
     interface IPlayStrategy
     {
-        void Use(ScoreCard scoreCard, List<Die> dice, int rollsLeft);
+        Category.Type Use(Player player);
         int CalcScore(List<Die> m_dice);
     }
 }
