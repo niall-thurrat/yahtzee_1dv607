@@ -10,11 +10,11 @@ namespace Yahtzee.model.rules
         /// returns a Category.Type which inform Player which category to score with or else NoCategory
         public Category.Type Use(Player player)
         {
-            //var scoreCard = player.GetScoreCard();
-            // var dice = player.GetDice();
+            var scoreCard = player.GetScoreCard();
+            var dice = player.GetDice();
 
             // CHECK YAHTZEE
-            if (player.GetScoreCard().IsYahtzee(player.GetDice()))
+            if (scoreCard.IsYahtzee(dice))
             {
                 return Category.Type.Yahtzee;
             }
