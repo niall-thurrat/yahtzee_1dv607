@@ -11,5 +11,10 @@ namespace Yahtzee.model.rules
         {
             return new OriginalPlayStrategy();
         }
+
+        public IScoreCard GetScoreCard()
+        {
+            return new OriginalScoreCard();
+        }
     }
 }

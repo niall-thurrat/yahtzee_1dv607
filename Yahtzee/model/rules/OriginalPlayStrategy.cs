@@ -38,7 +38,7 @@ namespace Yahtzee.model.rules
 
         public int CalcScore(List<Die> m_dice)
         {
-            int score = 0; /// total of dice value - move into scorecard or strategy??
+            int score = 0;
 
             foreach (Die die in m_dice)
             {

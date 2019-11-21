@@ -15,7 +15,7 @@ namespace Yahtzee.model
 
         private String m_name;
         private Type m_playerType;
-        private ScoreCard m_scoreCard = new ScoreCard();
+        private rules.IScoreCard m_scoreCard;
         private List<Die> m_dice = new List<Die>();
         private int rollsLeft = 3; //////////////////////////////////////// should this be here?
         private rules.IPlayStrategy m_playStrategy;
@@ -25,6 +25,7 @@ namespace Yahtzee.model
             m_name = a_name;
             m_playerType = a_playerType;
             m_playStrategy = a_rulesFactory.GetPlayStrategy();
+            m_scoreCard = a_rulesFactory.GetScoreCard();
         }
 
         public void PlayRound()
@@ -101,7 +102,7 @@ namespace Yahtzee.model
             m_dice.Clear();
         }
 
-        public ScoreCard GetScoreCard()
+        public rules.IScoreCard GetScoreCard()
         {
             return m_scoreCard;
         }
