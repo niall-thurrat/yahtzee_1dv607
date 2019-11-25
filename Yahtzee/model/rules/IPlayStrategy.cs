@@ -8,6 +8,6 @@ namespace Yahtzee.model.rules
     interface IPlayStrategy
     {
         Category.Type Use(Player player);
-        int CalcScore(List<Die> m_dice);
+        Category.Type UseExtraYahtzee(Player player);
     }
 }

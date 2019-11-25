@@ -10,8 +10,15 @@ namespace Yahtzee.model.rules
         /// returns a Category.Type which inform Player which category to score with or else NoCategory
         public Category.Type Use(Player player)
         {
-            var scoreCard = player.GetScoreCard();
+            var scoreCard = player.ScoreCard;
             var dice = player.GetDice();
+          //  var rollsLeft = player.
+
+            // CHECK BONUS YAHTZEE
+            if (scoreCard.IsBonusYahtzee(dice))
+            {
+                return Category.Type.YahtzeeBonus;
+            }
 
             // CHECK YAHTZEE
             if (scoreCard.IsYahtzee(dice))
@@ -19,12 +26,18 @@ namespace Yahtzee.model.rules
                 return Category.Type.Yahtzee;
             }
 
-            //  if (rollsLeft == 0)
-            //   {
-             //  TEST
-             //   scoreCard.UpdateScoreCard("Ones", dice); // which! m_scoreCard.m_categories[0].GetName() , m_dice
-            //    scoreCard.PrintScoreCard();
-            //   }
+            // CHECK FOR 3 OR 4 OF A KIND AN EMPTY UPPER CATEGORY
+            if (scoreCard.IsThreeOfAKind(dice) || scoreCard.IsFourOfAKind(dice))
+            {
+                //
+            }
+
+            // CHECK FOUR OF A KIND
+            // if (scoreCard.IsYahtzee(dice))
+            // {
+            //     return Category.Type.Yahtzee;
+            // }
+
         /* foreach (Die d in m_dice)
             {
                 if (d.GetValue() == 5)
@@ -33,12 +46,19 @@ namespace Yahtzee.model.rules
                 }
             } 
         }        */
-            return Category.Type.NoCategory;
+
+            return Category.Type.FullHouse;// Category.Type.NoCategory;
         }
 
-        public int CalcScore(List<Die> m_dice)
+        public Category.Type UseExtraYahtzee(Player player)
         {
-            int score = 0;
+            // enter decision logic here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+            return Category.Type.FullHouse;
+        }
+
+        private int CalcScore(List<Die> m_dice)
+        {
+            int score = 0; // delete this??
 
             foreach (Die die in m_dice)
             {

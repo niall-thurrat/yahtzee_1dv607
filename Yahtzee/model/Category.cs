@@ -15,6 +15,7 @@ namespace Yahtzee.model
 			Fours,
 			Fives,
 			Sixes,
+			UpperBonus,
 			x3,
 			x4,
 			FullHouse,
@@ -22,6 +23,7 @@ namespace Yahtzee.model
 			Large,
 			Yahtzee,
 			Chance,
+			YahtzeeBonus,
 			NoCategory
         }
 
@@ -33,8 +35,8 @@ namespace Yahtzee.model
         }
 
         private Section m_section;
+		private int m_score;
 		private bool m_isUsed = false;
-        private int m_score;
 
 		public Category(Type a_type, Section a_section)
 		{
@@ -44,16 +46,17 @@ namespace Yahtzee.model
 
 		public Type type { get; }
 
-		public bool IsUsed()
-		{
-			return m_isUsed ? true : false;
-		}
+		public int Score { get; }
 
 		public void UpdateScore(int a_score)
         {
-            //if (m_score){} ////////////////////////// shouldn't this be a simple getter and setter? should a Status enum be used here to avoid score changing?
 				m_score = a_score;
 				m_isUsed = true;
+		}
+
+		public bool IsUsed()
+		{
+			return m_isUsed ? true : false;
 		}
 
 		public override string ToString()

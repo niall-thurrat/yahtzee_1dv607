@@ -15,7 +15,6 @@ namespace Yahtzee.model
 
         private String m_name;
         private Type m_playerType;
-        private rules.IScoreCard m_scoreCard;
         private List<Die> m_dice = new List<Die>();
         private int rollsLeft = 3; //////////////////////////////////////// should this be here?
         private rules.IPlayStrategy m_playStrategy;
@@ -25,8 +24,10 @@ namespace Yahtzee.model
             m_name = a_name;
             m_playerType = a_playerType;
             m_playStrategy = a_rulesFactory.GetPlayStrategy();
-            m_scoreCard = a_rulesFactory.GetScoreCard();
+            ScoreCard = a_rulesFactory.GetScoreCard();
         }
+
+        public rules.IScoreCard ScoreCard { get; } // TIDY UP PROPERTIES WITH GETTERS AND SETTERS
 
         public void PlayRound()
         {
@@ -41,16 +42,21 @@ namespace Yahtzee.model
 
                 if (decision != Category.Type.NoCategory)
                 {
-                    m_scoreCard.Update(decision, m_dice);
+                    if (decision == Category.Type.YahtzeeBonus)
+                    {
+                        var bonusCatagory = m_playStrategy.UseExtraYahtzee(this);
+                        ScoreCard.UpdateWithBonusYahtzee(bonusCatagory, m_dice);
+                    }
+                    else ScoreCard.Update(decision, m_dice);
                 }
                 else
                 {
-                    Console.WriteLine("No Yahtzee");
+                    Console.WriteLine("Somethings wrong");
                 }
 
                 rollAgain = false; /////////////////////////////////////////////////// deal with rollAgain
                 
-                m_scoreCard.Print();
+                ScoreCard.Print();
             }
         }
 
@@ -66,11 +72,15 @@ namespace Yahtzee.model
 
             // ClearDice(); // will need changed as dice are held /////////////////////////////
 
+            int[] TESTvalues = { 5, 5, 3, 3, 3 }; ////////////////////// remove TESTvalue!!!
+            int TESTcount = 0; /////////////////////// remove
+
             foreach (Die d in m_dice)
             {
                 if (!d.IsHeld)
                 {
-                    d.Roll();
+                    d.Roll(TESTvalues[TESTcount]);
+                    TESTcount++; ///////////////////////// remove
                 }
             }
 
@@ -100,11 +110,6 @@ namespace Yahtzee.model
         public void ClearDice()
         {
             m_dice.Clear();
-        }
-
-        public rules.IScoreCard GetScoreCard()
-        {
-            return m_scoreCard;
         }
 
         public List<Die> GetDice()
