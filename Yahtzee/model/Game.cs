@@ -8,6 +8,7 @@ namespace Yahtzee.model
     class Game
     {
         private List<Player> m_players = new List<Player>();
+        private int m_rollsPerRound = 3;
 
         public Game()
         {
@@ -18,7 +19,7 @@ namespace Yahtzee.model
         {
             foreach (Player p in m_players)
             {
-                p.PlayRound();
+                p.PlayRound(m_rollsPerRound);
             }
         }
     }

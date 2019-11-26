@@ -17,7 +17,6 @@ namespace Yahtzee.model
         private String m_name;
         private Type m_playerType;
         private List<Die> m_dice = new List<Die>();
-        private int rollsLeft = 3; //////////////////////////////////////// should this be here?
         private rules.IPlayStrategy m_playStrategy;
 
         public Player(String a_name, Type a_playerType, rules.RulesFactory a_rulesFactory)
@@ -30,33 +29,29 @@ namespace Yahtzee.model
 
         public rules.IScoreCard ScoreCard { get; } // TIDY UP PROPERTIES WITH GETTERS AND SETTERS
 
-        public void PlayRound()
+        public void PlayRound(int rollsPerRound)
         {
-            bool rollAgain = true;
+            int rollsLeft = rollsPerRound;
 
-            while (rollAgain)
+            while (rollsLeft > 0)
             {
                 RollDice();
                 GetValues(); // Just for console print - remove
 
-                var decision = m_playStrategy.Use(this);
+                Cat chosenCat = m_playStrategy.Use(this);
 
-                if (decision != Cat.NoCategory)
+                if (chosenCat != Cat.NoCategory)
                 {
-                    if (decision == Cat.YahtzeeBonus)
+                    if (chosenCat == Cat.YahtzeeBonus)
                     {
-                        var bonusCatagory = m_playStrategy.UseBonusYahtzee(this);
-                        ScoreCard.UpdateWithBonusYahtzee(bonusCatagory, m_dice);
+                        Cat chosenBonusCat = m_playStrategy.UseBonusYahtzee(this);
+                        ScoreCard.UpdateWithBonusYahtzee(chosenBonusCat, m_dice);
                     }
-                    else ScoreCard.Update(decision, m_dice);
-                }
-                else
-                {
-                    Console.WriteLine("Somethings wrong");
+                    else ScoreCard.Update(chosenCat, m_dice);
                 }
 
-                rollAgain = false; /////////////////////////////////////////////////// deal with rollAgain
-                
+                rollsLeft--;
+        
                 ScoreCard.Print();
             }
         }
@@ -84,8 +79,6 @@ namespace Yahtzee.model
                     TESTcount++; ///////////////////////// remove
                 }
             }
-
-            rollsLeft--;
         }
 
         private void HoldDie(int dieIndex)
