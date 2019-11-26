@@ -40,11 +40,11 @@ namespace Yahtzee.model
 
 		public Category(Type a_type, Section a_section)
 		{
-			type = a_type;
+			CatName = a_type;
             m_section = a_section;
 		}
 
-		public Type type { get; }
+		public Type CatName { get; }
 
 		public int Score { get; }
 
@@ -61,8 +61,8 @@ namespace Yahtzee.model
 
 		public override string ToString()
 		{
-			return IsUsed() ? $"CATEGORY: {type}, SECTION: {m_section}, SCORE: {m_score}"
-				: $"CATEGORY: {type}, SECTION: {m_section}, SCORE: empty";
+			return IsUsed() ? $"CATEGORY: {CatName}, SECTION: {m_section}, SCORE: {m_score}"
+				: $"CATEGORY: {CatName}, SECTION: {m_section}, SCORE: empty";
 		}
 	}
 }
