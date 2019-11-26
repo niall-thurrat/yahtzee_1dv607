@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Cat = Yahtzee.model.Category.Type;
 
 namespace Yahtzee.model.rules
 {
     class OriginalPlayStrategy : IPlayStrategy
     {
         /// returns a Category.Type which inform Player which category to score with or else NoCategory
-        public Category.Type Use(Player player)
+        public Cat Use(Player player)
         {
             var scoreCard = player.ScoreCard;
             var dice = player.GetDice();
@@ -17,13 +18,13 @@ namespace Yahtzee.model.rules
             // CHECK BONUS YAHTZEE
             if (scoreCard.IsBonusYahtzee(dice))
             {
-                return Category.Type.YahtzeeBonus;
+                return Cat.YahtzeeBonus;
             }
 
             // CHECK YAHTZEE
             if (scoreCard.IsYahtzee(dice))
             {
-                return Category.Type.Yahtzee;
+                return Cat.Yahtzee;
             }
 
             // CHECK FOR 3 OR 4 OF A KIND AN EMPTY UPPER CATEGORY
@@ -35,7 +36,7 @@ namespace Yahtzee.model.rules
             // CHECK FOUR OF A KIND
             // if (scoreCard.IsYahtzee(dice))
             // {
-            //     return Category.Type.Yahtzee;
+            //     return Cat.Yahtzee;
             // }
 
         /* foreach (Die d in m_dice)
@@ -47,13 +48,13 @@ namespace Yahtzee.model.rules
             } 
         }        */
 
-            return Category.Type.FullHouse;// Category.Type.NoCategory;
+            return Cat.FullHouse;// Cat.NoCategory;
         }
 
-        public Category.Type UseBonusYahtzee(Player player)
+        public Cat UseBonusYahtzee(Player player)
         {
             // enter decision logic here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-            return Category.Type.FullHouse;
+            return Cat.FullHouse;
         }
 
         private int CalcScore(List<Die> m_dice)

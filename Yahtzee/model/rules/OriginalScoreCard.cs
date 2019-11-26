@@ -2,68 +2,69 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Cat = Yahtzee.model.Category.Type;
 
 namespace Yahtzee.model.rules
 {
 	class OriginalScoreCard : IScoreCard
 	{   
-        private Category cat_Ones = new Category(Category.Type.Ones, 0);
-        private Category cat_Twos = new Category(Category.Type.Twos, 0);
-        private Category cat_Threes = new Category(Category.Type.Threes, 0);
-        private Category cat_Fours = new Category(Category.Type.Fours, 0);
-        private Category cat_Fives = new Category(Category.Type.Fives, 0);
-        private Category cat_Sixes = new Category(Category.Type.Sixes, 0);
-        private Category cat_UpperBonus = new Category(Category.Type.UpperBonus, 0);
-        private Category cat_x3 = new Category(Category.Type.x3, Category.Section.Lower);
-        private Category cat_x4 = new Category(Category.Type.x4, Category.Section.Lower);
-        private Category cat_FullHouse = new Category(Category.Type.FullHouse, Category.Section.Lower);
-        private Category cat_Small = new Category(Category.Type.Small, Category.Section.Lower);
-        private Category cat_Large = new Category(Category.Type.Large, Category.Section.Lower);
-        private Category cat_Yahtzee = new Category(Category.Type.Yahtzee, Category.Section.Lower);
-        private Category cat_Chance = new Category(Category.Type.Chance, Category.Section.Lower);
-        private Category cat_YahtzeeBonus = new Category(Category.Type.YahtzeeBonus, Category.Section.Lower);
+        private Category cat_Ones = new Category(Cat.Ones, 0);
+        private Category cat_Twos = new Category(Cat.Twos, 0);
+        private Category cat_Threes = new Category(Cat.Threes, 0);
+        private Category cat_Fours = new Category(Cat.Fours, 0);
+        private Category cat_Fives = new Category(Cat.Fives, 0);
+        private Category cat_Sixes = new Category(Cat.Sixes, 0);
+        private Category cat_UpperBonus = new Category(Cat.UpperBonus, 0);
+        private Category cat_x3 = new Category(Cat.x3, Category.Section.Lower); //// perhaps use alias for Category.sec - see if its going to be removed first though
+        private Category cat_x4 = new Category(Cat.x4, Category.Section.Lower);
+        private Category cat_FullHouse = new Category(Cat.FullHouse, Category.Section.Lower);
+        private Category cat_Small = new Category(Cat.Small, Category.Section.Lower);
+        private Category cat_Large = new Category(Cat.Large, Category.Section.Lower);
+        private Category cat_Yahtzee = new Category(Cat.Yahtzee, Category.Section.Lower);
+        private Category cat_Chance = new Category(Cat.Chance, Category.Section.Lower);
+        private Category cat_YahtzeeBonus = new Category(Cat.YahtzeeBonus, Category.Section.Lower);
 
-        public void Update(Category.Type category, List<Die> dice)
+        public void Update(Cat category, List<Die> dice)
         {
             switch (category)
             {
-                case Category.Type.Ones:
+                case Cat.Ones:
                     UpdateUpperSection(dice, 1);
                     break;
-                case Category.Type.Twos:
+                case Cat.Twos:
                     UpdateUpperSection(dice, 2);
                     break;
-                case Category.Type.Threes:
+                case Cat.Threes:
                     UpdateUpperSection(dice, 3);
                     break;
-                case Category.Type.Fours:
+                case Cat.Fours:
                     UpdateUpperSection(dice, 4);
                     break;
-                case Category.Type.Fives:
+                case Cat.Fives:
                     UpdateUpperSection(dice, 5);
                     break;
-                case Category.Type.Sixes:
+                case Cat.Sixes:
                     UpdateUpperSection(dice, 6);
                     break;
-                case Category.Type.x3:
+                case Cat.x3:
                     UpdateX3(dice);
                     break;
-                case Category.Type.x4:
+                case Cat.x4:
                     UpdateX4(dice);
                     break;
-                case Category.Type.FullHouse:
+                case Cat.FullHouse:
                     UpdateFullHouse(dice);
                     break;
-                case Category.Type.Small:
+                case Cat.Small:
                     UpdateSmall(dice);
                     break;
-                case Category.Type.Large:
+                case Cat.Large:
                     UpdateLarge(dice);
                     break;
-                case Category.Type.Yahtzee:
+                case Cat.Yahtzee:
                     UpdateYahtzee(dice);
                     break;
-                case Category.Type.Chance:
+                case Cat.Chance:
                     UpdateChance(dice);
                     break;
                 default:
@@ -71,9 +72,9 @@ namespace Yahtzee.model.rules
             }
         }
 
-        public void UpdateWithBonusYahtzee(Category.Type scoreCat, List<Die> dice)
+        public void UpdateWithBonusYahtzee(Cat chosenCat, List<Die> dice)
         {
-            UpdateYahtzeeBonus(dice, scoreCat);
+            UpdateYahtzeeBonus(dice, chosenCat);
         }
 
         // perhaps section field on categories not required???
@@ -193,21 +194,21 @@ namespace Yahtzee.model.rules
             // ////////////////////////////////////////////////////// else - handle if yahtzee used
         }
 
-        private void UpdateYahtzeeBonus(List<Die> dice, Category.Type chosenCat)
+        private void UpdateYahtzeeBonus(List<Die> dice, Cat chosenCat)
         {
             // is this func necessary just for sake of having a private func?
-            if (IsBonusYahtzee(dice) && chosenCat == Category.Type.FullHouse
-                || chosenCat == Category.Type.Small || chosenCat == Category.Type.Large)
+            if (IsBonusYahtzee(dice) && chosenCat == Cat.FullHouse
+                || chosenCat == Cat.Small || chosenCat == Cat.Large)
             {
                 switch (chosenCat)
                 {
-                    case Category.Type.FullHouse:
+                    case Cat.FullHouse:
                         cat_FullHouse.UpdateScore(25);
                         break;
-                    case Category.Type.Small:
+                    case Cat.Small:
                         cat_Small.UpdateScore(30);
                         break;
-                    case Category.Type.Large:
+                    case Cat.Large:
                         cat_Large.UpdateScore(40);
                         break;
                     default:
@@ -241,7 +242,6 @@ namespace Yahtzee.model.rules
                 group i by i into g
                 select new {g.Key, Count = g.Count()};
 
-            // compute the maximum frequency
             int frequency = query.Max(g => g.Count);
 
             return frequency >= 3 ? true : false;
@@ -260,7 +260,6 @@ namespace Yahtzee.model.rules
                 group i by i into g
                 select new {g.Key, Count = g.Count()};
 
-            // compute the maximum frequency
             int frequency = query.Max(g => g.Count);
 
             return frequency >= 4 ? true : false;
@@ -279,7 +278,6 @@ namespace Yahtzee.model.rules
                 group i by i into g
                 select new {g.Key, Count = g.Count()};
 
-            // compute the frequency of max and min frequency values
             int maxFrequency = query.Max(g => g.Count);
             int minFrequency = query.Min(g => g.Count);
             
@@ -316,7 +314,7 @@ namespace Yahtzee.model.rules
                }
                else count = 0;
             }
-
+            
             return gotSequence;
         }
 

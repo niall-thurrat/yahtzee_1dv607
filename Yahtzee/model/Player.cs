@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Cat = Yahtzee.model.Category.Type;
 
 namespace Yahtzee.model
 {
@@ -40,11 +41,11 @@ namespace Yahtzee.model
 
                 var decision = m_playStrategy.Use(this);
 
-                if (decision != Category.Type.NoCategory)
+                if (decision != Cat.NoCategory)
                 {
-                    if (decision == Category.Type.YahtzeeBonus)
+                    if (decision == Cat.YahtzeeBonus)
                     {
-                        var bonusCatagory = m_playStrategy.UseExtraYahtzee(this);
+                        var bonusCatagory = m_playStrategy.UseBonusYahtzee(this);
                         ScoreCard.UpdateWithBonusYahtzee(bonusCatagory, m_dice);
                     }
                     else ScoreCard.Update(decision, m_dice);
