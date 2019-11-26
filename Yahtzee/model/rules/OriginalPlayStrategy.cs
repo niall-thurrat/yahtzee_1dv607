@@ -125,7 +125,7 @@ namespace Yahtzee.model.rules
 
                     // else //  make ifs above else if
                     // {
-                    //     Cat firstUnusedCat = scoreCard.firstUnusedCategory(dice);
+                    //     Cat firstUnusedCat = scoreCard.firstUnusedCategory(player);
                     //     return firstUnusedCat;
                     // }
 
@@ -155,16 +155,15 @@ namespace Yahtzee.model.rules
             return Cat.FullHouse;
         }
 
-        private int CalcScore(List<Die> m_dice)
-        {
-            int score = 0; // delete this??
+        // private Cat GetFirstUnusedCat(Player player)
+        // {
+        //     var scoreCard = player.ScoreCard;
+        //     var cats = scoreCard.GetCategories();
 
-            foreach (Die die in m_dice)
-            {
-                score += die.GetValue();
-            }
-
-            return score;
-       }
+        //     foreach (Category c in cats)
+        //     {
+        //         if (c.)
+        //     }
+        // }
     }
 }

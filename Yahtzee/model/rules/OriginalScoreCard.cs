@@ -107,14 +107,14 @@ namespace Yahtzee.model.rules
             {
                 if (cat.CatType == catToUpdate)
                 {
-                    cat.UpdateScore(score);
+                    cat.Score = score;
                 }
             }
             // throw new Exception("Dice value not recognised"); if no cat matches this just dies. OK? Switch handled this                 
         
             if (CheckUpperBonus() && !cat_UpperBonus.IsUsed())
             {
-                cat_UpperBonus.UpdateScore(35);
+                cat_UpperBonus.Score = 35;
             }
         }
 
@@ -127,7 +127,7 @@ namespace Yahtzee.model.rules
 
             foreach (Category cat in upperCategories)
             {
-                upperSectionScore += cat.Score;
+                upperSectionScore += cat.Score; /////// this Score isn't linked ot the field!!!
             }
 
             // ////////////////////////////////////////////////////// do we handle if a section is selected that has been used already in this func?
@@ -140,12 +140,12 @@ namespace Yahtzee.model.rules
             if (!cat_x3.IsUsed() && IsThreeOfAKind(dice))
             {
                 int score = AddDiceValues(dice); //////////////////////////////// somehow refactor for x3, x4 and chance (sum of all values) to merge
-                cat_x3.UpdateScore(score);
+                cat_x3.Score = score;
             }
 
             if (!cat_x3.IsUsed() && !IsThreeOfAKind(dice))
             {
-                cat_x3.UpdateScore(0);
+                cat_x3.Score = 0;
             }
 
             // ////////////////////////////////////////////////////// else - handle if x3 used?
@@ -156,12 +156,12 @@ namespace Yahtzee.model.rules
             if (!cat_x4.IsUsed() && IsFourOfAKind(dice))
             {
                 int score = AddDiceValues(dice);
-                cat_x4.UpdateScore(score);
+                cat_x4.Score = score;
             }
 
             if (!cat_x4.IsUsed() && !IsFourOfAKind(dice))
             {
-                cat_x4.UpdateScore(0);
+                cat_x4.Score = 0;
             }
 
             // ////////////////////////////////////////////////////// else - handle if x4 used
@@ -171,12 +171,12 @@ namespace Yahtzee.model.rules
         {
             if (!cat_FullHouse.IsUsed() && IsFullHouse(dice))
             {
-                cat_FullHouse.UpdateScore(25);
+                cat_FullHouse.Score = 25;
             }
 
             if (!cat_FullHouse.IsUsed() && !IsFullHouse(dice))
             {
-                cat_FullHouse.UpdateScore(0); // can be shortened if no third scenario, ie tries to use a used cat. Maybe a better way to write these anyhow?
+                cat_FullHouse.Score = 0; // can be shortened if no third scenario, ie tries to use a used cat. Maybe a better way to write these anyhow?
             }
 
             // ////////////////////////////////////////////////////// else - handle if fullHouse used
@@ -186,12 +186,12 @@ namespace Yahtzee.model.rules
         {
             if (!cat_Small.IsUsed() && IsSequence(dice, 4))
             {
-                cat_Small.UpdateScore(30);
+                cat_Small.Score = 30;
             }
 
             if (!cat_Small.IsUsed() && !IsSequence(dice, 4))
             {
-                cat_Small.UpdateScore(0);
+                cat_Small.Score = 0;
             }
 
             // ////////////////////////////////////////////////////// else - handle if small used
@@ -201,12 +201,12 @@ namespace Yahtzee.model.rules
         {
             if (!cat_Large.IsUsed() && IsSequence(dice, 5))
             {
-                cat_Large.UpdateScore(40);
+                cat_Large.Score = 40;
             }
 
             if (!cat_Large.IsUsed() && !IsSequence(dice, 5))
             {
-                cat_Large.UpdateScore(0);
+                cat_Large.Score = 0;
             }
 
             // ////////////////////////////////////////////////////// else - handle if large used
@@ -218,12 +218,12 @@ namespace Yahtzee.model.rules
         {
             if (!cat_Yahtzee.IsUsed() && IsYahtzee(dice))
             {
-                cat_Yahtzee.UpdateScore(50);
+                cat_Yahtzee.Score = 50;
             }
 
             if (!cat_Yahtzee.IsUsed() && !IsYahtzee(dice))
             {
-                cat_Yahtzee.UpdateScore(0);
+                cat_Yahtzee.Score = 0;
             }
 
             // ////////////////////////////////////////////////////// else - handle if yahtzee used
@@ -238,13 +238,13 @@ namespace Yahtzee.model.rules
                 switch (chosenCat)
                 {
                     case Cat.FullHouse:
-                        cat_FullHouse.UpdateScore(25);
+                        cat_FullHouse.Score = 25;
                         break;
                     case Cat.Small:
-                        cat_Small.UpdateScore(30);
+                        cat_Small.Score = 30;
                         break;
                     case Cat.Large:
-                        cat_Large.UpdateScore(40);
+                        cat_Large.Score = 40;
                         break;
                     default:
                         throw new Exception("Scorecard category error");
@@ -258,7 +258,7 @@ namespace Yahtzee.model.rules
             if (!cat_Chance.IsUsed())
             {
                 int score = AddDiceValues(dice);
-                cat_Chance.UpdateScore(score);
+                cat_Chance.Score = score;
             }
             // ////////////////////////////////////////////////////// else - handle if chance used
         }

@@ -46,13 +46,18 @@ namespace Yahtzee.model
 
 		public Type CatType { get; }
 
-		public int Score { get; }
-
-		public void UpdateScore(int a_score)
-        {
-				m_score = a_score;
-				m_isUsed = true;
-		}
+		public int Score
+			{
+				get =>  m_score; 
+				set
+				{
+					if (m_isUsed == false)
+					{
+						m_score = value;
+						m_isUsed = true;
+					}
+				}
+			}
 
 		public bool IsUsed()
 		{
@@ -61,7 +66,7 @@ namespace Yahtzee.model
 
 		public override string ToString()
 		{
-			return IsUsed() ? $"CATEGORY: {CatType}, SECTION: {m_section}, SCORE: {m_score}"
+			return IsUsed() ? $"CATEGORY: {CatType}, SECTION: {m_section}, SCORE: {Score}"
 				: $"CATEGORY: {CatType}, SECTION: {m_section}, SCORE: empty";
 		}
 	}
