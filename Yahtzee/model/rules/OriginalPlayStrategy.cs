@@ -9,11 +9,10 @@ namespace Yahtzee.model.rules
     class OriginalPlayStrategy : IPlayStrategy
     {
         /// returns a Category.Type which inform Player which category to score with or else NoCategory
-        public Cat Use(Player player)
+        public Cat Use(Player player, int rollsLeft)
         {
             var scoreCard = player.ScoreCard;
             var dice = player.GetDice();
-          //  var rollsLeft = player.
 
             // CHECK FOR BONUS YAHTZEE
             if (scoreCard.IsBonusYahtzee(dice))

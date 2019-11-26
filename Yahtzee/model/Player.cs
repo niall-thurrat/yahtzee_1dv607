@@ -37,8 +37,9 @@ namespace Yahtzee.model
             {
                 RollDice();
                 GetValues(); // Just for console print - remove
+                rollsLeft--;
 
-                Cat chosenCat = m_playStrategy.Use(this);
+                Cat chosenCat = m_playStrategy.Use(this, rollsLeft);
 
                 if (chosenCat != Cat.NoCategory)
                 {
@@ -50,7 +51,7 @@ namespace Yahtzee.model
                     else ScoreCard.Update(chosenCat, m_dice);
                 }
 
-                rollsLeft--;
+                
         
                 ScoreCard.Print();
             }
