@@ -40,22 +40,22 @@ namespace Yahtzee.model.rules
             switch (category)
             {
                 case Cat.Ones:
-                    UpdateUpperSection(dice, 1);
+                    UpdateUpperSection(dice, 1, Cat.Ones);
                     break;
                 case Cat.Twos:
-                    UpdateUpperSection(dice, 2);
+                    UpdateUpperSection(dice, 2, Cat.Twos);
                     break;
                 case Cat.Threes:
-                    UpdateUpperSection(dice, 3);
+                    UpdateUpperSection(dice, 3, Cat.Threes);
                     break;
                 case Cat.Fours:
-                    UpdateUpperSection(dice, 4);
+                    UpdateUpperSection(dice, 4, Cat.Fours);
                     break;
                 case Cat.Fives:
-                    UpdateUpperSection(dice, 5);
+                    UpdateUpperSection(dice, 5, Cat.Fives);
                     break;
                 case Cat.Sixes:
-                    UpdateUpperSection(dice, 6);
+                    UpdateUpperSection(dice, 6, Cat.Sixes);
                     break;
                 case Cat.x3:
                     UpdateX3(dice);
@@ -89,42 +89,29 @@ namespace Yahtzee.model.rules
         }
 
         // perhaps section field on categories not required???
-        private void UpdateUpperSection(List<Die> dice, int value)
+        private void UpdateUpperSection(List<Die> dice, int targetValue, Cat catToUpdate)
         {
-            int score = 0;
-            
+            int score = 0;     
+
             foreach (Die die in dice)
             {
-                if (die.GetValue() == value)
+                if (die.GetValue() == targetValue)
                 {
-                    score += value;
+                    score += targetValue;
                 }
             }
 
-            switch (value)
+            var iterableCats = GetCategories();
+            
+            foreach (Category cat in iterableCats)
             {
-                case 1:
-                    cat_Ones.UpdateScore(score);
-                    break;
-                case 2:
-                    cat_Twos.UpdateScore(score);
-                    break;
-                case 3:
-                    cat_Threes.UpdateScore(score);
-                    break;
-                case 4:
-                    cat_Fours.UpdateScore(score);
-                    break;
-                case 5:
-                    cat_Fives.UpdateScore(score);
-                    break;
-                case 6:
-                    cat_Sixes.UpdateScore(score);
-                    break;
-                default:
-                    throw new Exception("Dice value not recognised");
+                if (cat.CatType == catToUpdate)
+                {
+                    cat.UpdateScore(score);
+                }
             }
-
+            // throw new Exception("Dice value not recognised"); if no cat matches this just dies. OK? Switch handled this                 
+        
             if (CheckUpperBonus() && !cat_UpperBonus.IsUsed())
             {
                 cat_UpperBonus.UpdateScore(35);
@@ -264,7 +251,6 @@ namespace Yahtzee.model.rules
                 }
             }
             else this.Update(chosenCat, dice); // does this handle if chosenCat already taken?
-            
         }
 
         private void UpdateChance(List<Die> dice)
@@ -393,43 +379,29 @@ namespace Yahtzee.model.rules
 
         public bool IsUsed(Cat queriedCatType)
         {
-            var categories = GetCategories();
+            var cats = GetCategories();
             bool isUsed = false; // not sure here how to get away will having this false - should return error instead of false if no cat matches
 
-            foreach (Category cat in categories)
+            foreach (Category c in cats)
             {
-                if (cat.CatType == queriedCatType)
+                if (c.CatType == queriedCatType)
                 {
-                    isUsed = cat.IsUsed();
+                    isUsed = c.IsUsed();
                 }
             }
 
             return isUsed;
             // throw Exception("Category parameter not recognised"); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        
         }
 
         public void Print()
         {
-            var categories = GetCategories();
+            var cats = GetCategories();
 
-            foreach (Category c in categories)
+            foreach (Category c in cats)
             {
                 Console.WriteLine(c.ToString());
             }
-            /*
-            List<Category> m_categories = new List<Category>
-            {
-                cat_Ones, cat_Twos, cat_Threes, cat_Fours, cat_Fives, cat_Sixes, 
-                cat_UpperBonus,
-                cat_x3, cat_x4, cat_FullHouse, cat_Small, cat_Large, cat_Yahtzee, cat_Chance,
-                cat_YahtzeeBonus
-            };
-            
-            foreach (Category c in m_categories)
-            {
-                Console.WriteLine(c.ToString());
-            } */
         }
 
         private int AddDiceValues(List<Die> dice)
