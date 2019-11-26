@@ -15,16 +15,22 @@ namespace Yahtzee.model.rules
             var dice = player.GetDice();
           //  var rollsLeft = player.
 
-            // CHECK BONUS YAHTZEE
+            // CHECK FOR BONUS YAHTZEE
             if (scoreCard.IsBonusYahtzee(dice))
             {
                 return Cat.YahtzeeBonus;
             }
 
-            // CHECK YAHTZEE
+            // CHECK FOR YAHTZEE
             if (scoreCard.IsYahtzee(dice))
             {
                 return Cat.Yahtzee;
+            }
+
+            // CHECK FOR LARGE SEQUENCE
+            if (scoreCard.IsSequence(dice, 5) && !scoreCard.IsUsed(Cat.Large))
+            {
+                return Cat.Large;
             }
 
             // CHECK FOR 3 OR 4 OF A KIND AN EMPTY UPPER CATEGORY

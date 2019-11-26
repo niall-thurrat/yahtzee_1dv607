@@ -15,6 +15,7 @@ namespace Yahtzee.model.rules
         bool IsSequence(List<Die> dice, int sequenceAmount);
         bool IsYahtzee(List<Die> dice);
         bool IsBonusYahtzee(List<Die> dice);
+        bool IsUsed(Category.Type c);
         void Print();
     }
 }

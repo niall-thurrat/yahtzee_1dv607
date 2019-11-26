@@ -132,7 +132,7 @@ namespace Yahtzee.model.rules
                 upperSectionScore += cat.Score;
             }
 
-            // ////////////////////////////////////////////////////// do we handle if a section is selected that has been used already?
+            // ////////////////////////////////////////////////////// do we handle if a section is selected that has been used already in this func?
 
             return upperSectionScore >= 63 ? true : false;
         }
@@ -144,7 +144,13 @@ namespace Yahtzee.model.rules
                 int score = AddDiceValues(dice); //////////////////////////////// somehow refactor for x3, x4 and chance (sum of all values) to merge
                 cat_x3.UpdateScore(score);
             }
-            // ////////////////////////////////////////////////////// else - handle if x3 used
+
+            if (!cat_x3.IsUsed() && !IsThreeOfAKind(dice))
+            {
+                cat_x3.UpdateScore(0);
+            }
+
+            // ////////////////////////////////////////////////////// else - handle if x3 used?
         }
 
         private void UpdateX4(List<Die> dice)
@@ -154,6 +160,12 @@ namespace Yahtzee.model.rules
                 int score = AddDiceValues(dice);
                 cat_x4.UpdateScore(score);
             }
+
+            if (!cat_x4.IsUsed() && !IsFourOfAKind(dice))
+            {
+                cat_x4.UpdateScore(0);
+            }
+
             // ////////////////////////////////////////////////////// else - handle if x4 used
         }
 
@@ -163,6 +175,12 @@ namespace Yahtzee.model.rules
             {
                 cat_FullHouse.UpdateScore(25);
             }
+
+            if (!cat_FullHouse.IsUsed() && !IsFullHouse(dice))
+            {
+                cat_FullHouse.UpdateScore(0); // can be shortened if no third scenario, ie tries to use a used cat. Maybe a better way to write these anyhow?
+            }
+
             // ////////////////////////////////////////////////////// else - handle if fullHouse used
         }
 
@@ -172,6 +190,12 @@ namespace Yahtzee.model.rules
             {
                 cat_Small.UpdateScore(30);
             }
+
+            if (!cat_Small.IsUsed() && !IsSequence(dice, 4))
+            {
+                cat_Small.UpdateScore(0);
+            }
+
             // ////////////////////////////////////////////////////// else - handle if small used
         }
 
@@ -181,6 +205,12 @@ namespace Yahtzee.model.rules
             {
                 cat_Large.UpdateScore(40);
             }
+
+            if (!cat_Large.IsUsed() && !IsSequence(dice, 5))
+            {
+                cat_Large.UpdateScore(0);
+            }
+
             // ////////////////////////////////////////////////////// else - handle if large used
         }
 
@@ -191,6 +221,12 @@ namespace Yahtzee.model.rules
             {
                 cat_Yahtzee.UpdateScore(50);
             }
+
+            if (!cat_Yahtzee.IsUsed() && !IsYahtzee(dice))
+            {
+                cat_Yahtzee.UpdateScore(0);
+            }
+
             // ////////////////////////////////////////////////////// else - handle if yahtzee used
         }
 
@@ -215,7 +251,7 @@ namespace Yahtzee.model.rules
                         throw new Exception("Scorecard category error");
                 }
             }
-            else this.Update(chosenCat, dice); // I like chosenCat
+            else this.Update(chosenCat, dice); // does this handle if chosenCat already taken?
             
         }
 
@@ -314,7 +350,7 @@ namespace Yahtzee.model.rules
                }
                else count = 0;
             }
-            
+
             return gotSequence;
         }
 
@@ -341,6 +377,37 @@ namespace Yahtzee.model.rules
                 return true;
             }
             else return false;
+        }
+
+        public bool IsUsed(Cat cat)
+        {
+            switch (cat)
+            {
+                case Cat.Ones:
+                    return cat_Ones.IsUsed() ? true : false; /// ones-sixes and perhaps others not required? Removed Yahtzee already
+                case Cat.Twos:
+                    return cat_Twos.IsUsed() ? true : false; /// if this method is here, sure it is better to use this in this class than reference Category?
+                case Cat.Threes:
+                    return cat_Threes.IsUsed() ? true : false;
+                case Cat.Fours:
+                    return cat_Fours.IsUsed() ? true : false;
+                case Cat.Fives:
+                    return cat_Fives.IsUsed() ? true : false;
+                case Cat.Sixes:
+                    return cat_Sixes.IsUsed() ? true : false;
+                case Cat.x3:
+                    return cat_x3.IsUsed() ? true : false;
+                case Cat.x4:
+                    return cat_x4.IsUsed() ? true : false;
+                case Cat.FullHouse:
+                    return cat_FullHouse.IsUsed() ? true : false;
+                case Cat.Small:
+                    return cat_Small.IsUsed() ? true : false;
+                case Cat.Large:
+                    return cat_Large.IsUsed() ? true : false;
+                default:
+                    throw new Exception("Category parameter not recognised");
+            }
         }
 
         public void Print()
