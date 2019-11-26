@@ -24,6 +24,17 @@ namespace Yahtzee.model.rules
         private Category cat_Chance = new Category(Cat.Chance, Category.Section.Lower);
         private Category cat_YahtzeeBonus = new Category(Cat.YahtzeeBonus, Category.Section.Lower);
 
+        public IEnumerable<Category> GetCategories()
+        {
+            List<Category> catList = new List<Category>
+            {
+                cat_Ones, cat_Twos, cat_Threes, cat_Fours, cat_Fives, cat_Sixes, 
+                cat_x3, cat_x4, cat_FullHouse, cat_Small, cat_Large, cat_Yahtzee, cat_Chance,
+            };
+        
+            return catList.Cast<Category>();
+        }
+
         public void Update(Cat category, List<Die> dice)
         {
             switch (category)
@@ -210,7 +221,7 @@ namespace Yahtzee.model.rules
             {
                 cat_Large.UpdateScore(0);
             }
-            
+
             // ////////////////////////////////////////////////////// else - handle if large used
             /// // if (cat_Large.IsUsed()) { throw new Exception ("Tried to use a category which has alread been used"); } SOMETHING LIKE THIS - USE?
         }
@@ -380,39 +391,33 @@ namespace Yahtzee.model.rules
             else return false;
         }
 
-        public bool IsUsed(Cat cat)
+        public bool IsUsed(Cat queriedCatType)
         {
-            switch (cat)
+            var categories = GetCategories();
+            bool isUsed = false; // not sure here how to get away will having this false - should return error instead of false if no cat matches
+
+            foreach (Category cat in categories)
             {
-                case Cat.Ones:
-                    return cat_Ones.IsUsed() ? true : false; /// ones-sixes and perhaps others not required? Removed Yahtzee already
-                case Cat.Twos:
-                    return cat_Twos.IsUsed() ? true : false; /// if this method is here, sure it is better to use this in this class than reference Category?
-                case Cat.Threes:
-                    return cat_Threes.IsUsed() ? true : false;
-                case Cat.Fours:
-                    return cat_Fours.IsUsed() ? true : false;
-                case Cat.Fives:
-                    return cat_Fives.IsUsed() ? true : false;
-                case Cat.Sixes:
-                    return cat_Sixes.IsUsed() ? true : false;
-                case Cat.x3:
-                    return cat_x3.IsUsed() ? true : false;
-                case Cat.x4:
-                    return cat_x4.IsUsed() ? true : false;
-                case Cat.FullHouse:
-                    return cat_FullHouse.IsUsed() ? true : false;
-                case Cat.Small:
-                    return cat_Small.IsUsed() ? true : false;
-                case Cat.Large:
-                    return cat_Large.IsUsed() ? true : false;
-                default:
-                    throw new Exception("Category parameter not recognised");
+                if (cat.CatType == queriedCatType)
+                {
+                    isUsed = cat.IsUsed();
+                }
             }
+
+            return isUsed;
+            // throw Exception("Category parameter not recognised"); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        
         }
 
         public void Print()
         {
+            var categories = GetCategories();
+
+            foreach (Category c in categories)
+            {
+                Console.WriteLine(c.ToString());
+            }
+            /*
             List<Category> m_categories = new List<Category>
             {
                 cat_Ones, cat_Twos, cat_Threes, cat_Fours, cat_Fives, cat_Sixes, 
@@ -424,7 +429,7 @@ namespace Yahtzee.model.rules
             foreach (Category c in m_categories)
             {
                 Console.WriteLine(c.ToString());
-            }
+            } */
         }
 
         private int AddDiceValues(List<Die> dice)

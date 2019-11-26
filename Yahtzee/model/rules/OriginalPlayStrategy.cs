@@ -111,7 +111,6 @@ namespace Yahtzee.model.rules
                     // CHECK FOR EMPTY 3 OF A KIND CATEGORY 
                     if (scoreCard.IsThreeOfAKind(dice) && !scoreCard.IsUsed(Cat.x3))
                     {
-                        /// //////////////////////////////////////////////////////////// NEED TO CHECK FOR FULL HOUSE HERE
                         return Cat.x3;
                     }
 
@@ -124,9 +123,9 @@ namespace Yahtzee.model.rules
 
                     // COULD IMPLEMENT WASTE LARGE/YATZEE IF ONLY 2 OR 3 ROUNDS LEFT
 
-                    // else - make ifs above else if
+                    // else //  make ifs above else if
                     // {
-                    //     Cat firstUnusedCat = scoreCard.firstUnusedCategory()
+                    //     Cat firstUnusedCat = scoreCard.firstUnusedCategory(dice);
                     //     return firstUnusedCat;
                     // }
 
