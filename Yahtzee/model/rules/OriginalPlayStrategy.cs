@@ -8,7 +8,8 @@ namespace Yahtzee.model.rules
 {
     class OriginalPlayStrategy : IPlayStrategy
     {
-        /// returns a Category.Type which inform Player which category to score with or else NoCategory
+        /// returns a Category.Type which informs Player which category to use on
+        /// their score card. NoCategory is returned when Player should roll again
         public Cat Use(Player player, int rollsLeft)
         {
             var scoreCard = player.ScoreCard;
@@ -32,17 +33,110 @@ namespace Yahtzee.model.rules
                 return Cat.Large;
             }
 
-            // CHECK FOR 3 OR 4 OF A KIND AN EMPTY UPPER CATEGORY
-            if (scoreCard.IsThreeOfAKind(dice) || scoreCard.IsFourOfAKind(dice))
+            if (rollsLeft == 0)
             {
-                //
-            }
+                // CHECK FOR SMALL SEQUENCE
+                if (scoreCard.IsSequence(dice, 4) && !scoreCard.IsUsed(Cat.Small))
+                {
+                    return Cat.Small;
+                }
 
-            // CHECK FOUR OF A KIND
-            // if (scoreCard.IsYahtzee(dice))
-            // {
-            //     return Cat.Yahtzee;
-            // }
+                // CHECK FOR 3 OR 4 OF A KIND IN EMPTY UPPER CATEGORY 
+                if (scoreCard.IsThreeOfAKind(dice) || scoreCard.IsFourOfAKind(dice))
+                {
+                    int commonValue;
+                    int[] values = new int [5];
+
+                    for (int i = 0; i < values.Count(); i++)
+                    {
+                        values[i] = dice[i].GetValue();
+                    }
+
+                    commonValue = values.Max();
+
+                    switch (commonValue)
+                    {
+                        case 1:
+                            if (!scoreCard.IsUsed(Cat.Ones)) /// CREATE SOME SORT OF ScoreCareLoopThroughUpperCats() - this switch stuff looks fucking terrible // WAIT UNTIL CREATING TRIPLE STRATEGY - this might have a big influence
+                            {
+                                return Cat.Ones; // would really like to find shorthand for these simple if statements
+                            };
+                            break;
+                        case 2:
+                            if (!scoreCard.IsUsed(Cat.Twos))
+                            {
+                                return Cat.Twos;
+                            };
+                            break;
+                        case 3:
+                            if (!scoreCard.IsUsed(Cat.Threes))
+                            {
+                                return Cat.Threes;
+                            };
+                            break;
+                        case 4:
+                            if (!scoreCard.IsUsed(Cat.Fours))
+                            {
+                                return Cat.Fours;
+                            };
+                            break;
+                        case 5:
+                            if (!scoreCard.IsUsed(Cat.Fives))
+                            {
+                                return Cat.Fives;
+                            };
+                            break;
+                        case 6:
+                            if (!scoreCard.IsUsed(Cat.Sixes))
+                            {
+                                return Cat.Sixes;
+                            };
+                            break;  
+                        default:
+                            throw new Exception("Dice value not recognised");
+                    }
+
+                    // CHECK FOR EMPTY 4 OF A KIND CATEGORY 
+                    if (scoreCard.IsFourOfAKind(dice) && !scoreCard.IsUsed(Cat.x4))
+                    {
+                        return Cat.x4;
+                    }
+
+                    // CHECK FOR EMPTY FULL HOUSE CATEGORY 
+                    if (scoreCard.IsFullHouse(dice) && !scoreCard.IsUsed(Cat.FullHouse))
+                    {
+                        return Cat.FullHouse;
+                    }
+
+                    // CHECK FOR EMPTY 3 OF A KIND CATEGORY 
+                    if (scoreCard.IsThreeOfAKind(dice) && !scoreCard.IsUsed(Cat.x3))
+                    {
+                        /// //////////////////////////////////////////////////////////// NEED TO CHECK FOR FULL HOUSE HERE
+                        return Cat.x3;
+                    }
+
+                    // COULD IMPLEMENT IF 2 LEFT AND NOT MANY ROUNDS LEFT OR 'WITH 2 GETS OVER THE 63' LOGIC - IF YOU HAVE TIME
+
+                    if (!scoreCard.IsUsed(Cat.Chance))
+                    {
+                        return Cat.Chance;
+                    }
+
+                    // COULD IMPLEMENT WASTE LARGE/YATZEE IF ONLY 2 OR 3 ROUNDS LEFT
+
+                    // else - make ifs above else if
+                    // {
+                    //     Cat firstUnusedCat = scoreCard.firstUnusedCategory()
+                    //     return firstUnusedCat;
+                    // }
+
+                }
+            }
+            // ELSE ROLLS REMAINING
+            else
+            {
+
+            }
 
         /* foreach (Die d in m_dice)
             {

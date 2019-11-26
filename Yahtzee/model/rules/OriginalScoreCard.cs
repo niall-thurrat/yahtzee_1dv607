@@ -289,7 +289,7 @@ namespace Yahtzee.model.rules
 
             for (int i = 0; i < values.Count(); i++)
             {
-                values[i] = dice[i].GetValue(); // getting array of values replicated in x3, x4, small, large, - refactor??
+                values[i] = dice[i].GetValue(); // getting array of values replicated in x3, x4, small, large, - refactor?? // also replicated in PlayStrategy
             }
 
             var query = from i in values
@@ -317,8 +317,8 @@ namespace Yahtzee.model.rules
             int maxFrequency = query.Max(g => g.Count);
             int minFrequency = query.Min(g => g.Count);
             
-            if (maxFrequency == 3 || minFrequency == 2 &&
-                minFrequency == 3 || minFrequency == 2)
+            if ((maxFrequency == 3 || minFrequency == 2) &&
+                (minFrequency == 3 || minFrequency == 2))
             {
                 return true;
             }

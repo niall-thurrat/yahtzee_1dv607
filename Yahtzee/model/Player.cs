@@ -51,8 +51,6 @@ namespace Yahtzee.model
                     else ScoreCard.Update(chosenCat, m_dice);
                 }
 
-                
-        
                 ScoreCard.Print();
             }
         }
@@ -69,7 +67,7 @@ namespace Yahtzee.model
 
             // ClearDice(); // will need changed as dice are held /////////////////////////////
 
-            int[] TESTvalues = { 5, 4, 2, 1, 3 }; ////////////////////// remove TESTvalue!!!
+            int[] TESTvalues = { 4, 4, 4, 1, 2 }; ////////////////////// remove TESTvalue!!!
             int TESTcount = 0; /////////////////////// remove
 
             foreach (Die d in m_dice)
