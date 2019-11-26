@@ -50,7 +50,7 @@ namespace Yahtzee.model.rules
             return Category.Type.FullHouse;// Category.Type.NoCategory;
         }
 
-        public Category.Type UseExtraYahtzee(Player player)
+        public Category.Type UseBonusYahtzee(Player player)
         {
             // enter decision logic here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
             return Category.Type.FullHouse;
