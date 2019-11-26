@@ -210,8 +210,9 @@ namespace Yahtzee.model.rules
             {
                 cat_Large.UpdateScore(0);
             }
-
+            
             // ////////////////////////////////////////////////////// else - handle if large used
+            /// // if (cat_Large.IsUsed()) { throw new Exception ("Tried to use a category which has alread been used"); } SOMETHING LIKE THIS - USE?
         }
 
 
