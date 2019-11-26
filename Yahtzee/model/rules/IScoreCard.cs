@@ -8,7 +8,7 @@ namespace Yahtzee.model.rules
     interface IScoreCard
     {
         void Update(Category.Type c, List<Die> dice);
-        void UpdateWithBonusYahtzee(Category.Type c, List<Die> m_dice);
+        void UpdateWithBonusYahtzee(Category.Type c, List<Die> dice);
         bool IsThreeOfAKind(List<Die> dice);
         bool IsFourOfAKind(List<Die> dice);
         bool IsFullHouse(List<Die> dice);

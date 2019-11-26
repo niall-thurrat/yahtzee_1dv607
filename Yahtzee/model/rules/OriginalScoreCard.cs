@@ -131,6 +131,8 @@ namespace Yahtzee.model.rules
                 upperSectionScore += cat.Score;
             }
 
+            // ////////////////////////////////////////////////////// do we handle if a section is selected that has been used already?
+
             return upperSectionScore >= 63 ? true : false;
         }
 
@@ -141,7 +143,7 @@ namespace Yahtzee.model.rules
                 int score = AddDiceValues(dice); //////////////////////////////// somehow refactor for x3, x4 and chance (sum of all values) to merge
                 cat_x3.UpdateScore(score);
             }
-            else Console.WriteLine("something went wrong"); ////////////////////// remove
+            // ////////////////////////////////////////////////////// else - handle if x3 used
         }
 
         private void UpdateX4(List<Die> dice)
@@ -151,7 +153,7 @@ namespace Yahtzee.model.rules
                 int score = AddDiceValues(dice);
                 cat_x4.UpdateScore(score);
             }
-            else Console.WriteLine("something went wrong"); ////////////////////// remove
+            // ////////////////////////////////////////////////////// else - handle if x4 used
         }
 
         private void UpdateFullHouse(List<Die> dice)
@@ -160,7 +162,7 @@ namespace Yahtzee.model.rules
             {
                 cat_FullHouse.UpdateScore(25);
             }
-            else Console.WriteLine("something went wrong"); ////////////////////// remove
+            // ////////////////////////////////////////////////////// else - handle if fullHouse used
         }
 
         private void UpdateSmall(List<Die> dice)
@@ -169,7 +171,7 @@ namespace Yahtzee.model.rules
             {
                 cat_Small.UpdateScore(30);
             }
-            else Console.WriteLine("something went wrong"); ////////////////////// remove
+            // ////////////////////////////////////////////////////// else - handle if small used
         }
 
         private void UpdateLarge(List<Die> dice)
@@ -178,7 +180,7 @@ namespace Yahtzee.model.rules
             {
                 cat_Large.UpdateScore(40);
             }
-            else Console.WriteLine("something went wrong"); ////////////////////// remove
+            // ////////////////////////////////////////////////////// else - handle if large used
         }
 
 
@@ -188,12 +190,32 @@ namespace Yahtzee.model.rules
             {
                 cat_Yahtzee.UpdateScore(50);
             }
-            // ////////////////////////////////////////////////////// handle if multiple yahtzees
+            // ////////////////////////////////////////////////////// else - handle if yahtzee used
         }
 
-        private void UpdateYahtzeeBonus(List<Die> dice, Category.Type scoreCat)
+        private void UpdateYahtzeeBonus(List<Die> dice, Category.Type chosenCat)
         {
-            // develop this SWITCH func !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // is this func necessary just for sake of having a private func?
+            if (IsBonusYahtzee(dice) && chosenCat == Category.Type.FullHouse
+                || chosenCat == Category.Type.Small || chosenCat == Category.Type.Large)
+            {
+                switch (chosenCat)
+                {
+                    case Category.Type.FullHouse:
+                        cat_FullHouse.UpdateScore(25);
+                        break;
+                    case Category.Type.Small:
+                        cat_Small.UpdateScore(30);
+                        break;
+                    case Category.Type.Large:
+                        cat_Large.UpdateScore(40);
+                        break;
+                    default:
+                        throw new Exception("Scorecard category error");
+                }
+            }
+            else this.Update(chosenCat, dice); // I like chosenCat
+            
         }
 
         private void UpdateChance(List<Die> dice)
