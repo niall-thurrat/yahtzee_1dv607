@@ -52,7 +52,7 @@ namespace Yahtzee.model
 
                     rollsLeft = 0;
                     // I don't think dice need unheld after each round but keep eye on this - maybe do here with a private void UnHoldAllDice()
-                    // Could use ClearDice(); instead of an unholdAll func.
+                    ClearDice();
                 }
 
                 ScoreCard.Print();
@@ -69,15 +69,15 @@ namespace Yahtzee.model
                 }
             }
 
-            int[] TESTvalues = { 5, 1, 3, 1, 5 }; ////////////////////// remove TESTvalue!!!
-            int TESTcount = 0; /////////////////////// remove
+            //int[] TESTvalues = { 5, 1, 3, 1, 5 }; //////////////////// remove TESTvalue!!!
+            //int TESTcount = 0; /////////////////////// remove
 
             foreach (Die d in m_dice)
             {
                 if (!d.IsHeld)
                 {
-                    d.Roll(TESTvalues[TESTcount]);
-                    TESTcount++; ///////////////////////// remove
+                    d.Roll(); // TESTvalues[TESTcount]
+                    // TESTcount++; ///////////////////////// remove
                 }
             }
         }

@@ -18,5 +18,6 @@ namespace Yahtzee.model.rules
         bool IsBonusYahtzee(List<Die> dice);
         bool IsUsed(Category.Type c);
         void Print();
+        void PrintFinalScore();
     }
 }

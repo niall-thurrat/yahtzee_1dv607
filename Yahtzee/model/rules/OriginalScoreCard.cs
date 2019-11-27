@@ -24,6 +24,22 @@ namespace Yahtzee.model.rules
         private Category cat_Chance = new Category(Cat.Chance, null);
         private Category cat_YahtzeeBonus = new Category(Cat.YahtzeeBonus, null);
 
+        public int TotalScore
+        {
+            get
+            {
+                var cats = GetCategories();
+                int totalScore = 0;
+
+                foreach (Category c in cats)
+                {
+                    totalScore += c.Score;
+                }
+
+                return totalScore;
+            }
+        }
+
         public IEnumerable<Category> GetCategories()
         {
             List<Category> catList = new List<Category>
@@ -413,16 +429,6 @@ namespace Yahtzee.model.rules
             // throw Exception("Category parameter not recognised"); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
 
-        public void Print()
-        {
-            var cats = GetCategories();
-
-            foreach (Category c in cats)
-            {
-                Console.WriteLine(c.ToString());
-            }
-        }
-
         private int AddDiceValues(List<Die> dice)
         {
             int score = 0;
@@ -434,5 +440,27 @@ namespace Yahtzee.model.rules
 
             return score;
         }
+
+        public void Print()
+        {
+            var cats = GetCategories();
+
+            foreach (Category c in cats)
+            {
+                Console.WriteLine(c.ToString());
+            }
+        }
+
+        public void PrintFinalScore()
+        {
+            Console.WriteLine(ToString());
+        }
+
+        public override string ToString()
+		{
+			return $"BONUS CATEGORY: Upper Section, SCORE: {cat_UpperBonus.Score}\n" + 
+            $"BONUS CATEGORY: Yahtzee, SCORE: {cat_YahtzeeBonus.Score}\n" + 
+            $"TOTAL SCORE: {TotalScore}";
+		}
 	}
 }

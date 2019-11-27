@@ -22,9 +22,9 @@ namespace Yahtzee.model
 
 		public bool IsHeld { get; set; }
 
-		public void Roll(int TESTvalue)
+		public void Roll()
 		{
-				m_value = TESTvalue; //g_random.Next(1, 7); ///////////////////////   TEST (remove TESTcount!!)
+				m_value = g_random.Next(1, 7); // TESTvalue; param: int TESTvalue
 		}
 
 		public int GetValue() {

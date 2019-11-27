@@ -14,6 +14,8 @@ namespace Yahtzee.model.rules
         {
             var scoreCard = player.ScoreCard;
             var dice = player.GetDice();
+            
+            UnholdAllDice(player);
 
             // CHECK FOR BONUS YAHTZEE
             if (scoreCard.IsBonusYahtzee(dice))
@@ -157,6 +159,16 @@ namespace Yahtzee.model.rules
             }
 
             return Cat.NoCategory;
+        }
+
+        private void UnholdAllDice(Player player)
+        {
+            var dice = player.GetDice();
+
+            foreach (Die d in dice)
+            {
+                d.IsHeld = false;
+            }
         }
 
         public Cat UseBonusYahtzee(Player player)

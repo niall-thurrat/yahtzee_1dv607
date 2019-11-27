@@ -19,7 +19,11 @@ namespace Yahtzee.model
         {
             foreach (Player p in m_players)
             {
-                p.PlayRound(m_rollsPerRound);
+                for (int i = 0; i < 13; i++)
+                {
+                    p.PlayRound(m_rollsPerRound);
+                }
+                p.ScoreCard.PrintFinalScore();
             }
         }
     }
