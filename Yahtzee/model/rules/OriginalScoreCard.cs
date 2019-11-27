@@ -8,21 +8,21 @@ namespace Yahtzee.model.rules
 {
 	class OriginalScoreCard : IScoreCard
 	{   
-        private Category cat_Ones = new Category(Cat.Ones, 0);
-        private Category cat_Twos = new Category(Cat.Twos, 0);
-        private Category cat_Threes = new Category(Cat.Threes, 0);
-        private Category cat_Fours = new Category(Cat.Fours, 0);
-        private Category cat_Fives = new Category(Cat.Fives, 0);
-        private Category cat_Sixes = new Category(Cat.Sixes, 0);
-        private Category cat_UpperBonus = new Category(Cat.UpperBonus, 0);
-        private Category cat_x3 = new Category(Cat.x3, Category.Section.Lower); //// perhaps use alias for Category.sec - see if its going to be removed first though
-        private Category cat_x4 = new Category(Cat.x4, Category.Section.Lower);
-        private Category cat_FullHouse = new Category(Cat.FullHouse, Category.Section.Lower);
-        private Category cat_Small = new Category(Cat.Small, Category.Section.Lower);
-        private Category cat_Large = new Category(Cat.Large, Category.Section.Lower);
-        private Category cat_Yahtzee = new Category(Cat.Yahtzee, Category.Section.Lower);
-        private Category cat_Chance = new Category(Cat.Chance, Category.Section.Lower);
-        private Category cat_YahtzeeBonus = new Category(Cat.YahtzeeBonus, Category.Section.Lower);
+        private Category cat_Ones = new Category(Cat.Ones, 1);
+        private Category cat_Twos = new Category(Cat.Twos, 2);
+        private Category cat_Threes = new Category(Cat.Threes, 3);
+        private Category cat_Fours = new Category(Cat.Fours, 4);
+        private Category cat_Fives = new Category(Cat.Fives, 5);
+        private Category cat_Sixes = new Category(Cat.Sixes, 6);
+        private Category cat_UpperBonus = new Category(Cat.UpperBonus, null);
+        private Category cat_x3 = new Category(Cat.x3, null);
+        private Category cat_x4 = new Category(Cat.x4, null);
+        private Category cat_FullHouse = new Category(Cat.FullHouse, null);
+        private Category cat_Small = new Category(Cat.Small, null);
+        private Category cat_Large = new Category(Cat.Large, null);
+        private Category cat_Yahtzee = new Category(Cat.Yahtzee, null);
+        private Category cat_Chance = new Category(Cat.Chance, null);
+        private Category cat_YahtzeeBonus = new Category(Cat.YahtzeeBonus, null);
 
         public IEnumerable<Category> GetCategories()
         {

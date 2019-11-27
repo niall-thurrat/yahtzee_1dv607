@@ -27,31 +27,26 @@ namespace Yahtzee.model
 			NoCategory
         }
 
-        public enum Section
-        {
-            Upper = 0,
-            Lower,
-			Bonus
-        }
-
-        private Section m_section;
+        private Nullable<int> m_upperValue;
 		private int m_score;
 		private bool m_isUsed = false;
 
-		public Category(Type a_type, Section a_section)
+		public Category(Type a_type, Nullable<int> a_upperValue)
 		{
 			CatType = a_type;
-            m_section = a_section;
+            m_upperValue = a_upperValue;
 		}
 
 		public Type CatType { get; }
+
+		public Nullable<int> UpperValue { get => m_upperValue; }
 
 		public int Score
 			{
 				get =>  m_score; 
 				set
 				{
-					if (m_isUsed == false)
+					if (!m_isUsed)
 					{
 						m_score = value;
 						m_isUsed = true;
@@ -66,8 +61,8 @@ namespace Yahtzee.model
 
 		public override string ToString()
 		{
-			return IsUsed() ? $"CATEGORY: {CatType}, SECTION: {m_section}, SCORE: {Score}"
-				: $"CATEGORY: {CatType}, SECTION: {m_section}, SCORE: empty";
+			return IsUsed() ? $"CATEGORY: {CatType}, SCORE: {Score}"
+				: $"CATEGORY: {CatType}, SCORE: empty"; // should a nullable int be used for score??
 		}
 	}
 }

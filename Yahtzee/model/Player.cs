@@ -69,7 +69,7 @@ namespace Yahtzee.model
                 }
             }
 
-            int[] TESTvalues = { 2, 1, 3, 5, 5 }; ////////////////////// remove TESTvalue!!!
+            int[] TESTvalues = { 5, 1, 3, 1, 5 }; ////////////////////// remove TESTvalue!!!
             int TESTcount = 0; /////////////////////// remove
 
             foreach (Die d in m_dice)

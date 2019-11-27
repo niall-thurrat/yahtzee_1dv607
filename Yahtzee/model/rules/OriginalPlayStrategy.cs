@@ -134,14 +134,14 @@ namespace Yahtzee.model.rules
                 }
                 
                 // IF 2 IN ROW EXISTS
-                List<int> pairs = FindTwoOfAKind(dice);
+                List<int> pairs = FindTwoOfAKind(dice); 
                 foreach (int pairValue in pairs)
                 {
                     var iterableCats = player.ScoreCard.GetCategories();
 
                     foreach (Category c in iterableCats)
                     {
-                        if ((pairValue == c.SectionValue) && !c.IsUsed())
+                        if ((pairValue == c.UpperValue) && !c.IsUsed())
                         {
                             foreach (Die d in dice)
                             {
@@ -180,46 +180,14 @@ namespace Yahtzee.model.rules
                             .First()
                             .Key;
 
-            switch (commonValue)
+            var iterableCats = scoreCard.GetCategories();
+
+            foreach (Category c in iterableCats)
             {
-                case 1:
-                    if (!scoreCard.IsUsed(Cat.Ones)) /// CREATE SOME SORT OF ScoreCareLoopThroughUpperCats() - this switch stuff looks fucking terrible // WAIT UNTIL CREATING TRIPLE STRATEGY - this might have a big influence
-                    {
-                        return Cat.Ones; // would really like to find shorthand for these simple if statements
-                    };
-                    break;
-                case 2:
-                    if (!scoreCard.IsUsed(Cat.Twos))
-                    {
-                        return Cat.Twos;
-                    };
-                    break;
-                case 3:
-                    if (!scoreCard.IsUsed(Cat.Threes))
-                    {
-                        return Cat.Threes;
-                    };
-                    break;
-                case 4:
-                    if (!scoreCard.IsUsed(Cat.Fours))
-                    {
-                        return Cat.Fours;
-                    };
-                    break;
-                case 5:
-                    if (!scoreCard.IsUsed(Cat.Fives))
-                    {
-                        return Cat.Fives;
-                    };
-                    break;
-                case 6:
-                    if (!scoreCard.IsUsed(Cat.Sixes))
-                    {
-                        return Cat.Sixes;
-                    };
-                    break;  
-                default:
-                    throw new Exception("Dice value not recognised");
+                if ((c.UpperValue == commonValue) && !scoreCard.IsUsed(c.CatType))
+                {
+                    return c.CatType;
+                }
             }
 
             return Cat.NoCategory;
