@@ -266,37 +266,53 @@ namespace Yahtzee.model.rules
         public bool IsThreeOfAKind(List<Die> dice)
         {
             int[] values = new int [5];
+            int count = 0;
 
             for (int i = 0; i < values.Count(); i++)
             {
                 values[i] = dice[i].GetValue();
             }
 
-            var query = from i in values
-                group i by i into g
-                select new {g.Key, Count = g.Count()};
+            int mode = values.GroupBy(v => v)
+                            .OrderByDescending(g => g.Count())
+                            .First()
+                            .Key;
 
-            int frequency = query.Max(g => g.Count);
+            foreach (Die d in dice)
+            {
+                if (d.GetValue() == mode)
+                {
+                    count++; 
+                }
+            }
 
-            return frequency >= 3 ? true : false;
+            return count >= 3;
         }
 
         public bool IsFourOfAKind(List<Die> dice)
         {
-            int[] values = new int [5]; ///////////////////////////////// refactor with 3 of a kind?
+            int[] values = new int [5]; ///////////////////////////////// refactor with 3 of a kind if you have time (incorporate so 2 possible? only useful in strategy)
+            int count = 0;
 
             for (int i = 0; i < values.Count(); i++)
             {
                 values[i] = dice[i].GetValue(); // getting array of values replicated in x3, x4, small, large, - refactor?? // also replicated in PlayStrategy
             }
 
-            var query = from i in values
-                group i by i into g
-                select new {g.Key, Count = g.Count()};
+            int mode = values.GroupBy(v => v)
+                            .OrderByDescending(g => g.Count())
+                            .First()
+                            .Key;
 
-            int frequency = query.Max(g => g.Count);
+            foreach (Die d in dice)
+            {
+                if (d.GetValue() == mode)
+                {
+                    count++; 
+                }
+            }
 
-            return frequency >= 4 ? true : false;
+            return count >= 4;
         }
 
         public bool IsFullHouse(List<Die> dice)

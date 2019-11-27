@@ -41,59 +41,14 @@ namespace Yahtzee.model.rules
                     return Cat.Small;
                 }
 
-                // CHECK FOR 3 OR 4 OF A KIND IN EMPTY UPPER CATEGORY 
+                // CHECK FOR 3 OR 4 OF A KIND
                 if (scoreCard.IsThreeOfAKind(dice) || scoreCard.IsFourOfAKind(dice))
                 {
-                    int commonValue;
-                    int[] values = new int [5];
-
-                    for (int i = 0; i < values.Count(); i++)
+                    // USE IN UPPER SECTION IF UNUSED
+                    Cat upperCat = UpdateUpperSection(scoreCard, dice);
+                    if (upperCat != Cat.NoCategory)
                     {
-                        values[i] = dice[i].GetValue();
-                    }
-
-                    commonValue = values.Max();
-
-                    switch (commonValue)
-                    {
-                        case 1:
-                            if (!scoreCard.IsUsed(Cat.Ones)) /// CREATE SOME SORT OF ScoreCareLoopThroughUpperCats() - this switch stuff looks fucking terrible // WAIT UNTIL CREATING TRIPLE STRATEGY - this might have a big influence
-                            {
-                                return Cat.Ones; // would really like to find shorthand for these simple if statements
-                            };
-                            break;
-                        case 2:
-                            if (!scoreCard.IsUsed(Cat.Twos))
-                            {
-                                return Cat.Twos;
-                            };
-                            break;
-                        case 3:
-                            if (!scoreCard.IsUsed(Cat.Threes))
-                            {
-                                return Cat.Threes;
-                            };
-                            break;
-                        case 4:
-                            if (!scoreCard.IsUsed(Cat.Fours))
-                            {
-                                return Cat.Fours;
-                            };
-                            break;
-                        case 5:
-                            if (!scoreCard.IsUsed(Cat.Fives))
-                            {
-                                return Cat.Fives;
-                            };
-                            break;
-                        case 6:
-                            if (!scoreCard.IsUsed(Cat.Sixes))
-                            {
-                                return Cat.Sixes;
-                            };
-                            break;  
-                        default:
-                            throw new Exception("Dice value not recognised");
+                        return upperCat;
                     }
 
                     // CHECK FOR EMPTY 4 OF A KIND CATEGORY 
@@ -131,7 +86,7 @@ namespace Yahtzee.model.rules
                 // IF 3 OR 4 OF A KIND - HOLD THEM AND ROLL AGAIN
                 if (scoreCard.IsThreeOfAKind(dice) || scoreCard.IsFourOfAKind(dice))
                 {
-                    int commonValue; // some copy and past here with no rolls left scenario above - refactor? 
+                    int commonValue; // some copy and paste here with no rolls left scenario above - refactor? 
                     int[] values = new int [5];
 
                     for (int i = 0; i < values.Count(); i++)
@@ -139,7 +94,10 @@ namespace Yahtzee.model.rules
                         values[i] = dice[i].GetValue();
                     }
 
-                    commonValue = values.Max();
+                    commonValue = values.GroupBy(v => v)
+                            .OrderByDescending(g => g.Count())
+                            .First()
+                            .Key;
 
                     foreach (Die d in dice)
                     {
@@ -165,7 +123,19 @@ namespace Yahtzee.model.rules
                         return Cat.Small;
                     }
                 }
+
+                // IF 3 IN A ROW ON FIRST GO AND SMALL NOT USED
+                if (scoreCard.IsSequence(dice, 3)
+                    && rollsLeft == 2 
+                    && !scoreCard.IsUsed(Cat.Small))
+                {
+                    HoldSequenceValues(dice, 3);
+                        return Cat.NoCategory;
+                }
                 
+                // IF 2 IN ROW EXISTS
+                
+
             }
 
             return Cat.NoCategory;
@@ -176,6 +146,67 @@ namespace Yahtzee.model.rules
             // enter decision logic here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             return Cat.FullHouse;
         }
+
+        private Cat UpdateUpperSection(IScoreCard scoreCard, List<Die> dice)
+        {
+            int commonValue;
+            int[] values = new int [5];
+
+            for (int i = 0; i < values.Count(); i++)
+            {
+                values[i] = dice[i].GetValue();
+            }
+
+            commonValue = values.GroupBy(v => v)
+                            .OrderByDescending(g => g.Count())
+                            .First()
+                            .Key;
+
+            switch (commonValue)
+            {
+                case 1:
+                    if (!scoreCard.IsUsed(Cat.Ones)) /// CREATE SOME SORT OF ScoreCareLoopThroughUpperCats() - this switch stuff looks fucking terrible // WAIT UNTIL CREATING TRIPLE STRATEGY - this might have a big influence
+                    {
+                        return Cat.Ones; // would really like to find shorthand for these simple if statements
+                    };
+                    break;
+                case 2:
+                    if (!scoreCard.IsUsed(Cat.Twos))
+                    {
+                        return Cat.Twos;
+                    };
+                    break;
+                case 3:
+                    if (!scoreCard.IsUsed(Cat.Threes))
+                    {
+                        return Cat.Threes;
+                    };
+                    break;
+                case 4:
+                    if (!scoreCard.IsUsed(Cat.Fours))
+                    {
+                        return Cat.Fours;
+                    };
+                    break;
+                case 5:
+                    if (!scoreCard.IsUsed(Cat.Fives))
+                    {
+                        return Cat.Fives;
+                    };
+                    break;
+                case 6:
+                    if (!scoreCard.IsUsed(Cat.Sixes))
+                    {
+                        return Cat.Sixes;
+                    };
+                    break;  
+                default:
+                    throw new Exception("Dice value not recognised");
+            }
+
+            return Cat.NoCategory;
+        }
+                    
 
         private Cat GetFirstUnusedCat(Player player)
         {
