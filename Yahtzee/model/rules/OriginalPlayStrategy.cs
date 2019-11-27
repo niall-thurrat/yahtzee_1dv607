@@ -9,7 +9,7 @@ namespace Yahtzee.model.rules
     class OriginalPlayStrategy : IPlayStrategy
     {
         /// returns a Category.Type which informs Player which category to use on
-        /// their score card. NoCategory is returned when Player should roll again
+        /// their scorecard. NoCategory is returned when Player should roll again
         public Cat Use(Player player, int rollsLeft)
         {
             var scoreCard = player.ScoreCard;
@@ -122,30 +122,58 @@ namespace Yahtzee.model.rules
                 }
 
                 // AS A LAST RESORT - USE THE FIRST EMPTY CATEGORY FOUND ON SCORECARD
-                Cat firstUnusedCat = this.GetFirstUnusedCat(player);
+                Cat firstUnusedCat = this.GetFirstUnusedCat(player); //////////////////////////////////////////////// is this necessary here?
                 return firstUnusedCat;
             }
-            // ELSE ROLLS REMAINING
+            // ELSE IF ROLLSLEFT > 0
             else
             {
+                // IF 3 OR 4 OF A KIND - HOLD THEM AND ROLL AGAIN
+                if (scoreCard.IsThreeOfAKind(dice) || scoreCard.IsFourOfAKind(dice))
+                {
+                    int commonValue; // some copy and past here with no rolls left scenario above - refactor? 
+                    int[] values = new int [5];
 
+                    for (int i = 0; i < values.Count(); i++)
+                    {
+                        values[i] = dice[i].GetValue();
+                    }
+
+                    commonValue = values.Max();
+
+                    foreach (Die d in dice)
+                    {
+                        if (d.GetValue() == commonValue)
+                        {
+                            d.IsHeld = true;
+                        }
+                    }
+                }
+
+                // IF SMALL SEQUENCE EXISTS...
+                if (scoreCard.IsSequence(dice, 4))
+                {
+                    // ...AND LARGE CAT NOT USED - ROLL FOR IT
+                    if (!scoreCard.IsUsed(Cat.Large))
+                    {
+                        HoldSequenceValues(dice, 4);
+                        return Cat.NoCategory;
+                    }
+                    // ...AND IS NOT USED BUT LARGE IS USED - USE SMALL
+                    else if (!scoreCard.IsUsed(Cat.Small))
+                    {
+                        return Cat.Small;
+                    }
+                }
+                
             }
 
-        /* foreach (Die d in m_dice)
-            {
-                if (d.GetValue() == 5)
-                {
-                    d.ChangeStatus(Die.Status.Freeze);
-                }
-            } 
-        }        */
-
-            return Cat.FullHouse;// Cat.NoCategory;
+            return Cat.NoCategory;
         }
 
         public Cat UseBonusYahtzee(Player player)
         {
-            // enter decision logic here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+            // enter decision logic here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             return Cat.FullHouse;
         }
 
@@ -163,6 +191,31 @@ namespace Yahtzee.model.rules
                 }
             }
             return cat;
+        }
+
+        private void HoldSequenceValues(List<Die> dice, int sequenceAmount)
+        {
+            int[] values = new int [5];
+ 
+            for (int i = 0; i < values.Count(); i++)
+            {
+                values[i] = dice[i].GetValue();
+            }
+
+            Array.Sort(values);
+
+                foreach (Die d in dice)
+                {
+                    for (int i = 0; i < sequenceAmount; i++)
+                    {
+                        if (d.GetValue() == values[i])
+                        {
+                            d.IsHeld = true;
+                            // stops value holding multiple dice
+                            values[i] = 0;
+                        }
+                    }
+                }
         }
     }
 }

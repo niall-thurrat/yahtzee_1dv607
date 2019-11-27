@@ -49,6 +49,10 @@ namespace Yahtzee.model
                         ScoreCard.UpdateWithBonusYahtzee(chosenBonusCat, m_dice);
                     }
                     else ScoreCard.Update(chosenCat, m_dice);
+
+                    rollsLeft = 0;
+                    // I don't think dice need unheld after each round but keep eye on this - maybe do here with a private void UnHoldAllDice()
+                    // Could use ClearDice(); instead of an unholdAll func.
                 }
 
                 ScoreCard.Print();
@@ -65,9 +69,7 @@ namespace Yahtzee.model
                 }
             }
 
-            // ClearDice(); // will need changed as dice are held /////////////////////////////
-
-            int[] TESTvalues = { 3, 2, 5, 2, 1 }; ////////////////////// remove TESTvalue!!!
+            int[] TESTvalues = { 2, 1, 4, 4, 3 }; ////////////////////// remove TESTvalue!!!
             int TESTcount = 0; /////////////////////// remove
 
             foreach (Die d in m_dice)
@@ -76,17 +78,6 @@ namespace Yahtzee.model
                 {
                     d.Roll(TESTvalues[TESTcount]);
                     TESTcount++; ///////////////////////// remove
-                }
-            }
-        }
-
-        private void HoldDie(int dieIndex)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                if (dieIndex == i)
-                {
-                    m_dice[i].IsHeld = true; /////////// perhaps IsHeld should not be so public?
                 }
             }
         }
@@ -107,7 +98,7 @@ namespace Yahtzee.model
 
         public List<Die> GetDice()
         {
-            return m_dice != null ? m_dice : throw new Exception();
+            return m_dice != null ? m_dice : throw new Exception("dice not initialized yet"); ///// ERROR - they will never equal null. Isn't this just a getter anyway?
         }
     }
 }

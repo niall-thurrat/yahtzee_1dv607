@@ -326,8 +326,8 @@ namespace Yahtzee.model.rules
         public bool IsSequence(List<Die> dice, int sequenceAmount)
         {
             int[] values = new int [5];
+            int highestCount = 1;
             int count = 1;
-            bool gotSequence = false;
 
             for (int i = 0; i < values.Count(); i++)
             {
@@ -338,18 +338,21 @@ namespace Yahtzee.model.rules
 
             for (int i = 0; i < values.Count() - 1; i++)
             {
-               if (values[i] + 1 == values[i + 1])
-               {
-                   count++;
-                   if (count == sequenceAmount)
-                   {
-                       gotSequence = true;
-                   }
-               }
-               else count = 0;
+                if (values[i] + 1 == values[i + 1])
+                {
+                    count++;
+                    if (count > highestCount)
+                    {
+                        highestCount = count;
+                    }
+                }
+                else if (values[i] != values[i + 1])
+                {
+                    count = 1;
+                }
             }
 
-            return gotSequence;
+            return highestCount >= sequenceAmount;
         }
 
         public bool IsYahtzee(List<Die> dice)
