@@ -67,7 +67,7 @@ namespace Yahtzee.model
 
             // ClearDice(); // will need changed as dice are held /////////////////////////////
 
-            int[] TESTvalues = { 3, 4, 5, 2, 1 }; ////////////////////// remove TESTvalue!!!
+            int[] TESTvalues = { 3, 2, 5, 2, 1 }; ////////////////////// remove TESTvalue!!!
             int TESTcount = 0; /////////////////////// remove
 
             foreach (Die d in m_dice)

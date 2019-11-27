@@ -113,23 +113,17 @@ namespace Yahtzee.model.rules
                     {
                         return Cat.x3;
                     }
-
-                    // COULD IMPLEMENT IF 2 LEFT AND NOT MANY ROUNDS LEFT OR 'WITH 2 GETS OVER THE 63' LOGIC - IF YOU HAVE TIME
-
-                    if (!scoreCard.IsUsed(Cat.Chance))
-                    {
-                        return Cat.Chance;
-                    }
-
-                    // COULD IMPLEMENT WASTE LARGE/YATZEE IF ONLY 2 OR 3 ROUNDS LEFT
-
-                    // else //  make ifs above else if
-                    // {
-                    //     Cat firstUnusedCat = scoreCard.firstUnusedCategory(player);
-                    //     return firstUnusedCat;
-                    // }
-
                 }
+
+                // CHECK FOR EMPTY CHANCE CATEGORY
+                if (!scoreCard.IsUsed(Cat.Chance))
+                {
+                    return Cat.Chance;
+                }
+
+                // AS A LAST RESORT - USE THE FIRST EMPTY CATEGORY FOUND ON SCORECARD
+                Cat firstUnusedCat = this.GetFirstUnusedCat(player);
+                return firstUnusedCat;
             }
             // ELSE ROLLS REMAINING
             else
@@ -155,15 +149,20 @@ namespace Yahtzee.model.rules
             return Cat.FullHouse;
         }
 
-        // private Cat GetFirstUnusedCat(Player player)
-        // {
-        //     var scoreCard = player.ScoreCard;
-        //     var cats = scoreCard.GetCategories();
+        private Cat GetFirstUnusedCat(Player player)
+        {
+            var iterableCats = player.ScoreCard.GetCategories();
+            var cat = Cat.Ones;
 
-        //     foreach (Category c in cats)
-        //     {
-        //         if (c.)
-        //     }
-        // }
+            foreach (Category c in iterableCats)
+            {
+                if (!c.IsUsed())
+                {
+                    cat = c.CatType;
+                    break;
+                }
+            }
+            return cat;
+        }
     }
 }
