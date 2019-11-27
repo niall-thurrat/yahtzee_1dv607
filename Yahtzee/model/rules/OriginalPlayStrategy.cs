@@ -134,8 +134,26 @@ namespace Yahtzee.model.rules
                 }
                 
                 // IF 2 IN ROW EXISTS
-                
+                List<int> pairs = FindTwoOfAKind(dice);
+                foreach (int pairValue in pairs)
+                {
+                    var iterableCats = player.ScoreCard.GetCategories();
 
+                    foreach (Category c in iterableCats)
+                    {
+                        if ((pairValue == c.SectionValue) && !c.IsUsed())
+                        {
+                            foreach (Die d in dice)
+                            {
+                                if (d.GetValue() == pairValue)
+                                {
+                                    d.IsHeld = true;
+                                }
+                            }
+                            return Cat.NoCategory;
+                        }
+                    }
+                }
             }
 
             return Cat.NoCategory;
@@ -235,18 +253,61 @@ namespace Yahtzee.model.rules
 
             Array.Sort(values);
 
-                foreach (Die d in dice)
+            foreach (Die d in dice)
+            {
+                for (int i = 0; i < sequenceAmount; i++)
                 {
-                    for (int i = 0; i < sequenceAmount; i++)
+                    if (d.GetValue() == values[i])
                     {
-                        if (d.GetValue() == values[i])
-                        {
-                            d.IsHeld = true;
-                            // stops value holding multiple dice
-                            values[i] = 0;
-                        }
+                        d.IsHeld = true;
+                        // stops value holding multiple dice
+                        values[i] = 0;
                     }
                 }
+            }
+        }
+
+        private List<int> FindTwoOfAKind(List<Die> dice)
+        {
+            int[] values = new int [5];
+
+            for (int i = 0; i < values.Count(); i++)
+            {
+                values[i] = dice[i].GetValue(); // getting array of values replicated in scorecard funcs - refactor??
+            }
+
+            int count = 1, tempCount;
+            int tempNumber = 0;
+            List<int> frequentNumber = new List<int>();
+    
+            for (int i = 0; i < (values.Length - 1); i++)
+            {
+                tempNumber = values[i];
+                tempCount = 0;
+                for (int j = 0; j < values.Length ; j++)
+                {
+                    if (tempNumber == values[j])
+                    {
+                        tempCount++;
+                    }
+                }
+                // if a new highest number count is found
+                if (tempCount > count)
+                {
+                    frequentNumber.Clear();
+                    frequentNumber.Add(tempNumber);
+                    count = tempCount;
+                }
+                // if an equally high number count is found
+                if (tempCount == count && !frequentNumber.Contains(tempNumber))
+                {
+                    frequentNumber.Add(tempNumber);
+                    frequentNumber.Sort();
+                    frequentNumber.Reverse();
+                }
+            }
+
+            return frequentNumber;
         }
     }
 }
