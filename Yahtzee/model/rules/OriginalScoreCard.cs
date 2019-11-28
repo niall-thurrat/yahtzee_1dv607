@@ -36,6 +36,8 @@ namespace Yahtzee.model.rules
                     totalScore += c.Score;
                 }
 
+                totalScore += cat_UpperBonus.Score + cat_YahtzeeBonus.Score;
+
                 return totalScore;
             }
         }
@@ -51,7 +53,7 @@ namespace Yahtzee.model.rules
             return catList.Cast<Category>();
         }
 
-        public void Update(Cat category, List<Die> dice)
+        public void Update(List<Die> dice, Cat category)
         {
             switch (category)
             {
@@ -99,12 +101,53 @@ namespace Yahtzee.model.rules
             }
         }
 
-        public void UpdateWithBonusYahtzee(Cat chosenCat, List<Die> dice)
+        public void UpdateYahtzeeBonus(List<Die> dice, Cat chosenCat)
         {
-            UpdateYahtzeeBonus(dice, chosenCat);
+            if (IsBonusYahtzee(dice))
+            {
+                var iterableCats = GetCategories();
+            
+                foreach (Category cat in iterableCats)
+                {
+                    if ((cat.CatType == chosenCat) && !cat.IsUsed())
+                    {
+                        if ((chosenCat == Cat.FullHouse || chosenCat == Cat.Small
+                            || chosenCat == Cat.Large) && !cat.IsUsed())
+                        {
+                            switch (chosenCat)
+                            {
+                                case Cat.FullHouse:
+                                        cat_FullHouse.Score = 25;
+                                        cat_YahtzeeBonus.Score += 100;
+                                    break;
+                                    
+                                case Cat.Small:
+                                        cat_Small.Score = 30;
+                                        cat_YahtzeeBonus.Score += 100;
+                                    break;
+
+                                case Cat.Large:
+                                        cat_Large.Score = 40;
+                                        cat_YahtzeeBonus.Score += 100;
+                                    break;
+
+                                default:
+                                    throw new Exception("Bonus Yahtzee category error");
+                            }
+                        }
+                        else
+                        {
+                            cat_YahtzeeBonus.Score += 100;
+                            this.Update(dice, chosenCat); // does this properly handle if chosenCat already taken? 
+                        // Simply won't update selected cat at present. Is this enough?
+                        // will have to give this some thought later if user can select already chosen sections
+                        }
+                    }
+                }
+            }
+            else throw new Exception("Error: Dice do not give Yahtzee bonus");
         }
 
-        // perhaps section field on categories not required???
         private void UpdateUpperSection(List<Die> dice, int targetValue, Cat catToUpdate)
         {
             int score = 0;     
@@ -121,7 +164,7 @@ namespace Yahtzee.model.rules
             
             foreach (Category cat in iterableCats)
             {
-                if (cat.CatType == catToUpdate)
+                if ((cat.CatType == catToUpdate) && !cat.IsUsed())
                 {
                     cat.Score = score;
                 }
@@ -136,19 +179,17 @@ namespace Yahtzee.model.rules
 
         private bool CheckUpperBonus()
         {
-            int upperSectionScore = 0; // test this func!!!!!!!
+            int upperSectionScore = 0;
 
             List<Category> upperCategories = new List<Category>
-                { cat_Ones, cat_Twos, cat_Threes, cat_Fours, cat_Fives, cat_Sixes }; // AGAIN - why do they have this SECTION field?
+                { cat_Ones, cat_Twos, cat_Threes, cat_Fours, cat_Fives, cat_Sixes };
 
             foreach (Category cat in upperCategories)
             {
-                upperSectionScore += cat.Score; /////// this Score isn't linked ot the field!!!
+                upperSectionScore += cat.Score;
             }
 
-            // ////////////////////////////////////////////////////// do we handle if a section is selected that has been used already in this func?
-
-            return upperSectionScore >= 63 ? true : false;
+            return upperSectionScore >= 63;
         }
 
         private void UpdateX3(List<Die> dice)
@@ -243,30 +284,6 @@ namespace Yahtzee.model.rules
             }
 
             // ////////////////////////////////////////////////////// else - handle if yahtzee used
-        }
-
-        private void UpdateYahtzeeBonus(List<Die> dice, Cat chosenCat)
-        {
-            // is this func necessary just for sake of having a private func?
-            if (IsBonusYahtzee(dice) && chosenCat == Cat.FullHouse
-                || chosenCat == Cat.Small || chosenCat == Cat.Large)
-            {
-                switch (chosenCat)
-                {
-                    case Cat.FullHouse:
-                        cat_FullHouse.Score = 25;
-                        break;
-                    case Cat.Small:
-                        cat_Small.Score = 30;
-                        break;
-                    case Cat.Large:
-                        cat_Large.Score = 40;
-                        break;
-                    default:
-                        throw new Exception("Scorecard category error");
-                }
-            }
-            else this.Update(chosenCat, dice); // does this handle if chosenCat already taken?
         }
 
         private void UpdateChance(List<Die> dice)

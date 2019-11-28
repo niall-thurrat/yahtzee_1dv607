@@ -46,10 +46,17 @@ namespace Yahtzee.model
 				get =>  m_score; 
 				set
 				{
-					if (!m_isUsed)
+					if (!m_isUsed && CatType != Type.YahtzeeBonus)
 					{
 						m_score = value;
 						m_isUsed = true;
+					}
+					else if (CatType == Type.YahtzeeBonus)
+					{
+						if (value == m_score + 100)
+						{
+							m_score = value;
+						}
 					}
 				}
 			}

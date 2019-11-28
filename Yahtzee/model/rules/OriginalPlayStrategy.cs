@@ -79,7 +79,7 @@ namespace Yahtzee.model.rules
                 }
 
                 // AS A LAST RESORT - USE THE FIRST EMPTY CATEGORY FOUND ON SCORECARD
-                Cat firstUnusedCat = this.GetFirstUnusedCat(player); //////////////////////////////////////////////// is this necessary here?
+                Cat firstUnusedCat = GetFirstUnusedCat(player); //////////////////////////////////////////////// is this necessary here?
                 return firstUnusedCat;
             }
             // ELSE IF ROLLSLEFT > 0
@@ -171,10 +171,31 @@ namespace Yahtzee.model.rules
             }
         }
 
-        public Cat UseBonusYahtzee(Player player)
+        public Cat UseYahtzeeBonus(Player player)
         {
-            // enter decision logic here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            return Cat.FullHouse;
+            var scoreCard = player.ScoreCard;
+
+            if (!scoreCard.IsUsed(Cat.Large))
+            {
+                return Cat.Large;
+            }
+            else if (!scoreCard.IsUsed(Cat.Sixes))
+            {
+                return Cat.Sixes;
+            }
+            else if (!scoreCard.IsUsed(Cat.x4))
+            {
+                return Cat.x4;
+            }
+            else if (!scoreCard.IsUsed(Cat.Chance))
+            {
+                return Cat.Chance;
+            }
+            else if (!scoreCard.IsUsed(Cat.FullHouse))
+            {
+                return Cat.FullHouse;
+            }
+            else return GetFirstUnusedCat(player);
         }
 
         private Cat UpdateUpperSection(IScoreCard scoreCard, List<Die> dice)

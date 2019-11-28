@@ -45,10 +45,10 @@ namespace Yahtzee.model
                 {
                     if (chosenCat == Cat.YahtzeeBonus)
                     {
-                        Cat chosenBonusCat = m_playStrategy.UseBonusYahtzee(this);
-                        ScoreCard.UpdateWithBonusYahtzee(chosenBonusCat, m_dice);
+                        Cat chosenBonusCat = m_playStrategy.UseYahtzeeBonus(this);
+                        ScoreCard.UpdateYahtzeeBonus(m_dice, chosenBonusCat);
                     }
-                    else ScoreCard.Update(chosenCat, m_dice);
+                    else ScoreCard.Update(m_dice, chosenCat);
 
                     rollsLeft = 0;
                     // I don't think dice need unheld after each round but keep eye on this - maybe do here with a private void UnHoldAllDice()
