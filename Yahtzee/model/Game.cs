@@ -17,7 +17,7 @@ namespace Yahtzee.model
 
         public void PlayGame()
         {
-            foreach (Player p in m_players)
+            foreach (Player p in m_players) ////////////// FOR TESTING - COULD BE REMOVED
             {
                 for (int i = 0; i < 13; i++)
                 {
@@ -25,6 +25,14 @@ namespace Yahtzee.model
                 }
                 p.ScoreCard.PrintFinalScore();
             }
+        }
+
+        public void NewGame()
+        {
+            // return m_dealer.NewGame(m_player); ////////////////////was bool!
+            Console.WriteLine("OK lets play yahtzee");
+            // Thread.Sleep(1000);
+            // Do something!!!
         }
     }
 }
