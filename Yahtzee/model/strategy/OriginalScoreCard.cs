@@ -2,28 +2,60 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 using Cat = Yahtzee.model.Category.Type;
 
 namespace Yahtzee.model.strategy
 {
+    [JsonObject(MemberSerialization.OptIn)]
 	class OriginalScoreCard : IScoreCard
 	{   
+        [JsonProperty]
         private Category cat_Ones = new Category(Cat.Ones, 1);
+
+        [JsonProperty]
         private Category cat_Twos = new Category(Cat.Twos, 2);
+
+        [JsonProperty]
         private Category cat_Threes = new Category(Cat.Threes, 3);
+
+        [JsonProperty]
         private Category cat_Fours = new Category(Cat.Fours, 4);
+
+        [JsonProperty]
         private Category cat_Fives = new Category(Cat.Fives, 5);
+
+        [JsonProperty]
         private Category cat_Sixes = new Category(Cat.Sixes, 6);
+
+        [JsonProperty]
         private Category cat_UpperBonus = new Category(Cat.UpperBonus, null);
+
+        [JsonProperty]
         private Category cat_x3 = new Category(Cat.x3, null);
+
+        [JsonProperty]
         private Category cat_x4 = new Category(Cat.x4, null);
+
+        [JsonProperty]
         private Category cat_FullHouse = new Category(Cat.FullHouse, null);
+
+        [JsonProperty]
         private Category cat_Small = new Category(Cat.Small, null);
+
+        [JsonProperty]
         private Category cat_Large = new Category(Cat.Large, null);
+
+        [JsonProperty]
         private Category cat_Yahtzee = new Category(Cat.Yahtzee, null);
+
+        [JsonProperty]
         private Category cat_Chance = new Category(Cat.Chance, null);
+
+        [JsonProperty]
         private Category cat_YahtzeeBonus = new Category(Cat.YahtzeeBonus, null);
 
+        [JsonProperty]
         public int TotalScore
         {
             get

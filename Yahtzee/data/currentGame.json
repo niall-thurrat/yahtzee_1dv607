@@ -1,3 +1,142 @@
 {
-  "CreatedDate": "2019-12-29T18:06:07.3241705+01:00"
+  "m_players": [
+    {
+      "m_playerType": 0,
+      "m_dice": [],
+      "Name": "Computer #1",
+      "ScoreCard": {
+        "cat_Ones": {
+          "CatType": 0,
+          "Score": 4
+        },
+        "cat_Twos": {
+          "CatType": 1,
+          "Score": 6
+        },
+        "cat_Threes": {
+          "CatType": 2,
+          "Score": 9
+        },
+        "cat_Fours": {
+          "CatType": 3,
+          "Score": 12
+        },
+        "cat_Fives": {
+          "CatType": 4,
+          "Score": 20
+        },
+        "cat_Sixes": {
+          "CatType": 5,
+          "Score": 24
+        },
+        "cat_UpperBonus": {
+          "CatType": 6,
+          "Score": 35
+        },
+        "cat_x3": {
+          "CatType": 7,
+          "Score": 0
+        },
+        "cat_x4": {
+          "CatType": 8,
+          "Score": 23
+        },
+        "cat_FullHouse": {
+          "CatType": 9,
+          "Score": 0
+        },
+        "cat_Small": {
+          "CatType": 10,
+          "Score": 30
+        },
+        "cat_Large": {
+          "CatType": 11,
+          "Score": 40
+        },
+        "cat_Yahtzee": {
+          "CatType": 12,
+          "Score": 0
+        },
+        "cat_Chance": {
+          "CatType": 13,
+          "Score": 17
+        },
+        "cat_YahtzeeBonus": {
+          "CatType": 14,
+          "Score": 0
+        },
+        "TotalScore": 220
+      }
+    },
+    {
+      "m_playerType": 0,
+      "m_dice": [],
+      "Name": "Computer #2",
+      "ScoreCard": {
+        "cat_Ones": {
+          "CatType": 0,
+          "Score": 3
+        },
+        "cat_Twos": {
+          "CatType": 1,
+          "Score": 6
+        },
+        "cat_Threes": {
+          "CatType": 2,
+          "Score": 9
+        },
+        "cat_Fours": {
+          "CatType": 3,
+          "Score": 16
+        },
+        "cat_Fives": {
+          "CatType": 4,
+          "Score": 15
+        },
+        "cat_Sixes": {
+          "CatType": 5,
+          "Score": 12
+        },
+        "cat_UpperBonus": {
+          "CatType": 6,
+          "Score": 0
+        },
+        "cat_x3": {
+          "CatType": 7,
+          "Score": 0
+        },
+        "cat_x4": {
+          "CatType": 8,
+          "Score": 8
+        },
+        "cat_FullHouse": {
+          "CatType": 9,
+          "Score": 0
+        },
+        "cat_Small": {
+          "CatType": 10,
+          "Score": 30
+        },
+        "cat_Large": {
+          "CatType": 11,
+          "Score": 40
+        },
+        "cat_Yahtzee": {
+          "CatType": 12,
+          "Score": 0
+        },
+        "cat_Chance": {
+          "CatType": 13,
+          "Score": 13
+        },
+        "cat_YahtzeeBonus": {
+          "CatType": 14,
+          "Score": 0
+        },
+        "TotalScore": 152
+      }
+    }
+  ],
+  "m_rollsPerRound": 3,
+  "CreatedDate": "2019-12-29T18:59:07.3366341+01:00"
 }

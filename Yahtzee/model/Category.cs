@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace Yahtzee.model
 {
+	[JsonObject(MemberSerialization.OptIn)]
 	class Category
 	{
 		public enum Type
@@ -27,39 +29,40 @@ namespace Yahtzee.model
 			NoCategory
         }
 
-        private Nullable<int> m_upperValue;
 		private int m_score;
 		private bool m_isUsed = false;
-
+		
 		public Category(Type a_type, Nullable<int> a_upperValue)
 		{
 			CatType = a_type;
-            m_upperValue = a_upperValue;
+            UpperValue = a_upperValue;
 		}
 
+		[JsonProperty]
 		public Type CatType { get; }
 
-		public Nullable<int> UpperValue { get => m_upperValue; }
+		public Nullable<int> UpperValue { get; }
 
+		[JsonProperty]
 		public int Score
+		{
+			get =>  m_score; 
+			set
 			{
-				get =>  m_score; 
-				set
+				if (!m_isUsed && CatType != Type.YahtzeeBonus)
 				{
-					if (!m_isUsed && CatType != Type.YahtzeeBonus)
+					m_score = value;
+					m_isUsed = true;
+				}
+				else if (CatType == Type.YahtzeeBonus)
+				{
+					if (value == m_score + 100)
 					{
 						m_score = value;
-						m_isUsed = true;
-					}
-					else if (CatType == Type.YahtzeeBonus)
-					{
-						if (value == m_score + 100)
-						{
-							m_score = value;
-						}
 					}
 				}
 			}
+		}
 
 		public bool IsUsed()
 		{

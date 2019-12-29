@@ -7,9 +7,13 @@ using Newtonsoft.Json;
 
 namespace Yahtzee.model
 {
+    [JsonObject(MemberSerialization.OptIn)]
     class Game
     {
+        [JsonProperty]
         private List<Player> m_players = new List<Player>();
+
+        [JsonProperty]
         private int m_rollsPerRound = 3; ////// should this be here/hardcoded ??
 
         public Game ()
@@ -17,6 +21,7 @@ namespace Yahtzee.model
             CreatedDate = DateTime.Now;
         }
 
+        [JsonProperty]
         public DateTime CreatedDate { get; }
  
         public void NewGame(Dictionary<string, int> a_players)
@@ -40,8 +45,14 @@ namespace Yahtzee.model
 
         public void SaveGame()
         {
+            // if (game not finished)
             string json = JsonConvert.SerializeObject(this, Formatting.Indented);
             File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\currentGame.json", json);
+
+            // else (ie game complete)
+            // string appendText = "This is extra text" + Environment.NewLine;
+            // File.AppendAllText(path, appendText);
+
         }
     }
 }

@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 using Cat = Yahtzee.model.Category.Type;
 
 namespace Yahtzee.model
 {
+    [JsonObject(MemberSerialization.OptIn)]
     class Player
     {
         public enum Type
@@ -14,8 +16,12 @@ namespace Yahtzee.model
             Gamer
         }
 
+        [JsonProperty]
         private Type m_playerType;
+
+        [JsonProperty]
         private List<Die> m_dice = new List<Die>();
+
         private strategy.IPlayStrategy m_playStrategy;
 
         public Player(String a_name, int a_playerType, strategy.StrategyFactory a_strategyFactory)
@@ -26,7 +32,10 @@ namespace Yahtzee.model
             ScoreCard = a_strategyFactory.GetScoreCard();
         }
 
+        [JsonProperty]
         public String Name { get; }
+
+        [JsonProperty]
         public strategy.IScoreCard ScoreCard { get; } // TIDY UP PROPERTIES WITH GETTERS AND SETTERS
 
         public void PlayRound(int rollsPerRound)
