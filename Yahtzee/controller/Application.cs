@@ -29,6 +29,9 @@ namespace Yahtzee.controller
                 var players = m_view.GetPlayers();
 
                 m_game.NewGame(players);
+
+                m_game.SaveGame();
+
             }
             else if (input == MainMenuInput.Continue)
             {

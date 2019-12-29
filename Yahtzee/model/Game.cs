@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Yahtzee.model
 {
@@ -34,6 +36,12 @@ namespace Yahtzee.model
                     Console.WriteLine($"Player name: {p.Name}, Final Score {scores[15]}");
                 }
             }
+        }
+
+        public void SaveGame()
+        {
+            string json = JsonConvert.SerializeObject(this, Formatting.Indented);
+            File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data.json", json);
         }
     }
 }
