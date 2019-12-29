@@ -53,7 +53,7 @@ namespace Yahtzee.model.rules
             return catList.Cast<Category>();
         }
 
-        public Nullable<int>[] GetCurrentScores()
+        public Nullable<int>[] GetScores()
         {
             Nullable<int>[] scores = new Nullable<int>[16]{
                 cat_Ones.Score,

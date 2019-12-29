@@ -12,6 +12,7 @@ namespace Yahtzee.model
 
         public void NewGame(Dictionary<string, int> a_players)
         {
+            // create players
             a_players.ToList().ForEach(player => 
                 m_players.Add(new Player(player.Key, player.Value, new rules.RulesFactory())));
 
@@ -21,8 +22,10 @@ namespace Yahtzee.model
                 for (int i = 0; i < 13; i++)
                 {
                     p.PlayRound(m_rollsPerRound);
+
+                    var scores = p.ScoreCard.GetScores();
+                    Console.WriteLine($"Player name: {p.Name}, Final Score {scores[15]}");
                 }
-                p.ScoreCard.PrintFinalScore();
             }
         }
     }

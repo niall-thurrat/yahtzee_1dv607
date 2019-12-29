@@ -14,19 +14,19 @@ namespace Yahtzee.model
             Gamer
         }
 
-        private String m_name;
         private Type m_playerType;
         private List<Die> m_dice = new List<Die>();
         private rules.IPlayStrategy m_playStrategy;
 
         public Player(String a_name, int a_playerType, rules.RulesFactory a_rulesFactory)
         {
-            m_name = a_name;
+            Name = a_name;
             m_playerType = (Type)a_playerType;
             m_playStrategy = a_rulesFactory.GetPlayStrategy();
             ScoreCard = a_rulesFactory.GetScoreCard();
         }
 
+        public String Name { get; }
         public rules.IScoreCard ScoreCard { get; } // TIDY UP PROPERTIES WITH GETTERS AND SETTERS
 
         public void PlayRound(int rollsPerRound)
