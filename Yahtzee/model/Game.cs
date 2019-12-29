@@ -41,7 +41,7 @@ namespace Yahtzee.model
         public void SaveGame()
         {
             string json = JsonConvert.SerializeObject(this, Formatting.Indented);
-            File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data.json", json);
+            File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\currentGame.json", json);
         }
     }
 }
