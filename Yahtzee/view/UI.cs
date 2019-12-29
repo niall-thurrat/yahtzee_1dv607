@@ -135,6 +135,10 @@ namespace Yahtzee.view
                             }
                         }
                     }
+
+                    Console.Clear();
+                    Console.WriteLine("\nOK!! Now lets play yahtzee :)");
+                    Thread.Sleep(2000);
                 }
             }
             catch (FormatException)
