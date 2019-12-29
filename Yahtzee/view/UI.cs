@@ -159,6 +159,11 @@ namespace Yahtzee.view
             return players;
         }
 
+        /// DISPLAY GAME MENU
+
+        /// DISPLAY CURRENT PLAYER DETIALS + GAME SCORECARD (use serialized game object to do this - pass it through control)
+        /// dont forget to make rendering of game details adaptable to Triple strategy and scorecard
+        
     //     public void DisplayPlayerScoreCard(IEnumerable<model.Card> a_hand, int a_score)
     //     {
     //         DisplayHand("PLAYER", a_hand, a_score);
