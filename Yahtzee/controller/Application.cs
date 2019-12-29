@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using UserInput = Yahtzee.view.UI.MainOption;
+using MainMenuInput = Yahtzee.view.UI.MainMenuInput;
 
 namespace Yahtzee.controller
 {
@@ -18,9 +18,9 @@ namespace Yahtzee.controller
             m_game = a_game;
 		}
 
-        public bool Play()
+        public void Play()
         {
-            m_view.DisplayWelcomeMessage();
+            m_view.DisplayMainMenu();
 
             // m_view.DisplayPlayerDice(m_game.GetPlayerDice(), m_game.GetPlayerScore());
 
@@ -29,22 +29,28 @@ namespace Yahtzee.controller
             //     m_view.DisplayGameOver(m_game.IsDealerWinner());
             // }
 
-            UserInput input = m_view.GetInput();
+            MainMenuInput input = m_view.GetMainInput();
 
-            if (input == UserInput.Play)
+            if (input == MainMenuInput.Play)
             {
-                m_game.NewGame();
+                var players = m_view.GetPlayers();
+
+            // TEST LINE    players.ToList().ForEach(x => Console.WriteLine($"KEY: {x.Key}, VALUE: {x.Value}"));
+
+                m_game.NewGame(players);
             }
-            else if (input == UserInput.Continue)
+            else if (input == MainMenuInput.Continue)
             {
                 // m_game.Hit();
             }
-            else if (input == UserInput.ViewPrevious)
+            else if (input == MainMenuInput.ViewPrevious)
             {
                 // m_game.Stand();
             }
-
-            return input != UserInput.Quit;
+            else
+            {
+                // m_game.QuitApp();;
+            }
         }
     }
 }

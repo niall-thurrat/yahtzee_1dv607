@@ -8,7 +8,7 @@ namespace Yahtzee.model
     class Game
     {
         private List<Player> m_players = new List<Player>();
-        private int m_rollsPerRound = 3;
+        private int m_rollsPerRound = 3; ////// should this be here/hardcoded ??
 
         public Game()
         {
@@ -17,7 +17,7 @@ namespace Yahtzee.model
 
         public void PlayGame()
         {
-            foreach (Player p in m_players) ////////////// FOR TESTING - COULD BE REMOVED
+            foreach (Player p in m_players) ////////////// FOR TESTING - COULD BE REMOVED - not used at present
             {
                 for (int i = 0; i < 13; i++)
                 {
@@ -27,7 +27,7 @@ namespace Yahtzee.model
             }
         }
 
-        public void NewGame()
+        public void NewGame(Dictionary<string, int> players)
         {
             // return m_dealer.NewGame(m_player); ////////////////////was bool!
             Console.WriteLine("OK lets play yahtzee");
