@@ -16,18 +16,18 @@ namespace Yahtzee.model
 
         private Type m_playerType;
         private List<Die> m_dice = new List<Die>();
-        private rules.IPlayStrategy m_playStrategy;
+        private strategy.IPlayStrategy m_playStrategy;
 
-        public Player(String a_name, int a_playerType, rules.RulesFactory a_rulesFactory)
+        public Player(String a_name, int a_playerType, strategy.StrategyFactory a_strategyFactory)
         {
             Name = a_name;
             m_playerType = (Type)a_playerType;
-            m_playStrategy = a_rulesFactory.GetPlayStrategy();
-            ScoreCard = a_rulesFactory.GetScoreCard();
+            m_playStrategy = a_strategyFactory.GetPlayStrategy();
+            ScoreCard = a_strategyFactory.GetScoreCard();
         }
 
         public String Name { get; }
-        public rules.IScoreCard ScoreCard { get; } // TIDY UP PROPERTIES WITH GETTERS AND SETTERS
+        public strategy.IScoreCard ScoreCard { get; } // TIDY UP PROPERTIES WITH GETTERS AND SETTERS
 
         public void PlayRound(int rollsPerRound)
         {

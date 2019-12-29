@@ -18,7 +18,7 @@ namespace Yahtzee.controller
             m_game = a_game;
 		}
 
-        public void Play()
+        public void Run()
         {
             m_view.DisplayMainMenu();
 

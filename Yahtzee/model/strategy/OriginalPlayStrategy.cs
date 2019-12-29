@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Cat = Yahtzee.model.Category.Type;
 
-namespace Yahtzee.model.rules
+namespace Yahtzee.model.strategy
 {
     class OriginalPlayStrategy : IPlayStrategy
     {

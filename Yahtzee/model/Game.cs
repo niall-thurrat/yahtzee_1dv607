@@ -14,7 +14,7 @@ namespace Yahtzee.model
         {
             // create players
             a_players.ToList().ForEach(player => 
-                m_players.Add(new Player(player.Key, player.Value, new rules.RulesFactory())));
+                m_players.Add(new Player(player.Key, player.Value, new strategy.StrategyFactory())));
 
             // DEAL WITH GAMERS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             foreach (Player p in m_players)
