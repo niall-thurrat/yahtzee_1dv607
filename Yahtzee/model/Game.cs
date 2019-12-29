@@ -10,6 +10,13 @@ namespace Yahtzee.model
         private List<Player> m_players = new List<Player>();
         private int m_rollsPerRound = 3; ////// should this be here/hardcoded ??
 
+        public Game ()
+        {
+            CreatedDate = DateTime.Now;
+        }
+
+        public DateTime CreatedDate { get; }
+ 
         public void NewGame(Dictionary<string, int> a_players)
         {
             // create players
