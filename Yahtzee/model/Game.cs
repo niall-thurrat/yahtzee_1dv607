@@ -36,10 +36,10 @@ namespace Yahtzee.model
                 for (int i = 0; i < 13; i++)
                 {
                     p.PlayRound(m_rollsPerRound);
-
-                    var scores = p.ScoreCard.GetScores();
-                    Console.WriteLine($"Player name: {p.Name}, Final Score {scores[15]}");
                 }
+
+                var scores = p.ScoreCard.GetScores();
+                Console.WriteLine($"Player name: {p.Name}, Final Score {scores[15]}");
             }
         }
 
@@ -47,7 +47,7 @@ namespace Yahtzee.model
         {
             // if (game not finished)
             string json = JsonConvert.SerializeObject(this, Formatting.Indented);
-            File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\currentGame.json", json);
+            File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", json);
 
             // else (ie game complete)
             // string appendText = "This is extra text" + Environment.NewLine;
