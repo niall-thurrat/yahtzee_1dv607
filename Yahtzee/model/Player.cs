@@ -19,10 +19,10 @@ namespace Yahtzee.model
         private List<Die> m_dice = new List<Die>();
         private rules.IPlayStrategy m_playStrategy;
 
-        public Player(String a_name, Type a_playerType, rules.RulesFactory a_rulesFactory)
+        public Player(String a_name, int a_playerType, rules.RulesFactory a_rulesFactory)
         {
             m_name = a_name;
-            m_playerType = a_playerType;
+            m_playerType = (Type)a_playerType;
             m_playStrategy = a_rulesFactory.GetPlayStrategy();
             ScoreCard = a_rulesFactory.GetScoreCard();
         }
@@ -36,7 +36,6 @@ namespace Yahtzee.model
             while (rollsLeft > 0)
             {
                 RollDice();
-                GetValues(); // Just for console print - remove
                 rollsLeft--;
 
                 Cat chosenCat = m_playStrategy.Use(this, rollsLeft);
@@ -55,7 +54,7 @@ namespace Yahtzee.model
                     ClearDice();
                 }
 
-                ScoreCard.Print();
+                // TEST LINE ScoreCard.Print();
             }
         }
 
@@ -84,7 +83,7 @@ namespace Yahtzee.model
 
         private void GetValues()
         {
-            foreach (Die die in m_dice) ////////////////////////////// for testing - remove
+            foreach (Die die in m_dice) ////////////////////////////// for testing - remove - or useful for UI?
             {
                 Console.Write($"-  {die.GetValue()}  ");
             }

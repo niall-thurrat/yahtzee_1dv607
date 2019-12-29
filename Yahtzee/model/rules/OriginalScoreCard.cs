@@ -470,6 +470,7 @@ namespace Yahtzee.model.rules
 
         public void PrintFinalScore()
         {
+            Print();
             Console.WriteLine(ToString());
         }
 

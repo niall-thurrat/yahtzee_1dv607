@@ -10,14 +10,13 @@ namespace Yahtzee.model
         private List<Player> m_players = new List<Player>();
         private int m_rollsPerRound = 3; ////// should this be here/hardcoded ??
 
-        public Game()
+        public void NewGame(Dictionary<string, int> a_players)
         {
-            m_players.Add(new Player("NiallBot", Player.Type.Computer, new rules.RulesFactory()));
-        }
+            a_players.ToList().ForEach(player => 
+                m_players.Add(new Player(player.Key, player.Value, new rules.RulesFactory())));
 
-        public void PlayGame()
-        {
-            foreach (Player p in m_players) ////////////// FOR TESTING - COULD BE REMOVED - not used at present
+            // DEAL WITH GAMERS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            foreach (Player p in m_players)
             {
                 for (int i = 0; i < 13; i++)
                 {
@@ -25,14 +24,6 @@ namespace Yahtzee.model
                 }
                 p.ScoreCard.PrintFinalScore();
             }
-        }
-
-        public void NewGame(Dictionary<string, int> players)
-        {
-            // return m_dealer.NewGame(m_player); ////////////////////was bool!
-            Console.WriteLine("OK lets play yahtzee");
-            // Thread.Sleep(1000);
-            // Do something!!!
         }
     }
 }
