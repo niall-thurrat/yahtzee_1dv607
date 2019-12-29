@@ -21,14 +21,7 @@ namespace Yahtzee.controller
         {
             m_view.DisplayMainMenu();
 
-            // m_view.DisplayPlayerDice(m_game.GetPlayerDice(), m_game.GetPlayerScore());
-
-            // if (m_game.IsGameOver())
-            // {
-            //     m_view.DisplayGameOver(m_game.IsDealerWinner());
-            // }
-
-            MainMenuInput input = m_view.GetMainInput();
+            var input = m_view.GetMainInput();
 
             if (input == MainMenuInput.Play)
             {

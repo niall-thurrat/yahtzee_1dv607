@@ -164,11 +164,6 @@ namespace Yahtzee.view
     //         DisplayHand("PLAYER", a_hand, a_score);
     //     }
 
-    //     public void DisplayDealerHand(IEnumerable<model.Card> a_hand, int a_score)
-    //     {
-    //         DisplayHand("DEALER", a_hand, a_score);
-    //     }
-
     //     private void DisplayHand(String a_name, IEnumerable<model.Card> a_hand, int a_score)
     //     {
     //         System.Console.Write("{0} HAS", a_name);
