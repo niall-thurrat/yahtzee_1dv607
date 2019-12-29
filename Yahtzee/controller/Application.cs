@@ -12,10 +12,9 @@ namespace Yahtzee.controller
         private view.UI m_view;
         private model.Game m_game;
 
-		public Application(view.UI a_view, model.Game a_game)
+		public Application(view.UI a_view)
 		{
 			m_view = a_view;
-            m_game = a_game;
 		}
 
         public void Run()
@@ -33,9 +32,8 @@ namespace Yahtzee.controller
 
             if (input == MainMenuInput.Play)
             {
+                m_game = new model.Game();
                 var players = m_view.GetPlayers();
-
-            // TEST LINE    players.ToList().ForEach(x => Console.WriteLine($"KEY: {x.Key}, VALUE: {x.Value}"));
 
                 m_game.NewGame(players);
             }

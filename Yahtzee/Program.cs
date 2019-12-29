@@ -6,9 +6,8 @@ namespace Yahtzee
     {
         static void Main(string[] args)
         {
-            model.Game g = new model.Game();
             view.UI v = new view.UI();
-            controller.Application ctrl = new controller.Application(v, g);
+            controller.Application ctrl = new controller.Application(v);
 
             ctrl.Run();
         }
