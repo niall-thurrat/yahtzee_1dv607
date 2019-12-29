@@ -53,6 +53,30 @@ namespace Yahtzee.model.rules
             return catList.Cast<Category>();
         }
 
+        public Nullable<int>[] GetCurrentScores()
+        {
+            Nullable<int>[] scores = new Nullable<int>[16]{
+                cat_Ones.Score,
+                cat_Twos.Score,
+                cat_Threes.Score,
+                cat_Fours.Score,
+                cat_Fives.Score,
+                cat_Sixes.Score,
+                cat_x3.Score,
+                cat_x4.Score,
+                cat_FullHouse.Score,
+                cat_Small.Score,
+                cat_Large.Score,
+                cat_Yahtzee.Score,
+                cat_Chance.Score,
+                cat_UpperBonus.Score,
+                cat_YahtzeeBonus.Score,
+                TotalScore
+                };
+
+            return scores;
+        }
+
         public void Update(List<Die> dice, Cat category)
         {
             switch (category)
@@ -457,28 +481,5 @@ namespace Yahtzee.model.rules
 
             return score;
         }
-
-        public void Print()
-        {
-            var cats = GetCategories();
-
-            foreach (Category c in cats)
-            {
-                Console.WriteLine(c.ToString());
-            }
-        }
-
-        public void PrintFinalScore()
-        {
-            Print();
-            Console.WriteLine(ToString());
-        }
-
-        public override string ToString()
-		{
-			return $"BONUS CATEGORY: Upper Section, SCORE: {cat_UpperBonus.Score}\n" + 
-            $"BONUS CATEGORY: Yahtzee, SCORE: {cat_YahtzeeBonus.Score}\n" + 
-            $"TOTAL SCORE: {TotalScore}";
-		}
 	}
 }

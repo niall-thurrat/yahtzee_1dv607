@@ -8,6 +8,7 @@ namespace Yahtzee.model.rules
     interface IScoreCard
     {
         IEnumerable<Category> GetCategories();
+        Nullable<int>[] GetCurrentScores();
         void Update(List<Die> dice, Category.Type cat);
         void UpdateYahtzeeBonus(List<Die> dice, Category.Type chosenCat);
         bool IsThreeOfAKind(List<Die> dice);
@@ -17,7 +18,5 @@ namespace Yahtzee.model.rules
         bool IsYahtzee(List<Die> dice);
         bool IsBonusYahtzee(List<Die> dice);
         bool IsUsed(Category.Type cat);
-        void Print();
-        void PrintFinalScore();
     }
 }

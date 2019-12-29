@@ -63,13 +63,7 @@ namespace Yahtzee.model
 
 		public bool IsUsed()
 		{
-			return m_isUsed ? true : false;
-		}
-
-		public override string ToString()
-		{
-			return IsUsed() ? $"CATEGORY: {CatType}, SCORE: {Score}"
-				: $"CATEGORY: {CatType}, SCORE: empty"; // should a nullable int be used for score??
+			return m_isUsed ? true : false; /////////////////////// can Nullable<int>.HasValue replace this???
 		}
 	}
 }
