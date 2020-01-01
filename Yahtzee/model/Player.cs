@@ -17,9 +17,6 @@ namespace Yahtzee.model
         }
 
         [JsonProperty]
-        private Type m_playerType;
-
-        [JsonProperty]
         private List<Die> m_dice = new List<Die>();
 
         private strategy.IPlayStrategy m_playStrategy;
@@ -27,13 +24,16 @@ namespace Yahtzee.model
         public Player(String a_name, int a_playerType, strategy.StrategyFactory a_strategyFactory)
         {
             Name = a_name;
-            m_playerType = (Type)a_playerType;
+            PlayerType = (Type)a_playerType;
             m_playStrategy = a_strategyFactory.GetPlayStrategy();
             ScoreCard = a_strategyFactory.GetScoreCard();
         }
 
         [JsonProperty]
         public String Name { get; }
+
+        [JsonProperty]
+        public Type PlayerType { get; }
 
         [JsonProperty]
         public strategy.IScoreCard ScoreCard { get; } // TIDY UP PROPERTIES WITH GETTERS AND SETTERS

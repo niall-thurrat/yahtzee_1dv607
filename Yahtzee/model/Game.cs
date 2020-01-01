@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -43,9 +44,28 @@ namespace Yahtzee.model
         {
             var currentPlayer = m_players[NextPlayer];
 
-            Console.WriteLine($"THIS IS THE CURRENT PLAYER: {currentPlayer.Name}");
+            if (currentPlayer.PlayerType == Player.Type.Gamer)
+            {
+                return true;
+            }
+            else if (currentPlayer.PlayerType == Player.Type.Computer)
+            {
+                currentPlayer.PlayRound(m_rollsPerRound);
+            }
+            else
+            {
+                throw new Exception("Player Type is not recognised.");
+                // thread?
+                // play() again?
+            }
+            
+            return false;
 
-            return true;
+
+             ///  TESTING
+            // Console.WriteLine("BLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            // Console.WriteLine($"THIS IS THE CURRENT PLAYER: {currentPlayer.Name}");
+            // Thread.Sleep(2000);
 
             /*
             foreach (Player p in m_players)

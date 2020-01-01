@@ -9,7 +9,7 @@ namespace Yahtzee
             view.UI v = new view.UI();
             controller.Application ctrl = new controller.Application(v);
 
-            ctrl.Run();
+            while (ctrl.Run());
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Yahtzee.controller
 			m_view = a_view;
 		}
 
-        public void Run()
+        public bool Run()
         {
             m_view.DisplayMainMenu();
 
@@ -29,28 +29,46 @@ namespace Yahtzee.controller
                 var players = m_view.GetPlayers();
                 m_game = new model.Game(players);
                 
+                /// computer players will continue to play until its a gamers turn (true) or game ends (false)
                 bool IsGamersTurn = m_game.Play();
 
                 if (IsGamersTurn)
                 {
                     m_view.DisplayGameMenu();
                 }
+                else
+                {
+                    m_game.SaveGame();
+                    this.Run();
+                }
 
-                // m_game.SaveGame();
+                return true;
 
             }
             else if (input == MainMenuInput.Continue)
             {
-                // m_game.Hit();
+                // get/deserialize saved json object
+                // parse necesary info
+                // initialize and instanciate game object with info
+
+                return true;
             }
             else if (input == MainMenuInput.ViewPrevious)
             {
-                // m_game.Stand();
+                // menu to choose full details or short list
+                // access data to display
+
+                return true;
             }
-            else
+            else if (input == MainMenuInput.Quit)
             {
-                // m_game.QuitApp();;
+                // display some sort of thanks for playing message
+                // thread.sleep
+                // clear
+                return false;
             }
+
+            return true;
         }
     }
 }
