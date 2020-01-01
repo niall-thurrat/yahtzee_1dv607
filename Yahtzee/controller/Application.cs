@@ -23,14 +23,20 @@ namespace Yahtzee.controller
 
             var input = m_view.GetMainInput();
 
+            /// ///////////////////////////////////////// CHANGE TO SWITCH
             if (input == MainMenuInput.Play)
             {
-                m_game = new model.Game();
                 var players = m_view.GetPlayers();
+                m_game = new model.Game(players);
+                
+                bool IsGamersTurn = m_game.Play();
 
-                m_game.NewGame(players);
+                if (IsGamersTurn)
+                {
+                    m_view.DisplayGameMenu();
+                }
 
-                m_game.SaveGame();
+                // m_game.SaveGame();
 
             }
             else if (input == MainMenuInput.Continue)

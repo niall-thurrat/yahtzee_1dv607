@@ -19,7 +19,7 @@
         },
         "cat_Fours": {
           "CatType": 3,
-          "Score": 4
+          "Score": 12
         },
         "cat_Fives": {
           "CatType": 4,
@@ -27,7 +27,7 @@
         },
         "cat_Sixes": {
           "CatType": 5,
-          "Score": 18
+          "Score": 0
         },
         "cat_UpperBonus": {
           "CatType": 6,
@@ -35,11 +35,11 @@
         },
         "cat_x3": {
           "CatType": 7,
-          "Score": 16
+          "Score": 21
         },
         "cat_x4": {
           "CatType": 8,
-          "Score": 26
+          "Score": 24
         },
         "cat_FullHouse": {
           "CatType": 9,
@@ -59,13 +59,13 @@
         },
         "cat_Chance": {
           "CatType": 13,
-          "Score": 15
+          "Score": 21
         },
         "cat_YahtzeeBonus": {
           "CatType": 14,
-          "Score": 0
+          "Score": 100
         },
-        "TotalScore": 232
+        "TotalScore": 331
       }
     },
     {
@@ -75,11 +75,11 @@
       "ScoreCard": {
         "cat_Ones": {
           "CatType": 0,
-          "Score": 4
+          "Score": 2
         },
         "cat_Twos": {
           "CatType": 1,
-          "Score": 4
+          "Score": 6
         },
         "cat_Threes": {
           "CatType": 2,
@@ -95,7 +95,7 @@
         },
         "cat_Sixes": {
           "CatType": 5,
-          "Score": 24
+          "Score": 6
         },
         "cat_UpperBonus": {
           "CatType": 6,
@@ -103,7 +103,7 @@
         },
         "cat_x3": {
           "CatType": 7,
-          "Score": 25
+          "Score": 20
         },
         "cat_x4": {
           "CatType": 8,
@@ -119,7 +119,7 @@
         },
         "cat_Large": {
           "CatType": 11,
-          "Score": 40
+          "Score": 0
         },
         "cat_Yahtzee": {
           "CatType": 12,
@@ -127,220 +127,16 @@
         },
         "cat_Chance": {
           "CatType": 13,
-          "Score": 16
+          "Score": 19
         },
         "cat_YahtzeeBonus": {
           "CatType": 14,
           "Score": 0
         },
-        "TotalScore": 217
-      }
-    },
-    {
-      "m_playerType": 0,
-      "m_dice": [],
-      "Name": "Computer #3",
-      "ScoreCard": {
-        "cat_Ones": {
-          "CatType": 0,
-          "Score": 1
-        },
-        "cat_Twos": {
-          "CatType": 1,
-          "Score": 8
-        },
-        "cat_Threes": {
-          "CatType": 2,
-          "Score": 6
-        },
-        "cat_Fours": {
-          "CatType": 3,
-          "Score": 12
-        },
-        "cat_Fives": {
-          "CatType": 4,
-          "Score": 15
-        },
-        "cat_Sixes": {
-          "CatType": 5,
-          "Score": 0
-        },
-        "cat_UpperBonus": {
-          "CatType": 6,
-          "Score": 0
-        },
-        "cat_x3": {
-          "CatType": 7,
-          "Score": 14
-        },
-        "cat_x4": {
-          "CatType": 8,
-          "Score": 0
-        },
-        "cat_FullHouse": {
-          "CatType": 9,
-          "Score": 0
-        },
-        "cat_Small": {
-          "CatType": 10,
-          "Score": 30
-        },
-        "cat_Large": {
-          "CatType": 11,
-          "Score": 40
-        },
-        "cat_Yahtzee": {
-          "CatType": 12,
-          "Score": 0
-        },
-        "cat_Chance": {
-          "CatType": 13,
-          "Score": 20
-        },
-        "cat_YahtzeeBonus": {
-          "CatType": 14,
-          "Score": 0
-        },
-        "TotalScore": 146
-      }
-    },
-    {
-      "m_playerType": 0,
-      "m_dice": [],
-      "Name": "Computer #4",
-      "ScoreCard": {
-        "cat_Ones": {
-          "CatType": 0,
-          "Score": 3
-        },
-        "cat_Twos": {
-          "CatType": 1,
-          "Score": 6
-        },
-        "cat_Threes": {
-          "CatType": 2,
-          "Score": 12
-        },
-        "cat_Fours": {
-          "CatType": 3,
-          "Score": 0
-        },
-        "cat_Fives": {
-          "CatType": 4,
-          "Score": 20
-        },
-        "cat_Sixes": {
-          "CatType": 5,
-          "Score": 18
-        },
-        "cat_UpperBonus": {
-          "CatType": 6,
-          "Score": 0
-        },
-        "cat_x3": {
-          "CatType": 7,
-          "Score": 0
-        },
-        "cat_x4": {
-          "CatType": 8,
-          "Score": 14
-        },
-        "cat_FullHouse": {
-          "CatType": 9,
-          "Score": 0
-        },
-        "cat_Small": {
-          "CatType": 10,
-          "Score": 30
-        },
-        "cat_Large": {
-          "CatType": 11,
-          "Score": 40
-        },
-        "cat_Yahtzee": {
-          "CatType": 12,
-          "Score": 0
-        },
-        "cat_Chance": {
-          "CatType": 13,
-          "Score": 17
-        },
-        "cat_YahtzeeBonus": {
-          "CatType": 14,
-          "Score": 0
-        },
-        "TotalScore": 160
-      }
-    },
-    {
-      "m_playerType": 0,
-      "m_dice": [],
-      "Name": "Computer #5",
-      "ScoreCard": {
-        "cat_Ones": {
-          "CatType": 0,
-          "Score": 3
-        },
-        "cat_Twos": {
-          "CatType": 1,
-          "Score": 8
-        },
-        "cat_Threes": {
-          "CatType": 2,
-          "Score": 6
-        },
-        "cat_Fours": {
-          "CatType": 3,
-          "Score": 16
-        },
-        "cat_Fives": {
-          "CatType": 4,
-          "Score": 10
-        },
-        "cat_Sixes": {
-          "CatType": 5,
-          "Score": 18
-        },
-        "cat_UpperBonus": {
-          "CatType": 6,
-          "Score": 0
-        },
-        "cat_x3": {
-          "CatType": 7,
-          "Score": 0
-        },
-        "cat_x4": {
-          "CatType": 8,
-          "Score": 12
-        },
-        "cat_FullHouse": {
-          "CatType": 9,
-          "Score": 0
-        },
-        "cat_Small": {
-          "CatType": 10,
-          "Score": 30
-        },
-        "cat_Large": {
-          "CatType": 11,
-          "Score": 40
-        },
-        "cat_Yahtzee": {
-          "CatType": 12,
-          "Score": 0
-        },
-        "cat_Chance": {
-          "CatType": 13,
-          "Score": 22
-        },
-        "cat_YahtzeeBonus": {
-          "CatType": 14,
-          "Score": 0
-        },
-        "TotalScore": 165
+        "TotalScore": 157
       }
     }
   ],
   "m_rollsPerRound": 3,
-  "CreatedDate": "2019-12-29T19:11:37.301366+01:00"
+  "CreatedDate": "2020-01-01T02:06:14.3640053+01:00"
 }

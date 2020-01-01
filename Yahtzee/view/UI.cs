@@ -27,7 +27,19 @@ namespace Yahtzee.view
                 "\n\n1 Play New Game" +
                 "\n2 Continue Saved Game" +
                 "\n3 View Previous Games" +
-                "\n4 Quit");
+                "\n4 Quit App");
+        }
+
+        public void DisplayGameMenu()
+        {
+            Console.Clear();
+            Console.WriteLine(
+                "\nGAME MENU" +
+                "\n\n1 Roll The Dice" +
+                "\n2 Hold Dice 1..." +
+                "\n7 Select a category" +
+                "\n8 Save Game" +
+                "\n9 Quit Game");
         }
 
         public MainMenuInput GetMainInput()

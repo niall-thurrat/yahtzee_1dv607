@@ -16,21 +16,38 @@ namespace Yahtzee.model
         [JsonProperty]
         private int m_rollsPerRound = 3; ////// should this be here/hardcoded ??
 
-        public Game ()
+        public Game (Dictionary<string, int> a_players)
         {
+            a_players.ToList().ForEach(player => 
+                m_players.Add(new Player(player.Key, player.Value, new strategy.StrategyFactory())));
+
             CreatedDate = DateTime.Now;
+            Status = "InProgress";
+            Round = 1;
+            NextPlayer = 0;
         }
 
         [JsonProperty]
         public DateTime CreatedDate { get; }
- 
-        public void NewGame(Dictionary<string, int> a_players)
-        {
-            // create players
-            a_players.ToList().ForEach(player => 
-                m_players.Add(new Player(player.Key, player.Value, new strategy.StrategyFactory())));
 
-            // DEAL WITH GAMERS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        [JsonProperty]
+        public string Status { get; private set; }
+
+        [JsonProperty]
+        public int Round { get; private set; }
+
+        [JsonProperty]
+        public int NextPlayer { get; private set; }
+ 
+        public bool Play()
+        {
+            var currentPlayer = m_players[NextPlayer];
+
+            Console.WriteLine($"THIS IS THE CURRENT PLAYER: {currentPlayer.Name}");
+
+            return true;
+
+            /*
             foreach (Player p in m_players)
             {
                 for (int i = 0; i < 13; i++)
@@ -41,6 +58,7 @@ namespace Yahtzee.model
                 var scores = p.ScoreCard.GetScores();
                 Console.WriteLine($"Player name: {p.Name}, Final Score {scores[15]}");
             }
+            */
         }
 
         public void SaveGame()
