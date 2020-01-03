@@ -61,11 +61,11 @@ namespace Yahtzee.model
             return false;
         }
 
-        public bool Play(string playerChoice)
+        public void GamerRolls()
         {
-            Console.WriteLine($"THE OVERFLOW PLAY IS HERE - CHOICE: {playerChoice}");
+            Console.WriteLine($"GAMERRIOOLLS IS HERE");
             Thread.Sleep(3000);
-            return false;
+            // return false;
         }
 
         // TEST CODE

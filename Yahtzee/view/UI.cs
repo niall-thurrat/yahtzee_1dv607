@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Yahtzee.view
 {
@@ -37,10 +39,10 @@ namespace Yahtzee.view
             Console.WriteLine(
                 "Welcome to Yahtzee, the world's most awesome game!" +
                 "\n\nMAIN MENU" +
-                "\n\n1 Play New Game" +
-                "\n2 Continue Saved Game" +
-                "\n3 View Previous Games" +
-                "\n4 Quit App");
+                "\n  1 Play New Game" +
+                "\n  2 Continue Saved Game" +
+                "\n  3 View Previous Games" +
+                "\n  4 Quit App");
         }
 
         public void DisplayGameMenu()
@@ -48,14 +50,14 @@ namespace Yahtzee.view
             Console.Clear();
             Console.WriteLine(
                 "\nGAME MENU" +
-                "\n\n1 Roll The Dice" +
-                "\n2 Hold Dice 1" +
-                "\n3 Hold Dice 2" +
-                "\n4 Hold Dice 3" +
-                "\n5 Hold Dice 4" +
-                "\n6 Hold Dice 5" +
-                "\n7 Select a category" +
-                "\n8 Quit Game");
+                "\n  1 Roll The Dice" +
+                "\n  2 Hold Dice 1" +
+                "\n  3 Hold Dice 2" +
+                "\n  4 Hold Dice 3" +
+                "\n  5 Hold Dice 4" +
+                "\n  6 Hold Dice 5" +
+                "\n  7 Select a category" +
+                "\n  8 Quit Game");
         }
 
         // ////////////////////// CHANGE TO SWITCH??
@@ -228,11 +230,16 @@ namespace Yahtzee.view
             return players;
         }
 
-        /// DISPLAY GAME MENU
-
         /// DISPLAY CURRENT PLAYER DETIALS + GAME SCORECARD (use serialized game object to do this - pass it through control)
         /// dont forget to make rendering of game details adaptable to Triple strategy and scorecard
         
+        public void DisplayGameDetails(string gameJson)
+        {
+            JObject o = JObject.Parse(gameJson);
+
+            Console.WriteLine("\ntheres gonna be some fun right here");
+        }
+
     //     public void DisplayPlayerScoreCard(IEnumerable<model.Card> a_hand, int a_score)
     //     {
     //         DisplayHand("PLAYER", a_hand, a_score);

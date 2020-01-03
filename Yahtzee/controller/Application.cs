@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Newtonsoft.Json;
 using MainMenuInput = Yahtzee.view.UI.MainMenuInput;
 using GameMenuInput = Yahtzee.view.UI.GameMenuInput;
 
@@ -39,6 +40,9 @@ namespace Yahtzee.controller
                         if (GamerToPlay)
                         {
                             while (GamerPlays());
+
+                            /// ENDING GAME JUST TO BREAK WHILE LOOP HERE - TEMP SOLUTION -FIGURE THIS OUT FOR QUIT GAME
+                            return false;
                         }
                         // GAME OVER
                         else
@@ -79,29 +83,19 @@ namespace Yahtzee.controller
         {
             m_view.DisplayGameMenu();
 
+            // is formatting indented necessary if we're just parsing this but not really viewing it as such?
+            string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
+            m_view.DisplayGameDetails(gameJson);
+
             var input = m_view.GetGameInput();
 
             switch (input)
             {
                 case GameMenuInput.Roll:
-                    m_game.Play("yippy");
-                    /*
-                    while (m_game.Status == "InProgress")
-                    {
-                        // computer players continue to play until it's a gamer's turn (true) or game ends (false)
-                        bool GamerToPlay = m_game.Play();
 
-                        // GAMER'S TURN
-                        if (GamerToPlay)
-                        {
-                            GamerPlays();
-                        }
-                        // GAME OVER
-                        else
-                        {
-                            m_game.SaveGame();
-                        }
-                    } */
+                // send message to observer here
+
+                    m_game.GamerRolls();
                 
                     return true;
 
