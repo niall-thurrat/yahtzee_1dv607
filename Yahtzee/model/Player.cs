@@ -21,12 +21,13 @@ namespace Yahtzee.model
 
         private strategy.IPlayStrategy m_playStrategy;
 
-        public Player(String a_name, int a_playerType, strategy.StrategyFactory a_strategyFactory)
+        public Player(String a_name, int a_playerType, int a_rollsLeft, strategy.StrategyFactory a_strategyFactory)
         {
             Name = a_name;
             PlayerType = (Type)a_playerType;
             m_playStrategy = a_strategyFactory.GetPlayStrategy();
             ScoreCard = a_strategyFactory.GetScoreCard();
+            RollsLeft = a_rollsLeft;
         }
 
         [JsonProperty]
@@ -39,17 +40,15 @@ namespace Yahtzee.model
         public strategy.IScoreCard ScoreCard { get; } // TIDY UP PROPERTIES WITH GETTERS AND SETTERS
 
         [JsonProperty]
-        public int rollsLeft  { get; private set; }
+        public int RollsLeft { get; private set; }
 
         public void PlayRound(int rollsPerRound)
         {
-            rollsLeft = rollsPerRound;
-
-            while (rollsLeft > 0)
+            while (RollsLeft > 0)
             {
                 RollDice();
 
-                Cat chosenCat = m_playStrategy.Use(this, rollsLeft);
+                Cat chosenCat = m_playStrategy.Use(this, RollsLeft);
 
                 if (chosenCat != Cat.NoCategory)
                 {
@@ -60,7 +59,7 @@ namespace Yahtzee.model
                     }
                     else ScoreCard.Update(m_dice, chosenCat);
 
-                    rollsLeft = 0;
+                    RollsLeft = 0;
                     // I don't think dice need unheld after each round but keep eye on this - maybe do here with a private void UnHoldAllDice()
                     ClearDice();
                 }
@@ -90,8 +89,8 @@ namespace Yahtzee.model
                     // TESTcount++; ///////////////////////// remove
                 }
             }
-
-            rollsLeft--;
+            
+            RollsLeft--;
         }
 
         private void GetValues()

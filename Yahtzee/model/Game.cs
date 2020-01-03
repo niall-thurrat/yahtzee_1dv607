@@ -20,7 +20,7 @@ namespace Yahtzee.model
         public Game (Dictionary<string, int> a_players)
         {
             a_players.ToList().ForEach(player => 
-                m_players.Add(new Player(player.Key, player.Value, new strategy.StrategyFactory())));
+                m_players.Add(new Player(player.Key, player.Value, m_rollsPerRound, new strategy.StrategyFactory())));
 
             CreatedDate = DateTime.Now;
             Status = "InProgress";
