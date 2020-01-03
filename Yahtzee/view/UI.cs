@@ -18,6 +18,19 @@ namespace Yahtzee.view
             InvalidEntry
         }
 
+        public enum GameMenuInput
+        {
+            Roll = 0,
+            HoldDie1,
+            HoldDie2,
+            HoldDie3,
+            HoldDie4,
+            HoldDie5,
+            ChooseCat,
+            Quit,
+            InvalidEntry
+        }
+
         public void DisplayMainMenu()
         {
             Console.Clear();
@@ -36,11 +49,16 @@ namespace Yahtzee.view
             Console.WriteLine(
                 "\nGAME MENU" +
                 "\n\n1 Roll The Dice" +
-                "\n2 Hold Dice 1..." +
+                "\n2 Hold Dice 1" +
+                "\n3 Hold Dice 2" +
+                "\n4 Hold Dice 3" +
+                "\n5 Hold Dice 4" +
+                "\n6 Hold Dice 5" +
                 "\n7 Select a category" +
-                "\n8 Save Game" +
-                "\n9 Quit Game");
+                "\n8 Quit Game");
         }
+
+        // ////////////////////// CHANGE TO SWITCH??
 
         public MainMenuInput GetMainInput()
         {
@@ -63,6 +81,45 @@ namespace Yahtzee.view
                 return MainMenuInput.Quit;
             }
             return MainMenuInput.InvalidEntry;
+        }
+
+        public GameMenuInput GetGameInput()
+        {
+            int input = int.Parse(Console.ReadLine());
+
+            if (input == 1)
+            {
+                return GameMenuInput.Roll;
+            }
+            else if (input == 2)
+            {
+                return GameMenuInput.HoldDie1;
+            }
+            else if (input == 3)
+            {
+                return GameMenuInput.HoldDie2;
+            }
+            else if (input == 4)
+            {
+                return GameMenuInput.HoldDie3;
+            }
+            else if (input == 5)
+            {
+                return GameMenuInput.HoldDie4;
+            }
+            else if (input == 6)
+            {
+                return GameMenuInput.HoldDie5;
+            }
+            else if (input == 7)
+            {
+                return GameMenuInput.ChooseCat;
+            }
+            else if (input == 8)
+            {
+                return GameMenuInput.Quit;
+            }
+            return GameMenuInput.InvalidEntry;
         }
 
         public Dictionary<string, int> GetPlayers()
