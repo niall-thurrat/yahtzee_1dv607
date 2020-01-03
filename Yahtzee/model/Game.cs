@@ -61,6 +61,13 @@ namespace Yahtzee.model
             return false;
         }
 
+        public bool Play(string playerChoice)
+        {
+            Console.WriteLine($"THE OVERFLOW PLAY IS HERE - CHOICE: {playerChoice}");
+            Thread.Sleep(3000);
+            return false;
+        }
+
         // TEST CODE
         // Console.WriteLine($"NEXT PLAYER INDEX: {NextPlayerIndex}");
         // Thread.Sleep(1500);

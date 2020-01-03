@@ -38,7 +38,7 @@ namespace Yahtzee.controller
                         // GAMER'S TURN
                         if (GamerToPlay)
                         {
-                            GamerPlays();
+                            while (GamerPlays());
                         }
                         // GAME OVER
                         else
@@ -84,9 +84,8 @@ namespace Yahtzee.controller
             switch (input)
             {
                 case GameMenuInput.Roll:
-                    var players = m_view.GetPlayers();
-                    m_game = new model.Game(players);
-                    
+                    m_game.Play("yippy");
+                    /*
                     while (m_game.Status == "InProgress")
                     {
                         // computer players continue to play until it's a gamer's turn (true) or game ends (false)
@@ -102,7 +101,7 @@ namespace Yahtzee.controller
                         {
                             m_game.SaveGame();
                         }
-                    }
+                    } */
                 
                     return true;
 
