@@ -60,7 +60,7 @@ namespace Yahtzee.model.strategy
         {
             get
             {
-                var cats = GetCategories();
+                var cats = GetCategories(); // should this become private?
                 int totalScore = 0;
 
                 foreach (Category c in cats)
@@ -85,28 +85,9 @@ namespace Yahtzee.model.strategy
             return catList.Cast<Category>();
         }
 
-        public Nullable<int>[] GetScores()
+        public int GetTotalScore()
         {
-            Nullable<int>[] scores = new Nullable<int>[16]{
-                cat_Ones.Score,
-                cat_Twos.Score,
-                cat_Threes.Score,
-                cat_Fours.Score,
-                cat_Fives.Score,
-                cat_Sixes.Score,
-                cat_x3.Score,
-                cat_x4.Score,
-                cat_FullHouse.Score,
-                cat_Small.Score,
-                cat_Large.Score,
-                cat_Yahtzee.Score,
-                cat_Chance.Score,
-                cat_UpperBonus.Score,
-                cat_YahtzeeBonus.Score,
-                TotalScore
-                };
-
-            return scores;
+            return TotalScore;
         }
 
         public void Update(List<Die> dice, Cat category)

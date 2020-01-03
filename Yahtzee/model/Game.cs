@@ -25,7 +25,7 @@ namespace Yahtzee.model
             CreatedDate = DateTime.Now;
             Status = "InProgress";
             Round = 1;
-            NextPlayer = 0;
+            NextPlayerIndex = 0;
         }
 
         [JsonProperty]
@@ -38,47 +38,52 @@ namespace Yahtzee.model
         public int Round { get; private set; }
 
         [JsonProperty]
-        public int NextPlayer { get; private set; }
+        public int NextPlayerIndex { get; private set; }
  
         public bool Play()
         {
-            var currentPlayer = m_players[NextPlayer];
+            var nextPlayer = m_players[NextPlayerIndex];
 
-            if (currentPlayer.PlayerType == Player.Type.Gamer)
+            // computer players do their stuff until it's a gamer's turn or game ends
+            while (nextPlayer.PlayerType == Player.Type.Computer
+                && Status == "InProgress")
+            {
+                nextPlayer.PlayRound(m_rollsPerRound);
+                UpdateGameProgress();
+                nextPlayer = m_players[NextPlayerIndex];
+            }
+            
+            if (nextPlayer.PlayerType == Player.Type.Gamer)
             {
                 return true;
             }
-            else if (currentPlayer.PlayerType == Player.Type.Computer)
-            {
-                currentPlayer.PlayRound(m_rollsPerRound);
-            }
-            else
-            {
-                throw new Exception("Player Type is not recognised.");
-                // thread?
-                // play() again?
-            }
-            
+
             return false;
+        }
 
+        // TEST CODE
+        // Console.WriteLine($"NEXT PLAYER INDEX: {NextPlayerIndex}");
+        // Thread.Sleep(1500);
 
-             ///  TESTING
-            // Console.WriteLine("BLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            // Console.WriteLine($"THIS IS THE CURRENT PLAYER: {currentPlayer.Name}");
-            // Thread.Sleep(2000);
-
-            /*
-            foreach (Player p in m_players)
+        public void UpdateGameProgress()
+        {
+            // If there's another player to play in this round
+            if (NextPlayerIndex < m_players.Count - 1)
             {
-                for (int i = 0; i < 13; i++)
-                {
-                    p.PlayRound(m_rollsPerRound);
-                }
-
-                var scores = p.ScoreCard.GetScores();
-                Console.WriteLine($"Player name: {p.Name}, Final Score {scores[15]}");
+                NextPlayerIndex++;
             }
-            */
+            // else start a new round
+            else
+            {   
+                Round++;
+                NextPlayerIndex = 0;
+
+                // game is finished after 13 rounds ///hard coded 13 round here !!!!!!!!!!!!!!!!
+                if (Round == 14)
+                {
+                    Status = "Finished";
+                }
+            }
         }
 
         public void SaveGame()

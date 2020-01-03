@@ -29,21 +29,24 @@ namespace Yahtzee.controller
                 var players = m_view.GetPlayers();
                 m_game = new model.Game(players);
                 
-                /// computer players will continue to play until its a gamers turn (true) or game ends (false)
-                bool IsGamersTurn = m_game.Play();
-
-                if (IsGamersTurn)
+                while (m_game.Status == "InProgress")
                 {
-                    m_view.DisplayGameMenu();
-                }
-                else
-                {
-                    m_game.SaveGame();
-                    this.Run();
-                }
+                    // computer players continue to play until it's a gamer's turn (true) or game ends (false)
+                    bool GamerToPlay = m_game.Play();
 
+                    // GAMER'S TURN
+                    if (GamerToPlay)
+                    {
+                        m_view.DisplayGameMenu();
+                    }
+                    // GAME OVER
+                    else
+                    {
+                        m_game.SaveGame();
+                    }
+                }
+            
                 return true;
-
             }
             else if (input == MainMenuInput.Continue)
             {
