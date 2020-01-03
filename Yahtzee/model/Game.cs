@@ -55,6 +55,8 @@ namespace Yahtzee.model
             
             if (nextPlayer.PlayerType == Player.Type.Gamer)
             {
+
+                nextPlayer.RollDice();
                 return true;
             }
 
@@ -63,9 +65,9 @@ namespace Yahtzee.model
 
         public void GamerRolls()
         {
-            Console.WriteLine($"GAMERRIOOLLS IS HERE");
-            Thread.Sleep(3000);
-            // return false;
+            var nextPlayer = m_players[NextPlayerIndex]; // should this be a property on the game class?  in play above also
+
+            nextPlayer.RollDice();
         }
 
         // TEST CODE

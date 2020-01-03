@@ -38,14 +38,16 @@ namespace Yahtzee.model
         [JsonProperty]
         public strategy.IScoreCard ScoreCard { get; } // TIDY UP PROPERTIES WITH GETTERS AND SETTERS
 
+        [JsonProperty]
+        public int rollsLeft  { get; private set; }
+
         public void PlayRound(int rollsPerRound)
         {
-            int rollsLeft = rollsPerRound;
+            rollsLeft = rollsPerRound;
 
             while (rollsLeft > 0)
             {
                 RollDice();
-                rollsLeft--;
 
                 Cat chosenCat = m_playStrategy.Use(this, rollsLeft);
 
@@ -67,7 +69,7 @@ namespace Yahtzee.model
             }
         }
 
-        private void RollDice()
+        public void RollDice()
         {
             if (m_dice.Count() != 5)
             {
@@ -88,6 +90,8 @@ namespace Yahtzee.model
                     // TESTcount++; ///////////////////////// remove
                 }
             }
+
+            rollsLeft--;
         }
 
         private void GetValues()
