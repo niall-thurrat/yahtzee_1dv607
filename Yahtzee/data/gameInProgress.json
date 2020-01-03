@@ -7,11 +7,7 @@
           "IsHeld": false
         },
         {
-          "m_value": 4,
-          "IsHeld": false
-        },
-        {
-          "m_value": 6,
+          "m_value": 1,
           "IsHeld": false
         },
         {
@@ -19,11 +15,15 @@
           "IsHeld": false
         },
         {
-          "m_value": 2,
+          "m_value": 3,
+          "IsHeld": false
+        },
+        {
+          "m_value": 1,
           "IsHeld": false
         }
       ],
-      "Name": "sdvadfadf",
+      "Name": "df",
       "PlayerType": 1,
       "ScoreCard": {
         "cat_Ones": {
@@ -88,11 +88,11 @@
         },
         "TotalScore": 0
       },
-      "RollsLeft": 1
+      "RollsLeft": 0
     }
   ],
   "m_rollsPerRound": 3,
-  "CreatedDate": "2020-01-03T16:03:55.8909249+01:00",
+  "CreatedDate": "2020-01-03T17:06:26.1651994+01:00",
   "Status": "InProgress",
   "Round": 1,
   "NextPlayerIndex": 0

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.IO;
 using MainMenuInput = Yahtzee.view.UI.MainMenuInput;
 using GameMenuInput = Yahtzee.view.UI.GameMenuInput;
@@ -83,14 +84,15 @@ namespace Yahtzee.controller
 
         public bool GamerPlays()
         {
-            m_view.DisplayGameMenu();
-
             // is formatting indented necessary if we're just parsing this but not really viewing it as such?
             string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
 
             // FOR TESTING
             File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
 
+            int rollsLeft = m_game.getRollsLeft();
+
+            m_view.DisplayGameMenu(rollsLeft);
             m_view.DisplayGameDetails(gameJson);
 
             var input = m_view.GetGameInput();

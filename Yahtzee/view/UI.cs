@@ -45,22 +45,28 @@ namespace Yahtzee.view
                 "\n  4 Quit App");
         }
 
-        public void DisplayGameMenu()
+        public void DisplayGameMenu(int rollsLeft)
         {
             Console.Clear();
-            Console.WriteLine(
-                "\nGAME MENU" +
-                "\n  1 Roll The Dice" +
+            Console.WriteLine("\nGAME MENU");
+
+            if (rollsLeft > 0)
+            {
+                Console.WriteLine(
+                "  1 Roll The Dice" +
                 "\n  2 Hold Dice 1" +
                 "\n  3 Hold Dice 2" +
                 "\n  4 Hold Dice 3" +
                 "\n  5 Hold Dice 4" +
-                "\n  6 Hold Dice 5" +
-                "\n  7 Select a category" +
+                "\n  6 Hold Dice 5");
+            }
+
+            Console.WriteLine(
+                "  7 Select a category" +
                 "\n  8 Quit Game");
         }
 
-        // ////////////////////// CHANGE TO SWITCH??
+        // ////////////////////// CHANGE TO SWITCH
 
         public MainMenuInput GetMainInput()
         {
@@ -220,8 +226,10 @@ namespace Yahtzee.view
         public void DisplayGameDetails(string gameJson)
         {
             JObject o = JObject.Parse(gameJson);
+            int player1RollsLeft = (int)o.SelectToken("m_players[0].RollsLeft");
 
             Console.WriteLine("\ntheres gonna be some fun right here");
+            Console.WriteLine($"{player1RollsLeft}");
         }
 
         private void TextToConsole(string text)

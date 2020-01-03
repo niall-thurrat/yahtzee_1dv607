@@ -27,7 +27,7 @@ namespace Yahtzee.model
             PlayerType = (Type)a_playerType;
             m_playStrategy = a_strategyFactory.GetPlayStrategy();
             ScoreCard = a_strategyFactory.GetScoreCard();
-            RollsLeft = a_rollsLeft;
+            RollsLeft = a_rollsLeft + 1;
         }
 
         [JsonProperty]
@@ -42,7 +42,7 @@ namespace Yahtzee.model
         [JsonProperty]
         public int RollsLeft { get; private set; }
 
-        public void PlayRound(int rollsPerRound)
+        public void PlayRound()
         {
             while (RollsLeft > 0)
             {

@@ -48,7 +48,7 @@ namespace Yahtzee.model
             while (nextPlayer.PlayerType == Player.Type.Computer
                 && Status == "InProgress")
             {
-                nextPlayer.PlayRound(m_rollsPerRound);
+                nextPlayer.PlayRound();
                 UpdateGameProgress();
                 nextPlayer = m_players[NextPlayerIndex];
             }
@@ -93,6 +93,12 @@ namespace Yahtzee.model
                     Status = "Finished";
                 }
             }
+        }
+
+        public int getRollsLeft()
+        {
+            var player = m_players[NextPlayerIndex];
+            return player.RollsLeft;
         }
 
         public void SaveGame()
