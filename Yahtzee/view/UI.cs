@@ -138,9 +138,7 @@ namespace Yahtzee.view
 
                 if (playerAmount < 1 || playerAmount > 5)
                 {
-                    Console.Clear(); //  refactor this into handelError() or throw custom error - prob better as func so other errors in catch blocks can call it
-                    Console.WriteLine("\nYou didn't enter a number between 1-5!");
-                    Thread.Sleep(2000);
+                    TextToConsole("\nYou didn't enter a number between 1-5!");//  refactor this into handelError() or throw custom error - prob better as func so other errors in catch blocks can call it
                     this.GetPlayers();
                 }
                 else
@@ -158,9 +156,7 @@ namespace Yahtzee.view
 
                         if (playerType < 1 || playerType > 2)
                         {
-                            Console.Clear();
-                            Console.WriteLine("\nYou didn't enter either number 1 or 2.... START AGAIN!");
-                            Thread.Sleep(2000);
+                            TextToConsole("\nYou didn't enter either number 1 or 2.... START AGAIN!");
                             this.GetPlayers();
                         }
                         else
@@ -182,20 +178,14 @@ namespace Yahtzee.view
 
                                 if (playerName.Length < 1 || playerName.Length > 11)
                                 {
-                                    Console.Clear();
-                                    Console.WriteLine("\nYour name is not the right length! START AGAIN.");
-                                    Thread.Sleep(2000);
+                                    TextToConsole("\nYour name is not the right length! START AGAIN.");
                                     players.Clear();
-
                                     this.GetPlayers();
                                 }
                                 else if (players.ContainsKey(playerName))
                                 {
-                                    Console.Clear();
-                                    Console.WriteLine("\nThis name has been used! START AGAIN.");
-                                    Thread.Sleep(2000);
+                                    TextToConsole("\nThis name has been used! START AGAIN.");
                                     players.Clear();
-
                                     this.GetPlayers();
                                 }
                                 else
@@ -207,23 +197,17 @@ namespace Yahtzee.view
                         }
                     }
 
-                    Console.Clear();
-                    Console.WriteLine("\nOK!! Now lets play yahtzee :)");
-                    Thread.Sleep(2000);
+                    TextToConsole("\nOK!! Now lets play yahtzee :)");
                 }
             }
             catch (FormatException)
             {
-                Console.Clear();
-                Console.WriteLine("\nYou didn't give a valid entry! START AGAIN");
-                Thread.Sleep(2000);
+                TextToConsole("\nYou didn't give a valid entry! START AGAIN");
                 this.GetPlayers();
             }
             catch (Exception ex)
             {
-                Console.Clear();
-                Console.WriteLine(ex.Message);
-                Thread.Sleep(2000);
+                TextToConsole(ex.Message);
                 this.GetPlayers();
             }
 
@@ -240,50 +224,11 @@ namespace Yahtzee.view
             Console.WriteLine("\ntheres gonna be some fun right here");
         }
 
-    //     public void DisplayPlayerScoreCard(IEnumerable<model.Card> a_hand, int a_score)
-    //     {
-    //         DisplayHand("PLAYER", a_hand, a_score);
-    //     }
-
-    //     private void DisplayHand(String a_name, IEnumerable<model.Card> a_hand, int a_score)
-    //     {
-    //         System.Console.Write("{0} HAS", a_name);
-
-    //         if (a_hand.Count() == 0)
-    //         {
-    //             Console.WriteLine("  --  no cards");
-    //             System.Console.WriteLine("Score: {0}", a_score);
-    //             System.Console.WriteLine("");
-    //         }
-    //         else
-    //         {
-    //             foreach (model.Card c in a_hand)
-    //             {
-    //                 DisplayCard(c);
-    //             }
-    //             System.Console.WriteLine();
-    //             System.Console.WriteLine("Score: {0}", a_score);
-    //             System.Console.WriteLine("");
-    //         }
-    //     }
-
-    //     public void DisplayCard(model.Card a_card)
-    //     {
-    //         System.Console.Write("  --  {0} of {1}", a_card.GetValue(), a_card.GetColor());
-    //     }
-
-    //     public void DisplayGameOver(bool a_dealerIsWinner)
-    //     {
-    //         System.Console.Write("GameOver: ");
-    //         if (a_dealerIsWinner)
-    //         {
-    //             System.Console.WriteLine("Dealer Won!");
-    //         }
-    //         else
-    //         {
-    //             System.Console.WriteLine("You Won!");
-    //         }
-            
-    //     }
+        private void TextToConsole(string text)
+        {
+            Console.Clear();
+            Console.WriteLine(text);
+            Thread.Sleep(2000);
+        }
      }
 }

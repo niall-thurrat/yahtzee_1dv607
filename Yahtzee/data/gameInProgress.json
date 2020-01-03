@@ -3,11 +3,11 @@
     {
       "m_dice": [
         {
-          "m_value": 1,
+          "m_value": 4,
           "IsHeld": false
         },
         {
-          "m_value": 3,
+          "m_value": 4,
           "IsHeld": false
         },
         {
@@ -15,15 +15,15 @@
           "IsHeld": false
         },
         {
-          "m_value": 1,
+          "m_value": 4,
           "IsHeld": false
         },
         {
-          "m_value": 1,
+          "m_value": 2,
           "IsHeld": false
         }
       ],
-      "Name": "cdcd",
+      "Name": "sdvadfadf",
       "PlayerType": 1,
       "ScoreCard": {
         "cat_Ones": {
@@ -88,11 +88,11 @@
         },
         "TotalScore": 0
       },
-      "RollsLeft": -1
+      "RollsLeft": 1
     }
   ],
   "m_rollsPerRound": 3,
-  "CreatedDate": "2020-01-03T15:49:53.1074577+01:00",
+  "CreatedDate": "2020-01-03T16:03:55.8909249+01:00",
   "Status": "InProgress",
   "Round": 1,
   "NextPlayerIndex": 0
