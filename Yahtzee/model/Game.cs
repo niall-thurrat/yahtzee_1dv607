@@ -95,7 +95,7 @@ namespace Yahtzee.model
             }
         }
 
-        public int getRollsLeft()
+        public int GetRollsLeft()
         {
             var player = m_players[NextPlayerIndex];
             return player.RollsLeft;

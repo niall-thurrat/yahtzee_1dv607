@@ -223,13 +223,85 @@ namespace Yahtzee.view
         /// DISPLAY CURRENT PLAYER DETIALS + GAME SCORECARD (use serialized game object to do this - pass it through control)
         /// dont forget to make rendering of game details adaptable to Triple strategy and scorecard
         
-        public void DisplayGameDetails(string gameJson)
+        public void DisplayGameDetails(string gameJson, int playerIndex)
         {
             JObject o = JObject.Parse(gameJson);
-            int player1RollsLeft = (int)o.SelectToken("m_players[0].RollsLeft");
 
-            Console.WriteLine("\ntheres gonna be some fun right here");
-            Console.WriteLine($"{player1RollsLeft}");
+            string name = (string)o.SelectToken($"m_players[{playerIndex}].Name");
+            int round = (int)o.SelectToken($"Round");
+            int rollsLeft = (int)o.SelectToken("m_players[0].RollsLeft");
+
+            string d1Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[0].m_value");
+            bool d1Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[0].IsHeld");
+
+            string d2Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[1].m_value");
+            bool d2Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[1].IsHeld");
+
+            string d3Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[2].m_value");
+            bool d3Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[2].IsHeld");
+
+            string d4Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[3].m_value");
+            bool d4Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[3].IsHeld");
+
+            string d5Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[4].m_value");
+            bool d5Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[4].IsHeld");
+
+            JArray players = (JArray)o.SelectToken("m_players"); // use this array to iterate through????????????
+            int playersCount = players.Count;
+
+
+            Console.WriteLine($"\nPLAYER: {name}   ROUND: {round}   ROLLS LEFT: {rollsLeft}");
+            Console.WriteLine($"CURRENT DICE: {d1Value}{IsHeld(d1Hold)}, {d2Value}{IsHeld(d2Hold)}, " +
+            $"{d3Value}{IsHeld(d3Hold)}, {d4Value}{IsHeld(d4Hold)}, {d5Value}{IsHeld(d5Hold)}");
+
+            Console.WriteLine("\nGAME CARD");
+
+            Console.Write("--------------------");
+            for (int i = 0; i < playersCount; i++)
+            {
+                Console.Write("|-------------");
+            }
+
+            Console.Write("\nCATEGORY            ");
+            foreach (var player in players)
+            {
+                string playerName = (string)player.SelectToken("Name");
+                Console.Write($"|{playerName, -13}");
+            }
+
+            Console.Write("\n--------------------");
+            for (int i = 0; i < playersCount; i++)
+            {
+                Console.Write("|-------------");
+            }
+
+            Console.Write("\nOnes                ");
+            WriteCatScores("cat_Ones", players);
+
+            Console.Write("\nTwos                ");
+            WriteCatScores("cat_Twos", players);
+
+            Console.Write("\nThrees              ");
+            WriteCatScores("cat_Threes", players);
+
+            Console.Write("\nFours               ");
+            WriteCatScores("cat_Fours", players);
+
+            Console.Write("\nFives               ");
+            WriteCatScores("cat_Fives", players);
+
+            Console.Write("\nSixes               ");
+            WriteCatScores("cat_Sixes", players);
+        }
+        private void WriteCatScores(string category, JArray players)
+        {
+            foreach (var player in players)
+            {
+                JObject scoreCard = (JObject)player.SelectToken("ScoreCard");
+                JObject cat = (JObject)player.SelectToken(category);
+                string score = (string)player.SelectToken("Score");
+                Console.Write($"|{score, -13}");
+            }
         }
 
         private void TextToConsole(string text)
@@ -238,5 +310,7 @@ namespace Yahtzee.view
             Console.WriteLine(text);
             Thread.Sleep(2000);
         }
+
+        private string IsHeld(bool isHeld) => (isHeld) ? " (Held)" : "";
      }
 }

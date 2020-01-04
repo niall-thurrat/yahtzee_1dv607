@@ -90,10 +90,10 @@ namespace Yahtzee.controller
             // FOR TESTING
             File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
 
-            int rollsLeft = m_game.getRollsLeft();
+            int rollsLeft = m_game.GetRollsLeft();
 
             m_view.DisplayGameMenu(rollsLeft);
-            m_view.DisplayGameDetails(gameJson);
+            m_view.DisplayGameDetails(gameJson, m_game.NextPlayerIndex);
 
             var input = m_view.GetGameInput();
 
