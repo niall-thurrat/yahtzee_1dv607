@@ -101,6 +101,12 @@ namespace Yahtzee.model
             return player.RollsLeft;
         }
 
+        public void GamerHoldsDie(int dieIndex)
+        {
+            var player = m_players[NextPlayerIndex];
+            player.HoldDie(dieIndex);
+        }
+
         public void SaveGame()
         {
             // if (game not finished)

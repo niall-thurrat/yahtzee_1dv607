@@ -3,27 +3,27 @@
     {
       "m_dice": [
         {
+          "m_value": 4,
+          "IsHeld": true
+        },
+        {
+          "m_value": 5,
+          "IsHeld": true
+        },
+        {
+          "m_value": 3,
+          "IsHeld": true
+        },
+        {
+          "m_value": 5,
+          "IsHeld": true
+        },
+        {
           "m_value": 2,
-          "IsHeld": false
-        },
-        {
-          "m_value": 5,
-          "IsHeld": false
-        },
-        {
-          "m_value": 3,
-          "IsHeld": false
-        },
-        {
-          "m_value": 5,
-          "IsHeld": false
-        },
-        {
-          "m_value": 3,
           "IsHeld": false
         }
       ],
-      "Name": "dfdfdfd",
+      "Name": "fvfvf",
       "PlayerType": 1,
       "ScoreCard": {
         "cat_Ones": {
@@ -89,79 +89,10 @@
         "TotalScore": 0
       },
       "RollsLeft": 0
-    },
-    {
-      "m_dice": [],
-      "Name": "ghghg",
-      "PlayerType": 1,
-      "ScoreCard": {
-        "cat_Ones": {
-          "CatType": 0,
-          "Score": 0
-        },
-        "cat_Twos": {
-          "CatType": 1,
-          "Score": 0
-        },
-        "cat_Threes": {
-          "CatType": 2,
-          "Score": 0
-        },
-        "cat_Fours": {
-          "CatType": 3,
-          "Score": 0
-        },
-        "cat_Fives": {
-          "CatType": 4,
-          "Score": 0
-        },
-        "cat_Sixes": {
-          "CatType": 5,
-          "Score": 0
-        },
-        "cat_UpperBonus": {
-          "CatType": 6,
-          "Score": 0
-        },
-        "cat_x3": {
-          "CatType": 7,
-          "Score": 0
-        },
-        "cat_x4": {
-          "CatType": 8,
-          "Score": 0
-        },
-        "cat_FullHouse": {
-          "CatType": 9,
-          "Score": 0
-        },
-        "cat_Small": {
-          "CatType": 10,
-          "Score": 0
-        },
-        "cat_Large": {
-          "CatType": 11,
-          "Score": 0
-        },
-        "cat_Yahtzee": {
-          "CatType": 12,
-          "Score": 0
-        },
-        "cat_Chance": {
-          "CatType": 13,
-          "Score": 0
-        },
-        "cat_YahtzeeBonus": {
-          "CatType": 14,
-          "Score": 0
-        },
-        "TotalScore": 0
-      },
-      "RollsLeft": 4
     }
   ],
   "m_rollsPerRound": 3,
-  "CreatedDate": "2020-01-05T19:15:19.3338351+01:00",
+  "CreatedDate": "2020-01-05T19:57:16.3461978+01:00",
   "Status": "InProgress",
   "Round": 1,
   "NextPlayerIndex": 0

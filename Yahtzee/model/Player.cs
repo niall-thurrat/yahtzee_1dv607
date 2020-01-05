@@ -93,6 +93,12 @@ namespace Yahtzee.model
             RollsLeft--;
         }
 
+        public void HoldDie(int dieIndex)
+        {
+            var die = m_dice[dieIndex]; // should comp strategy be using this?
+            die.IsHeld = die.IsHeld ? false : true;
+        }
+
         private void GetValues()
         {
             foreach (Die die in m_dice) ////////////////////////////// for testing - remove - or useful for UI?

@@ -108,10 +108,23 @@ namespace Yahtzee.controller
                     return true;
 
                 case GameMenuInput.HoldDie1:
-                    // get/deserialize saved json object
-                    // parse necesary info
-                    // initialize and instanciate game object with info
-
+                    m_game.GamerHoldsDie(0);
+                    return true;
+                
+                case GameMenuInput.HoldDie2:
+                    m_game.GamerHoldsDie(1);
+                    return true;
+                
+                case GameMenuInput.HoldDie3:
+                    m_game.GamerHoldsDie(2);
+                    return true;
+                
+                case GameMenuInput.HoldDie4:
+                    m_game.GamerHoldsDie(3);
+                    return true;
+                
+                case GameMenuInput.HoldDie5:
+                    m_game.GamerHoldsDie(4);
                     return true;
 
                 case GameMenuInput.ChooseCat:
