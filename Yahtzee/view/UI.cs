@@ -47,7 +47,6 @@ namespace Yahtzee.view
 
         public void DisplayGameMenu(int rollsLeft)
         {
-            Console.Clear();
             Console.WriteLine("\nGAME MENU");
 
             if (rollsLeft > 0)
@@ -219,42 +218,15 @@ namespace Yahtzee.view
 
             return players;
         }
-
-        /// DISPLAY CURRENT PLAYER DETIALS + GAME SCORECARD (use serialized game object to do this - pass it through control)
-        /// dont forget to make rendering of game details adaptable to Triple strategy and scorecard
         
         public void DisplayGameDetails(string gameJson, int playerIndex)
         {
             JObject o = JObject.Parse(gameJson);
-
-            string name = (string)o.SelectToken($"m_players[{playerIndex}].Name");
-            int round = (int)o.SelectToken($"Round");
-            int rollsLeft = (int)o.SelectToken("m_players[0].RollsLeft");
-
-            string d1Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[0].m_value");
-            bool d1Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[0].IsHeld");
-
-            string d2Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[1].m_value");
-            bool d2Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[1].IsHeld");
-
-            string d3Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[2].m_value");
-            bool d3Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[2].IsHeld");
-
-            string d4Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[3].m_value");
-            bool d4Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[3].IsHeld");
-
-            string d5Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[4].m_value");
-            bool d5Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[4].IsHeld");
-
             JArray players = (JArray)o.SelectToken("m_players"); // use this array to iterate through????????????
             int playersCount = players.Count;
 
-
-            Console.WriteLine($"\nPLAYER: {name}   ROUND: {round}   ROLLS LEFT: {rollsLeft}");
-            Console.WriteLine($"CURRENT DICE: {d1Value}{IsHeld(d1Hold)}, {d2Value}{IsHeld(d2Hold)}, " +
-            $"{d3Value}{IsHeld(d3Hold)}, {d4Value}{IsHeld(d4Hold)}, {d5Value}{IsHeld(d5Hold)}");
-
-            Console.WriteLine("\nGAME CARD");
+            Console.Clear();
+            Console.WriteLine("GAME CARD");
 
             Console.Write("--------------------");
             for (int i = 0; i < playersCount; i++)
@@ -275,7 +247,7 @@ namespace Yahtzee.view
                 Console.Write("|-------------");
             }
 
-            Console.Write("\nOnes                ");
+            Console.Write("\nOnes                "); ////// FIX THIS COPY AND PASTE MADNESS
             WriteCatScores("cat_Ones", players);
 
             Console.Write("\nTwos                ");
@@ -292,7 +264,61 @@ namespace Yahtzee.view
 
             Console.Write("\nSixes               ");
             WriteCatScores("cat_Sixes", players);
+
+            Console.Write("\nUPPER SECTION BONUS ");
+            WriteCatScores("cat_UpperBonus", players);
+
+            Console.Write("\nThree of a kind     ");
+            WriteCatScores("cat_x3", players);
+
+            Console.Write("\nFour of a kind      ");
+            WriteCatScores("cat_x4", players);
+
+            Console.Write("\nFull House          ");
+            WriteCatScores("cat_FullHouse", players);
+
+            Console.Write("\nSmall               ");
+            WriteCatScores("cat_Small", players);
+
+            Console.Write("\nLarge               ");
+            WriteCatScores("cat_Large", players);
+
+            Console.Write("\nYahtzee             ");
+            WriteCatScores("cat_Yahtzee", players);
+
+            Console.Write("\nChance              ");
+            WriteCatScores("cat_Chance", players);
+
+            Console.Write("\nEXTRA YAHTZEE BONUS ");
+            WriteCatScores("cat_YahtzeeBonus", players);
+
+            Console.Write("\n------ TOTAL ------ ");
+            WriteCatScores("TotalScore", players);
+
+            string name = (string)o.SelectToken($"m_players[{playerIndex}].Name");
+            int round = (int)o.SelectToken($"Round");
+            int rollsLeft = (int)o.SelectToken("m_players[0].RollsLeft");
+
+            string d1Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[0].m_value");
+            bool d1Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[0].IsHeld");
+
+            string d2Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[1].m_value");
+            bool d2Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[1].IsHeld");
+
+            string d3Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[2].m_value");
+            bool d3Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[2].IsHeld");
+
+            string d4Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[3].m_value");
+            bool d4Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[3].IsHeld");
+
+            string d5Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[4].m_value");
+            bool d5Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[4].IsHeld");
+
+            Console.WriteLine($"\n\nPLAYER: {name}   ROUND: {round}   ROLLS LEFT: {rollsLeft}");
+            Console.WriteLine($"CURRENT DICE: {d1Value}{IsHeld(d1Hold)}, {d2Value}{IsHeld(d2Hold)}, " +
+            $"{d3Value}{IsHeld(d3Hold)}, {d4Value}{IsHeld(d4Hold)}, {d5Value}{IsHeld(d5Hold)}");
         }
+
         private void WriteCatScores(string category, JArray players)
         {
             foreach (var player in players)

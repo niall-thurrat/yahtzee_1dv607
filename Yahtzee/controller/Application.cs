@@ -92,8 +92,8 @@ namespace Yahtzee.controller
 
             int rollsLeft = m_game.GetRollsLeft();
 
-            m_view.DisplayGameMenu(rollsLeft);
             m_view.DisplayGameDetails(gameJson, m_game.NextPlayerIndex);
+            m_view.DisplayGameMenu(rollsLeft);
 
             var input = m_view.GetGameInput();
 
