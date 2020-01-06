@@ -4,27 +4,49 @@
       "m_dice": [
         {
           "m_value": 4,
-          "IsHeld": true
-        },
-        {
-          "m_value": 4,
-          "IsHeld": true
-        },
-        {
-          "m_value": 4,
-          "IsHeld": true
+          "IsHeld": false
         },
         {
           "m_value": 1,
           "IsHeld": false
         },
         {
-          "m_value": 4,
-          "IsHeld": true
+          "m_value": 1,
+          "IsHeld": false
+        },
+        {
+          "m_value": 2,
+          "IsHeld": false
+        },
+        {
+          "m_value": 3,
+          "IsHeld": false
         }
       ],
-      "Name": "fgdgf",
+      "Name": "niall",
       "PlayerType": 1,
+      "Dice": [
+        {
+          "m_value": 4,
+          "IsHeld": false
+        },
+        {
+          "m_value": 1,
+          "IsHeld": false
+        },
+        {
+          "m_value": 1,
+          "IsHeld": false
+        },
+        {
+          "m_value": 2,
+          "IsHeld": false
+        },
+        {
+          "m_value": 3,
+          "IsHeld": false
+        }
+      ],
       "ScoreCard": {
         "cat_Ones": {
           "CatType": 0,
@@ -89,11 +111,81 @@
         "TotalScore": 0
       },
       "RollsLeft": 0
+    },
+    {
+      "m_dice": [],
+      "Name": "friend",
+      "PlayerType": 1,
+      "Dice": [],
+      "ScoreCard": {
+        "cat_Ones": {
+          "CatType": 0,
+          "Score": 0
+        },
+        "cat_Twos": {
+          "CatType": 1,
+          "Score": 0
+        },
+        "cat_Threes": {
+          "CatType": 2,
+          "Score": 0
+        },
+        "cat_Fours": {
+          "CatType": 3,
+          "Score": 0
+        },
+        "cat_Fives": {
+          "CatType": 4,
+          "Score": 0
+        },
+        "cat_Sixes": {
+          "CatType": 5,
+          "Score": 0
+        },
+        "cat_UpperBonus": {
+          "CatType": 6,
+          "Score": 0
+        },
+        "cat_x3": {
+          "CatType": 7,
+          "Score": 0
+        },
+        "cat_x4": {
+          "CatType": 8,
+          "Score": 0
+        },
+        "cat_FullHouse": {
+          "CatType": 9,
+          "Score": 0
+        },
+        "cat_Small": {
+          "CatType": 10,
+          "Score": 0
+        },
+        "cat_Large": {
+          "CatType": 11,
+          "Score": 0
+        },
+        "cat_Yahtzee": {
+          "CatType": 12,
+          "Score": 0
+        },
+        "cat_Chance": {
+          "CatType": 13,
+          "Score": 0
+        },
+        "cat_YahtzeeBonus": {
+          "CatType": 14,
+          "Score": 0
+        },
+        "TotalScore": 0
+      },
+      "RollsLeft": 4
     }
   ],
   "m_rollsPerRound": 3,
-  "CreatedDate": "2020-01-06T15:12:00.6107509+01:00",
+  "CreatedDate": "2020-01-06T18:27:15.3359398+01:00",
   "Status": "InProgress",
   "Round": 1,
-  "NextPlayerIndex": 0
+  "CurrentPlayerIndex": 0
 }

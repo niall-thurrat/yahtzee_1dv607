@@ -13,7 +13,7 @@ namespace Yahtzee.model.strategy
         public Cat Use(Player player, int rollsLeft)
         {
             var scoreCard = player.ScoreCard;
-            var dice = player.GetDice();
+            var dice = player.Dice;
             
             UnholdAllDice(player);
 
@@ -163,9 +163,7 @@ namespace Yahtzee.model.strategy
 
         private void UnholdAllDice(Player player)
         {
-            var dice = player.GetDice();
-
-            foreach (Die d in dice)
+            foreach (Die d in player.Dice)
             {
                 d.IsHeld = false;
             }

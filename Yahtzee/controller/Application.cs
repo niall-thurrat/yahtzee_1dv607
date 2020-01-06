@@ -92,7 +92,7 @@ namespace Yahtzee.controller
             // FOR TESTING
             File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
 
-            m_view.DisplayGameDetails(gameJson, m_game.NextPlayerIndex);
+            m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex);
             m_view.DisplayGameMenu(rollsLeft);
 
             var input = m_view.GetGameInput();
@@ -143,9 +143,9 @@ namespace Yahtzee.controller
             }
         }
 
-        public bool GamerChoosesCategory(string gameJson)
+        public void GamerChoosesCategory(string gameJson)
         {
-            m_view.DisplayGameDetails(gameJson, m_game.NextPlayerIndex);
+            m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex);
             m_view.DisplayCategoryMenu();
 
             var input = m_view.GetCatInput();
@@ -153,8 +153,8 @@ namespace Yahtzee.controller
             switch (input)
             {
                 case CatMenuInput.Ones:
-                    m_game.GamerSelectsCat();
-                    return true;
+                    m_game.GamerSelectsCat((int)input);
+                    break;
 /*
                 case GameMenuInput.HoldDie1:
                     m_game.GamerHoldsDie(0);
@@ -188,7 +188,7 @@ namespace Yahtzee.controller
                 default:
                     Console.WriteLine("\nERROR: menu input not recognised");
                     Thread.Sleep(3000);
-                    return true;
+                    break;
             }
         }
     }

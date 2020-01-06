@@ -37,6 +37,12 @@ namespace Yahtzee.model
         public Type PlayerType { get; }
 
         [JsonProperty]
+        public List<Die> Dice { 
+            get { return m_dice; }
+            private set { m_dice = value; }
+        }        
+
+        [JsonProperty]
         public strategy.IScoreCard ScoreCard { get; } // TIDY UP PROPERTIES WITH GETTERS AND SETTERS
 
         [JsonProperty]
@@ -56,38 +62,32 @@ namespace Yahtzee.model
                     if (chosenCat == Cat.YahtzeeBonus)
                     {
                         Cat chosenBonusCat = m_playStrategy.UseYahtzeeBonus(this);
-                        ScoreCard.UpdateYahtzeeBonus(m_dice, chosenBonusCat);
+                        ScoreCard.UpdateYahtzeeBonus(Dice, chosenBonusCat);
                     }
-                    else ScoreCard.Update(m_dice, chosenCat);
+                    else ScoreCard.Update(Dice, chosenCat);
 
                     RollsLeft = 0;
                     // I don't think dice need unheld after each round but keep eye on this - maybe do here with a private void UnHoldAllDice()
                     ClearDice();
                 }
-
-                // TEST LINE ScoreCard.Print();
             }
         }
 
         public void RollDice()
         {
-            if (m_dice.Count() != 5)
+            if (Dice.Count() != 5)
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    m_dice.Add(new Die());
+                    Dice.Add(new Die());
                 }
             }
 
-            //int[] TESTvalues = { 5, 1, 3, 1, 5 }; //////////////////// remove TESTvalue!!!
-            //int TESTcount = 0; /////////////////////// remove
-
-            foreach (Die d in m_dice)
+            foreach (Die d in Dice)
             {
                 if (!d.IsHeld)
                 {
-                    d.Roll(); // TESTvalues[TESTcount]
-                    // TESTcount++; ///////////////////////// remove
+                    d.Roll();
                 }
             }
             
@@ -96,27 +96,13 @@ namespace Yahtzee.model
 
         public void HoldDie(int dieIndex)
         {
-            var die = m_dice[dieIndex]; // should comp strategy be using this?
+            var die = Dice[dieIndex]; // should comp strategy be using this?
             die.IsHeld = die.IsHeld ? false : true;
-        }
-
-        private void GetValues()
-        {
-            foreach (Die die in m_dice) ////////////////////////////// for testing - remove - or useful for UI?
-            {
-                Console.Write($"-  {die.GetValue()}  ");
-            }
-            Console.WriteLine();
         }
 
         public void ClearDice()
         {
-            m_dice.Clear();
-        }
-
-        public List<Die> GetDice()
-        {
-            return m_dice != null ? m_dice : throw new Exception("dice not initialized yet"); ///// ERROR - they will never equal null. Isn't this just a getter anyway?
+            Dice.Clear();
         }
     }
 }
