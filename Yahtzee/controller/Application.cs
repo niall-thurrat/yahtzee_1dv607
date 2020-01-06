@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using MainMenuInput = Yahtzee.view.UI.MainMenuInput;
 using GameMenuInput = Yahtzee.view.UI.GameMenuInput;
+using CatMenuInput = Yahtzee.view.UI.CatMenuInput;
 
 namespace Yahtzee.controller
 {
@@ -76,21 +77,20 @@ namespace Yahtzee.controller
                     return false;
 
                 default:
-                    // throw new Exception("menu input not recognised");
-                    // thread.sleep 2 sec
+                // should this (and other switch error handling) be passsed to the UI to be thrown????????????????????????????
+                    Console.WriteLine("\nERROR: menu input not recognised");
+                    Thread.Sleep(3000);
                     return true;
             }
         }
 
         public bool GamerPlays()
         {
-            // is formatting indented necessary if we're just parsing this but not really viewing it as such?
             string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
+            int rollsLeft = m_game.GetRollsLeft();
 
             // FOR TESTING
             File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
-
-            int rollsLeft = m_game.GetRollsLeft();
 
             m_view.DisplayGameDetails(gameJson, m_game.NextPlayerIndex);
             m_view.DisplayGameMenu(rollsLeft);
@@ -128,9 +128,7 @@ namespace Yahtzee.controller
                     return true;
 
                 case GameMenuInput.ChooseCat:
-                    // menu to choose full details or short list
-                    // access data to display
-
+                    GamerChoosesCategory(gameJson);
                     return false;
 
                 case GameMenuInput.Quit:
@@ -139,8 +137,57 @@ namespace Yahtzee.controller
                     return false;
 
                 default:
-                    // throw new Exception("menu input not recognised");
-                    // thread.sleep 2 sec
+                    Console.WriteLine("\nERROR: menu input not recognised");
+                    Thread.Sleep(3000);
+                    return true;
+            }
+        }
+
+        public bool GamerChoosesCategory(string gameJson)
+        {
+            m_view.DisplayGameDetails(gameJson, m_game.NextPlayerIndex);
+            m_view.DisplayCategoryMenu();
+
+            var input = m_view.GetCatInput();
+
+            switch (input)
+            {
+                case CatMenuInput.Ones:
+                    m_game.GamerSelectsCat();
+                    return true;
+/*
+                case GameMenuInput.HoldDie1:
+                    m_game.GamerHoldsDie(0);
+                    return true;
+                
+                case GameMenuInput.HoldDie2:
+                    m_game.GamerHoldsDie(1);
+                    return true;
+                
+                case GameMenuInput.HoldDie3:
+                    m_game.GamerHoldsDie(2);
+                    return true;
+                
+                case GameMenuInput.HoldDie4:
+                    m_game.GamerHoldsDie(3);
+                    return true;
+                
+                case GameMenuInput.HoldDie5:
+                    m_game.GamerHoldsDie(4);
+                    return true;
+
+                case GameMenuInput.ChooseCat:
+                    GamerChoosesCategory(gameJson);
+                    return false;
+
+                case GameMenuInput.Quit:
+                    // player asked if would like to save
+                    // handle if wants to save game
+                    return false;
+*/
+                default:
+                    Console.WriteLine("\nERROR: menu input not recognised");
+                    Thread.Sleep(3000);
                     return true;
             }
         }

@@ -7,23 +7,23 @@
           "IsHeld": true
         },
         {
-          "m_value": 5,
+          "m_value": 4,
           "IsHeld": true
         },
         {
-          "m_value": 3,
+          "m_value": 4,
           "IsHeld": true
         },
         {
-          "m_value": 5,
-          "IsHeld": true
-        },
-        {
-          "m_value": 2,
+          "m_value": 1,
           "IsHeld": false
+        },
+        {
+          "m_value": 4,
+          "IsHeld": true
         }
       ],
-      "Name": "fvfvf",
+      "Name": "fgdgf",
       "PlayerType": 1,
       "ScoreCard": {
         "cat_Ones": {
@@ -92,7 +92,7 @@
     }
   ],
   "m_rollsPerRound": 3,
-  "CreatedDate": "2020-01-05T19:57:16.3461978+01:00",
+  "CreatedDate": "2020-01-06T15:12:00.6107509+01:00",
   "Status": "InProgress",
   "Round": 1,
   "NextPlayerIndex": 0

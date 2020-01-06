@@ -63,17 +63,6 @@ namespace Yahtzee.model
             return false;
         }
 
-        public void GamerRolls()
-        {
-            var nextPlayer = m_players[NextPlayerIndex]; // should this be a property on the game class?  in play above also
-
-            nextPlayer.RollDice();
-        }
-
-        // TEST CODE
-        // Console.WriteLine($"NEXT PLAYER INDEX: {NextPlayerIndex}");
-        // Thread.Sleep(1500);
-
         public void UpdateGameProgress()
         {
             // If there's another player to play in this round
@@ -95,16 +84,34 @@ namespace Yahtzee.model
             }
         }
 
-        public int GetRollsLeft()
+        public void GamerRolls()
         {
-            var player = m_players[NextPlayerIndex];
-            return player.RollsLeft;
+            var nextPlayer = m_players[NextPlayerIndex]; // should this be a property on the game class?  in play above also
+
+            nextPlayer.RollDice();
         }
 
         public void GamerHoldsDie(int dieIndex)
         {
             var player = m_players[NextPlayerIndex];
             player.HoldDie(dieIndex);
+        }
+
+        public void GamerSelectsCat()
+        {
+            // TEST CODE
+         Console.WriteLine($"YOOOOHOOOOO");
+         Thread.Sleep(1500);
+        }
+
+        // TEST CODE
+        // Console.WriteLine($"NEXT PLAYER INDEX: {NextPlayerIndex}");
+        // Thread.Sleep(1500);
+
+        public int GetRollsLeft()
+        {
+            var player = m_players[NextPlayerIndex];
+            return player.RollsLeft;
         }
 
         public void SaveGame()

@@ -44,6 +44,7 @@ namespace Yahtzee.model
 
         public void PlayRound()
         {
+            // /////////////////////////////// dont think this while loop is needed
             while (RollsLeft > 0)
             {
                 RollDice();
