@@ -51,7 +51,7 @@ namespace Yahtzee.controller
                         // ERASE A GAME FROM FILE IF 10 EXIST ALREADY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! THIS IS REPEATED IN 
                         File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
 
-                        m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.Round);
+                        m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.Round, 0);
                         m_view.DisplayGameOver();                   
                     }
 
@@ -99,7 +99,7 @@ namespace Yahtzee.controller
 
                 string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
 
-                m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.Round);
+                m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.Round, m_game.GetRollsLeft());
                 m_view.DisplayGameMenu(rollsLeft);
 
                 var input = m_view.GetGameInput();
@@ -164,7 +164,8 @@ namespace Yahtzee.controller
 
         public bool GamerSelectsCat(string gameJson)
         {
-            m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.Round);
+            int rollsLeft = m_game.GetRollsLeft();
+            m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.Round, rollsLeft);
             m_view.DisplayCategoryMenu();
 
             var catMenuinput = m_view.GetCatInput();

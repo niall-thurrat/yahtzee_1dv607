@@ -71,12 +71,12 @@ namespace Yahtzee.view
             if (rollsLeft > 0)
             {
                 Console.WriteLine(
-                "  1 Roll The Dice" +
-                "\n  2 Hold/unhold Dice 1" +
-                "\n  3 Hold/unhold Dice 2" +
-                "\n  4 Hold/unhold Dice 3" +
-                "\n  5 Hold/unhold Dice 4" +
-                "\n  6 Hold/unhold Dice 5");
+                "  1 Hold/unhold Dice 1" +
+                "\n  2 Hold/unhold Dice 2" +
+                "\n  3 Hold/unhold Dice 3" +
+                "\n  4 Hold/unhold Dice 4" +
+                "\n  5 Hold/unhold Dice 5" +
+                "\n  6 Roll The Dice");
             }
 
             Console.WriteLine(
@@ -138,22 +138,22 @@ namespace Yahtzee.view
             switch (input)
             {
                 case 1:
-                    return GameMenuInput.Roll;
+                    return GameMenuInput.HoldDie1;
 
                 case 2:
-                    return GameMenuInput.HoldDie1;
-                
-                case 3:
                     return GameMenuInput.HoldDie2;
                 
-                case 4:
+                case 3:
                     return GameMenuInput.HoldDie3;
                 
-                case 5:
+                case 4:
                     return GameMenuInput.HoldDie4;
                 
-                case 6:
+                case 5:
                     return GameMenuInput.HoldDie5;
+                
+                case 6:
+                    return GameMenuInput.Roll;
                 
                 case 7:
                     return GameMenuInput.ChooseCat;
@@ -315,7 +315,7 @@ namespace Yahtzee.view
             Console.ReadKey();
         }
         
-        public void DisplayGameDetails(string gameJson, int playerIndex, int round)
+        public void DisplayGameDetails(string gameJson, int playerIndex, int round, int rollsLeft)
         {
             JObject o = JObject.Parse(gameJson);
             JArray players = (JArray)o.SelectToken("m_players"); // use this array to iterate through????????????
@@ -394,8 +394,6 @@ namespace Yahtzee.view
             if (round < 14)
             {
                 string name = (string)o.SelectToken($"m_players[{playerIndex}].Name");
-                // NOT REQUIORED NOW        int round = (int)o.SelectToken($"Round");
-                int rollsLeft = (int)o.SelectToken("m_players[0].RollsLeft");
 
                 string d1Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[0].m_value");
                 bool d1Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[0].IsHeld");
