@@ -118,7 +118,7 @@ namespace Yahtzee.model
 
         public void ResetRollsLeft()
         {
-            RollsLeft = RollsPerRound;
+            RollsLeft = RollsPerRound; // better if this is private somehow
         }
     }
 }

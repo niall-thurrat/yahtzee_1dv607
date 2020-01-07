@@ -87,7 +87,7 @@ namespace Yahtzee.controller
         // RETURNS FALSE WHEN GAMER ROUND FINISHED
         public bool GamerPlaysRound()
         {
-            if (m_game.GamerNext() && m_game.Status == "InProgress")
+            if (m_game.IsGamerNext() && m_game.Status == "InProgress")
             {
                 int rollsLeft = m_game.GetRollsLeft();
 

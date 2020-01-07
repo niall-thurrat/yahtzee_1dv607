@@ -35,7 +35,7 @@ namespace Yahtzee.view
 
         public enum CatMenuInput
         {
-            Ones = 0,
+            Ones = 1,
             Twos,
             Threes,
             Fours,
@@ -195,6 +195,21 @@ namespace Yahtzee.view
                 
                 case 8:
                     return CatMenuInput.x4;
+
+                case 9:
+                    return CatMenuInput.FullHouse;
+                
+                case 10:
+                    return CatMenuInput.Small;
+                
+                case 11:
+                    return CatMenuInput.Large;
+                
+                case 12:
+                    return CatMenuInput.Yahtzee;
+                
+                case 13:
+                    return CatMenuInput.Chance;
 
                 default:
                     return CatMenuInput.InvalidEntry;

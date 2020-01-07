@@ -80,7 +80,7 @@ namespace Yahtzee.model
             }
         }
 
-        public bool GamerNext()
+        public bool IsGamerNext()
         {
             var player = m_players[CurrentPlayerIndex];
             return player.PlayerType == Player.Type.Gamer ? true : false;
@@ -122,7 +122,7 @@ namespace Yahtzee.model
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"\nERROR: {ex}");
+                Console.WriteLine($"\nERROR: {ex}"); // violates MVC structure
                 Thread.Sleep(3000);
                 return false;
             }
