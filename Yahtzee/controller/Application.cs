@@ -131,9 +131,7 @@ namespace Yahtzee.controller
                         return true;
 
                     case GameMenuInput.ChooseCat:
-                        GamerChoosesCategory(gameJson);
-                        m_game.UpdateGameProgress();
-                        return false;
+                        return GamerSelectsCat(gameJson) ? false : true;
 
                     case GameMenuInput.Quit:
                         // m_view.DisplaySaveOption()
@@ -164,53 +162,13 @@ namespace Yahtzee.controller
             return false;
         }
 
-        public void GamerChoosesCategory(string gameJson)
+        public bool GamerSelectsCat(string gameJson)
         {
             m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.Round);
             m_view.DisplayCategoryMenu();
 
-            var input = m_view.GetCatInput();
-
-            switch (input)
-            {
-                case CatMenuInput.Ones:
-                    m_game.GamerSelectsCat((int)input);
-                    break;
-/*
-                case GameMenuInput.HoldDie1:
-                    m_game.GamerHoldsDie(0);
-                    return true;
-                
-                case GameMenuInput.HoldDie2:
-                    m_game.GamerHoldsDie(1);
-                    return true;
-                
-                case GameMenuInput.HoldDie3:
-                    m_game.GamerHoldsDie(2);
-                    return true;
-                
-                case GameMenuInput.HoldDie4:
-                    m_game.GamerHoldsDie(3);
-                    return true;
-                
-                case GameMenuInput.HoldDie5:
-                    m_game.GamerHoldsDie(4);
-                    return true;
-
-                case GameMenuInput.ChooseCat:
-                    GamerChoosesCategory(gameJson);
-                    return false;
-
-                case GameMenuInput.Quit:
-                    // player asked if would like to save
-                    // handle if wants to save game
-                    return false;
-*/
-                default:
-                    Console.WriteLine("\nERROR: menu input not recognised");
-                    Thread.Sleep(3000);
-                    break;
-            }
+            var catMenuinput = m_view.GetCatInput();
+            return m_game.GamerSelectsCat((int)catMenuinput);
         }
     }
 }

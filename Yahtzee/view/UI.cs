@@ -295,7 +295,8 @@ namespace Yahtzee.view
         public void DisplayGameOver()
         {
             Console.Write("\n\n  GAME OVER" +
-                "\n\nPress any key to continue...");
+                "\n\nYour game has been save to the 10 game log book." +
+                "\nPress any key to continue... ");
             Console.ReadKey();
         }
         
@@ -375,7 +376,7 @@ namespace Yahtzee.view
             Console.Write("\n------ TOTAL ------ ");
             WriteTotalScore(players);
 
-            if (round > 14)
+            if (round < 14)
             {
                 string name = (string)o.SelectToken($"m_players[{playerIndex}].Name");
                 // NOT REQUIORED NOW        int round = (int)o.SelectToken($"Round");

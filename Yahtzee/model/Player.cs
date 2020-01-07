@@ -54,10 +54,6 @@ namespace Yahtzee.model
 
         public void ComputerPlaysRound()
         {
-            // TEST CODE
-            Console.WriteLine($"NEW ROUND BEGINS FOR: {Name}");
-            Thread.Sleep(200);
-
             ResetRollsLeft();
 
             while (RollsLeft > 0)
@@ -120,7 +116,7 @@ namespace Yahtzee.model
             }
         }
 
-        private void ResetRollsLeft()
+        public void ResetRollsLeft()
         {
             RollsLeft = RollsPerRound;
         }

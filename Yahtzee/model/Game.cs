@@ -98,21 +98,34 @@ namespace Yahtzee.model
             player.HoldDie(dieIndex);
         }
 
-        public void GamerSelectsCat(int categoryIndex)
+        public bool GamerSelectsCat(int categoryIndex)
         {
-            var player = m_players[CurrentPlayerIndex];
-            var dice = player.Dice;
-            var cats = player.ScoreCard.GetCategories();
-
-            foreach (Category c in cats)
+            try
             {
-                if ((int)c.CatType == categoryIndex)
-                {
-                    player.ScoreCard.Update(dice, c.CatType);
-                }
-            }
+                var player = m_players[CurrentPlayerIndex];
+                var dice = player.Dice;
+                var cats = player.ScoreCard.GetCategories();
 
-            /// /////////////////////////////////////////////////////////////////////////// HANDLE USER INPUT ERROR
+                foreach (Category c in cats)
+                {
+                    if ((int)c.CatType == categoryIndex)
+                    {
+                        player.ScoreCard.Update(dice, c.CatType); // HANDLE IF CATEGORY IS ALREAD TAKEN + BONUS YAHTZEES
+                        UpdateGameProgress();
+                        player.ResetRollsLeft();
+                        player.UnholdAllDice();
+
+                        return true;
+                    }
+                }
+                return false;                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nERROR: {ex}");
+                Thread.Sleep(3000);
+                return false;
+            }
         }
 
         // TEST CODE
