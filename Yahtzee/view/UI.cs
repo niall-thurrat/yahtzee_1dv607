@@ -108,24 +108,31 @@ namespace Yahtzee.view
 
         public MainMenuInput GetMainInput()
         {
-            int input = int.Parse(Console.ReadLine());
-
-            switch (input)
+            try
             {
-                case 1:
-                    return MainMenuInput.Play;
+                int input = int.Parse(Console.ReadLine());
 
-                case 2:
-                    return MainMenuInput.Continue;
-                
-                case 3:
-                    return MainMenuInput.ViewPrevious;
-                
-                case 4:
-                    return MainMenuInput.Quit;
+                switch (input)
+                {
+                    case 1:
+                        return MainMenuInput.Play;
 
-                default:
-                    return MainMenuInput.InvalidEntry;
+                    case 2:
+                        return MainMenuInput.Continue;
+                    
+                    case 3:
+                        return MainMenuInput.ViewPrevious;
+                    
+                    case 4:
+                        return MainMenuInput.Quit;
+
+                    default:
+                        return MainMenuInput.InvalidEntry;
+                }
+            }
+            catch (Exception)
+            {
+                return MainMenuInput.InvalidEntry;
             }
         }
 

@@ -26,7 +26,7 @@ namespace Yahtzee.controller
         {
             m_view.DisplayMainMenu();
 
-            var input = m_view.GetMainInput(); /////////////////////////////////// make a game status enum
+            var input = m_view.GetMainInput();
 
             switch (input)
             {
