@@ -14,19 +14,17 @@ namespace Yahtzee.model
         [JsonProperty]
         private List<Player> m_players = new List<Player>();
 
-        [JsonProperty]
-        private int m_rollsPerRound = 3; ////// should this be here/hardcoded ??
-
-        public Game (Dictionary<string, int> a_players)
+        public Game (Dictionary<string, int> a_players, int a_rollsPerRound)
         {
             a_players.ToList().ForEach(player => 
                 m_players.Add(new Player(
                     player.Key,
                     player.Value,
-                    m_rollsPerRound,
+                    a_rollsPerRound,
                     new strategy.StrategyFactory())));
 
             CreatedDate = DateTime.Now;
+            RollsPerRound = a_rollsPerRound;
             Status = "InProgress";
             Round = 1;
             CurrentPlayerIndex = 0;
@@ -36,7 +34,10 @@ namespace Yahtzee.model
         public DateTime CreatedDate { get; }
 
         [JsonProperty]
-        public string Status { get; private set; }
+        public int RollsPerRound { get; }
+
+        [JsonProperty]
+        public string Status { get; set; }
 
         [JsonProperty]
         public int Round { get; private set; }
@@ -44,22 +45,14 @@ namespace Yahtzee.model
         [JsonProperty]
         public int CurrentPlayerIndex { get; private set; }
  
-        public bool Play()
+        public bool ComputerPlays()
         {
             var player = m_players[CurrentPlayerIndex];
 
-            // computer players do their stuff until gamer's turn or game ends
-            while (player.PlayerType == Player.Type.Computer
-                && Status == "InProgress")
+            if (player.PlayerType == Player.Type.Computer && Status == "InProgress")
             {
-                player.PlayRound();
+                player.ComputerPlaysRound();
                 UpdateGameProgress();
-                player = m_players[CurrentPlayerIndex];
-            }
-            
-            if (player.PlayerType == Player.Type.Gamer)
-            {
-                player.RollDice();
                 return true;
             }
 
@@ -112,7 +105,7 @@ namespace Yahtzee.model
                     player.ScoreCard.Update(dice, c.CatType);
                 }
             }
-            
+
             /// /////////////////////////////////////////////////////////////////////////// HANDLE USER INPUT ERROR
         }
 

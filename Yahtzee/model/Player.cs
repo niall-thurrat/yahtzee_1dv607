@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Newtonsoft.Json;
 using Cat = Yahtzee.model.Category.Type;
 
@@ -16,18 +17,18 @@ namespace Yahtzee.model
             Gamer
         }
 
-        [JsonProperty]
         private List<Die> m_dice = new List<Die>();
 
         private strategy.IPlayStrategy m_playStrategy;
 
-        public Player(String a_name, int a_playerType, int a_rollsLeft, strategy.StrategyFactory a_strategyFactory)
+        public Player(String a_name, int a_playerType, int a_rollsPerRound, strategy.StrategyFactory a_strategyFactory)
         {
             Name = a_name;
             PlayerType = (Type)a_playerType;
             m_playStrategy = a_strategyFactory.GetPlayStrategy();
             ScoreCard = a_strategyFactory.GetScoreCard();
-            RollsLeft = a_rollsLeft + 1;
+            RollsPerRound = a_rollsPerRound;
+            RollsLeft = a_rollsPerRound;
         }
 
         [JsonProperty]
@@ -48,9 +49,16 @@ namespace Yahtzee.model
         [JsonProperty]
         public int RollsLeft { get; private set; }
 
-        public void PlayRound()
+        public int RollsPerRound { get; private set; }
+
+        public void ComputerPlaysRound()
         {
-            // /////////////////////////////// dont think this while loop is needed
+            // TEST CODE
+            Console.WriteLine($"NEW ROUND BEGINS FOR: {Name}");
+            Thread.Sleep(200);
+
+            ResetRollsLeft();
+
             while (RollsLeft > 0)
             {
                 RollDice();
@@ -103,6 +111,15 @@ namespace Yahtzee.model
         public void ClearDice()
         {
             Dice.Clear();
+        }
+
+        private void ResetRollsLeft()
+        {
+            // TEST CODE
+            Console.WriteLine($"ResetRollsLeft runs");
+            Console.WriteLine($"RollsLeft: {RollsLeft}");
+            Console.WriteLine($"per round: {RollsPerRound}");
+            RollsLeft = RollsPerRound;
         }
     }
 }

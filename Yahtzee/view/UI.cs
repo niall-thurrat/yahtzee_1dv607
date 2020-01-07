@@ -210,7 +210,7 @@ namespace Yahtzee.view
             try
             {
                 Console.Clear();
-                Console.WriteLine("\nSelect how many players (1-5) you would like to play: ");
+                Console.Write("\nSelect how many players (1-5) you would like to play: ");
                 playerAmount = int.Parse(Console.ReadLine());
 
                 if (playerAmount < 1 || playerAmount > 5)
@@ -226,9 +226,10 @@ namespace Yahtzee.view
                         int playerType = 0;
 
                         Console.Clear();
-                        Console.WriteLine($"\nSelect whether you want Player #{i + 1} to be:" +
-                        "\n1 Computer" +
-                        "\n2 Gamer");
+                        Console.Write($"\nSelect whether you want Player #{i + 1} to be:" +
+                        "\n  1 Computer" +
+                        "\n  2 Gamer" +
+                        "\n\nSELECTION: ");
                         playerType = int.Parse(Console.ReadLine());
 
                         if (playerType < 1 || playerType > 2)
@@ -250,7 +251,7 @@ namespace Yahtzee.view
                             else if (playerType == 2)
                             {
                                 Console.Clear();
-                                Console.WriteLine($"\nEnter the name (1-11 letters) for Player #{i + 1}:");
+                                Console.Write($"\nEnter the name (1-11 letters) for Player #{i + 1}: ");
                                 playerName = Console.ReadLine();
 
                                 if (playerName.Length < 1 || playerName.Length > 11)
@@ -371,20 +372,20 @@ namespace Yahtzee.view
             int round = (int)o.SelectToken($"Round");
             int rollsLeft = (int)o.SelectToken("m_players[0].RollsLeft");
 
-            string d1Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[0].m_value");
-            bool d1Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[0].IsHeld");
+            string d1Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[0].m_value");
+            bool d1Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[0].IsHeld");
 
-            string d2Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[1].m_value");
-            bool d2Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[1].IsHeld");
+            string d2Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[1].m_value");
+            bool d2Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[1].IsHeld");
 
-            string d3Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[2].m_value");
-            bool d3Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[2].IsHeld");
+            string d3Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[2].m_value");
+            bool d3Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[2].IsHeld");
 
-            string d4Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[3].m_value");
-            bool d4Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[3].IsHeld");
+            string d4Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[3].m_value");
+            bool d4Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[3].IsHeld");
 
-            string d5Value = (string)o.SelectToken($"m_players[{playerIndex}].m_dice[4].m_value");
-            bool d5Hold = (bool)o.SelectToken($"m_players[{playerIndex}].m_dice[4].IsHeld");
+            string d5Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[4].m_value");
+            bool d5Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[4].IsHeld");
 
             Console.WriteLine($"\n\nPLAYER: {name}   ROUND: {round}   ROLLS LEFT: {rollsLeft}");
             Console.WriteLine($"CURRENT DICE: {d1Value}{IsHeld(d1Hold)}, {d2Value}{IsHeld(d2Hold)}, " +

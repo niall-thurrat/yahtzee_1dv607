@@ -26,35 +26,32 @@ namespace Yahtzee.controller
         {
             m_view.DisplayMainMenu();
 
-            var input = m_view.GetMainInput();
+            var input = m_view.GetMainInput(); /////////////////////////////////// make a game status enum
 
             switch (input)
             {
                 case MainMenuInput.Play:
                     var players = m_view.GetPlayers();
-                    m_game = new model.Game(players);
+                    m_game = new model.Game(players, 3);
                     
                     while (m_game.Status == "InProgress")
                     {
-                        // computer players continue to play until it's a gamer's turn (true) or game ends (false)
-                        bool GamerToPlay = m_game.Play();
+                        // COMPUTER PLAYERS PLAY (until it's a gamer's turn or game ends)
+                        while(m_game.ComputerPlays());
 
-                        // GAMER'S TURN
-                        if (GamerToPlay)
-                        {
-                            // one gamer plays a round
-                            while (GamerPlays());
-
-                            /// ENDING GAME JUST TO BREAK WHILE LOOP HERE - TEMP SOLUTION -FIGURE THIS OUT FOR QUIT GAME
-                            return false;
-                        }
-                        // GAME OVER
-                        else
-                        {
-                            m_game.SaveGame();
-                        }
+                        // GAMER PLAYER PLAYS ONE ROUND
+                        while(GamerPlaysRound());
                     }
-                
+
+                    if (m_game.Status == "Finished")
+                    {
+                        // FOR TESTING
+                        Console.WriteLine("\nFINISHED");
+                        Thread.Sleep(3000);
+                        string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
+                        File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
+                    }
+
                     return true;
 
                 case MainMenuInput.Continue:
@@ -84,11 +81,19 @@ namespace Yahtzee.controller
             }
         }
 
-        public bool GamerPlays()
+        // RETURNS FALSE WHEN GAMER ROUND FINISHED
+        public bool GamerPlaysRound()
         {
-            string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
             int rollsLeft = m_game.GetRollsLeft();
 
+            // Gamer gets initial dice rolled
+            if (rollsLeft == m_game.RollsPerRound)
+            {
+                m_game.GamerRolls(); // is this game logic????????????????????????????????????????????????????????????????????
+            }
+
+            string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
+            
             // FOR TESTING
             File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
 
@@ -129,11 +134,30 @@ namespace Yahtzee.controller
 
                 case GameMenuInput.ChooseCat:
                     GamerChoosesCategory(gameJson);
+                    m_game.UpdateGameProgress();
+
+                    // FOR TESTING
+                    File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
+
                     return false;
 
                 case GameMenuInput.Quit:
-                    // player asked if would like to save
-                    // handle if wants to save game
+                    // m_view.DisplaySaveOption()
+                    // var input = m_view.GetSaveDecision();
+
+                    // QUIT GAME - WITH SAVE
+                    // if (input == SaveMenuInput.Save)
+                    // {
+                    //     m_game.Status == "Saved"
+                    //     m_game.SaveGame();
+                    // }
+                    // QUIT GAME / WITHOUT SAVE
+                    // else (input == SaveMenuInput.NoSave)
+                    // {
+                    //     m_game.Status == "Delete"
+                    // }
+
+                    m_game.Status = "TEST CHANGE";
                     return false;
 
                 default:
