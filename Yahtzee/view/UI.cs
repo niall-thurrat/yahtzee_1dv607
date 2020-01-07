@@ -48,6 +48,7 @@ namespace Yahtzee.view
             Large,
             Yahtzee,
             Chance,
+            Return,
             InvalidEntry
         }
 
@@ -140,86 +141,103 @@ namespace Yahtzee.view
 
         public GameMenuInput GetGameInput()
         {
-            int input = int.Parse(Console.ReadLine());
+            try
+            {            
+                int input = int.Parse(Console.ReadLine());
 
-            switch (input)
+                switch (input)
+                {
+                    case 1:
+                        return GameMenuInput.HoldDie1;
+
+                    case 2:
+                        return GameMenuInput.HoldDie2;
+                    
+                    case 3:
+                        return GameMenuInput.HoldDie3;
+                    
+                    case 4:
+                        return GameMenuInput.HoldDie4;
+                    
+                    case 5:
+                        return GameMenuInput.HoldDie5;
+                    
+                    case 6:
+                        return GameMenuInput.Roll;
+                    
+                    case 7:
+                        return GameMenuInput.ChooseCat;
+                    
+                    case 8:
+                        return GameMenuInput.Quit;
+
+                    default:
+                        return GameMenuInput.InvalidEntry;
+                }
+            }
+            catch (Exception)
             {
-                case 1:
-                    return GameMenuInput.HoldDie1;
-
-                case 2:
-                    return GameMenuInput.HoldDie2;
-                
-                case 3:
-                    return GameMenuInput.HoldDie3;
-                
-                case 4:
-                    return GameMenuInput.HoldDie4;
-                
-                case 5:
-                    return GameMenuInput.HoldDie5;
-                
-                case 6:
-                    return GameMenuInput.Roll;
-                
-                case 7:
-                    return GameMenuInput.ChooseCat;
-                
-                case 8:
-                    return GameMenuInput.Quit;
-
-                default:
-                    return GameMenuInput.InvalidEntry;
+                return GameMenuInput.InvalidEntry;
             }
         }
 
         public CatMenuInput GetCatInput()
         {
-            int input = int.Parse(Console.ReadLine());
-
-            switch (input)
+            try
             {
-                case 1:
-                    return CatMenuInput.Ones;
+                int input = int.Parse(Console.ReadLine());
 
-                case 2:
-                    return CatMenuInput.Twos;
-                
-                case 3:
-                    return CatMenuInput.Threes;
-                
-                case 4:
-                    return CatMenuInput.Fours;
-                
-                case 5:
-                    return CatMenuInput.Fives;
-                
-                case 6:
-                    return CatMenuInput.Sixes;
-                
-                case 7:
-                    return CatMenuInput.x3;
-                
-                case 8:
-                    return CatMenuInput.x4;
+                switch (input)
+                {
+                    case 1:
+                        return CatMenuInput.Ones;
 
-                case 9:
-                    return CatMenuInput.FullHouse;
-                
-                case 10:
-                    return CatMenuInput.Small;
-                
-                case 11:
-                    return CatMenuInput.Large;
-                
-                case 12:
-                    return CatMenuInput.Yahtzee;
-                
-                case 13:
-                    return CatMenuInput.Chance;
+                    case 2:
+                        return CatMenuInput.Twos;
+                    
+                    case 3:
+                        return CatMenuInput.Threes;
+                    
+                    case 4:
+                        return CatMenuInput.Fours;
+                    
+                    case 5:
+                        return CatMenuInput.Fives;
+                    
+                    case 6:
+                        return CatMenuInput.Sixes;
+                    
+                    case 7:
+                        return CatMenuInput.x3;
+                    
+                    case 8:
+                        return CatMenuInput.x4;
 
-                default:
-                    return CatMenuInput.InvalidEntry;
+                    case 9:
+                        return CatMenuInput.FullHouse;
+                    
+                    case 10:
+                        return CatMenuInput.Small;
+                    
+                    case 11:
+                        return CatMenuInput.Large;
+                    
+                    case 12:
+                        return CatMenuInput.Yahtzee;
+                    
+                    case 13:
+                        return CatMenuInput.Chance;
+
+                    case 14:
+                        return CatMenuInput.Return;
+
+                    default:
+                        return CatMenuInput.InvalidEntry;
+                }
+            }
+            catch (Exception)
+            {
+                return CatMenuInput.InvalidEntry;
             }
         }
 
