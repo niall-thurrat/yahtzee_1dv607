@@ -21,7 +21,8 @@ namespace Yahtzee.model
 
         private strategy.IPlayStrategy m_playStrategy;
 
-        public Player(String a_name, int a_playerType, int a_rollsPerRound, strategy.StrategyFactory a_strategyFactory)
+        public Player(String a_name, int a_playerType,
+            int a_rollsPerRound, strategy.StrategyFactory a_strategyFactory)
         {
             Name = a_name;
             PlayerType = (Type)a_playerType;
@@ -75,8 +76,8 @@ namespace Yahtzee.model
                     else ScoreCard.Update(Dice, chosenCat);
 
                     RollsLeft = 0;
-                    // I don't think dice need unheld after each round but keep eye on this - maybe do here with a private void UnHoldAllDice()
-                    ClearDice();
+                    
+                    UnholdAllDice();
                 }
             }
         }
@@ -108,17 +109,19 @@ namespace Yahtzee.model
             die.IsHeld = die.IsHeld ? false : true;
         }
 
-        public void ClearDice()
+        public void UnholdAllDice()
         {
-            Dice.Clear();
+            foreach (Die d in Dice)
+            {
+                if (d.IsHeld)
+                {
+                    d.IsHeld = false;
+                }
+            }
         }
 
         private void ResetRollsLeft()
         {
-            // TEST CODE
-            Console.WriteLine($"ResetRollsLeft runs");
-            Console.WriteLine($"RollsLeft: {RollsLeft}");
-            Console.WriteLine($"per round: {RollsPerRound}");
             RollsLeft = RollsPerRound;
         }
     }

@@ -291,8 +291,15 @@ namespace Yahtzee.view
 
             return players;
         }
+
+        public void DisplayGameOver()
+        {
+            Console.Write("\n\n  GAME OVER" +
+                "\n\nPress any key to continue...");
+            Console.ReadKey();
+        }
         
-        public void DisplayGameDetails(string gameJson, int playerIndex)
+        public void DisplayGameDetails(string gameJson, int playerIndex, int round)
         {
             JObject o = JObject.Parse(gameJson);
             JArray players = (JArray)o.SelectToken("m_players"); // use this array to iterate through????????????
@@ -366,30 +373,33 @@ namespace Yahtzee.view
             WriteCatScores("cat_YahtzeeBonus", players);
 
             Console.Write("\n------ TOTAL ------ ");
-            WriteCatScores("TotalScore", players);
+            WriteTotalScore(players);
 
-            string name = (string)o.SelectToken($"m_players[{playerIndex}].Name");
-            int round = (int)o.SelectToken($"Round");
-            int rollsLeft = (int)o.SelectToken("m_players[0].RollsLeft");
+            if (round > 14)
+            {
+                string name = (string)o.SelectToken($"m_players[{playerIndex}].Name");
+                // NOT REQUIORED NOW        int round = (int)o.SelectToken($"Round");
+                int rollsLeft = (int)o.SelectToken("m_players[0].RollsLeft");
 
-            string d1Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[0].m_value");
-            bool d1Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[0].IsHeld");
+                string d1Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[0].m_value");
+                bool d1Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[0].IsHeld");
 
-            string d2Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[1].m_value");
-            bool d2Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[1].IsHeld");
+                string d2Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[1].m_value");
+                bool d2Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[1].IsHeld");
 
-            string d3Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[2].m_value");
-            bool d3Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[2].IsHeld");
+                string d3Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[2].m_value");
+                bool d3Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[2].IsHeld");
 
-            string d4Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[3].m_value");
-            bool d4Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[3].IsHeld");
+                string d4Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[3].m_value");
+                bool d4Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[3].IsHeld");
 
-            string d5Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[4].m_value");
-            bool d5Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[4].IsHeld");
+                string d5Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[4].m_value");
+                bool d5Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[4].IsHeld");
 
-            Console.WriteLine($"\n\nPLAYER: {name}   ROUND: {round}   ROLLS LEFT: {rollsLeft}");
-            Console.WriteLine($"CURRENT DICE: {d1Value}{IsHeld(d1Hold)}, {d2Value}{IsHeld(d2Hold)}, " +
-            $"{d3Value}{IsHeld(d3Hold)}, {d4Value}{IsHeld(d4Hold)}, {d5Value}{IsHeld(d5Hold)}");
+                Console.WriteLine($"\n\nPLAYER: {name}   ROUND: {round}   ROLLS LEFT: {rollsLeft}");
+                Console.WriteLine($"CURRENT DICE: {d1Value}{IsHeld(d1Hold)}, {d2Value}{IsHeld(d2Hold)}, " +
+                $"{d3Value}{IsHeld(d3Hold)}, {d4Value}{IsHeld(d4Hold)}, {d5Value}{IsHeld(d5Hold)}");
+            }
         }
 
         private void WriteCatScores(string category, JArray players)
@@ -397,8 +407,18 @@ namespace Yahtzee.view
             foreach (var player in players)
             {
                 JObject scoreCard = (JObject)player.SelectToken("ScoreCard");
-                JObject cat = (JObject)player.SelectToken(category);
-                string score = (string)player.SelectToken("Score");
+                JObject cat = (JObject)scoreCard.SelectToken(category);
+                int score = (int)cat.SelectToken("Score");
+                Console.Write($"|{score, -13}");
+            }
+        }
+
+        private void WriteTotalScore(JArray players)
+        {
+            foreach (var player in players)
+            {
+                JObject scoreCard = (JObject)player.SelectToken("ScoreCard");
+                int score = (int)scoreCard.SelectToken("TotalScore");
                 Console.Write($"|{score, -13}");
             }
         }

@@ -45,11 +45,14 @@ namespace Yahtzee.controller
 
                     if (m_game.Status == "Finished")
                     {
-                        // FOR TESTING
-                        Console.WriteLine("\nFINISHED");
-                        Thread.Sleep(3000);
                         string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
+                        
+                        // SAVE GAME  - THIS MUST CHANGE TO SAVE LIST OF GAMES!!!!!!!!!!!!!!!!!
+                        // ERASE A GAME FROM FILE IF 10 EXIST ALREADY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! THIS IS REPEATED IN 
                         File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
+
+                        m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.Round);
+                        m_view.DisplayGameOver();                   
                     }
 
                     return true;
@@ -84,92 +87,86 @@ namespace Yahtzee.controller
         // RETURNS FALSE WHEN GAMER ROUND FINISHED
         public bool GamerPlaysRound()
         {
-            int rollsLeft = m_game.GetRollsLeft();
-
-            // Gamer gets initial dice rolled
-            if (rollsLeft == m_game.RollsPerRound)
+            if (m_game.GamerNext() && m_game.Status == "InProgress")
             {
-                m_game.GamerRolls(); // is this game logic????????????????????????????????????????????????????????????????????
+                int rollsLeft = m_game.GetRollsLeft();
+
+                // Gamer gets initial dice rolled
+                if (rollsLeft == m_game.RollsPerRound)
+                {
+                    m_game.GamerRolls();
+                }
+
+                string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
+
+                m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.Round);
+                m_view.DisplayGameMenu(rollsLeft);
+
+                var input = m_view.GetGameInput();
+
+                switch (input)
+                {
+                    case GameMenuInput.Roll:
+                        m_game.GamerRolls();                    
+                        return true;
+
+                    case GameMenuInput.HoldDie1:
+                        m_game.GamerHoldsDie(0);
+                        return true;
+                    
+                    case GameMenuInput.HoldDie2:
+                        m_game.GamerHoldsDie(1);
+                        return true;
+                    
+                    case GameMenuInput.HoldDie3:
+                        m_game.GamerHoldsDie(2);
+                        return true;
+                    
+                    case GameMenuInput.HoldDie4:
+                        m_game.GamerHoldsDie(3);
+                        return true;
+                    
+                    case GameMenuInput.HoldDie5:
+                        m_game.GamerHoldsDie(4);
+                        return true;
+
+                    case GameMenuInput.ChooseCat:
+                        GamerChoosesCategory(gameJson);
+                        m_game.UpdateGameProgress();
+                        return false;
+
+                    case GameMenuInput.Quit:
+                        // m_view.DisplaySaveOption()
+                        // var input = m_view.GetSaveDecision();
+
+                        // QUIT GAME - WITH SAVE
+                        // if (input == SaveMenuInput.Save)
+                        // {
+                        //     m_game.Status == "Saved"
+                        //     m_game.SaveGame();
+                        // }
+                        // QUIT GAME / WITHOUT SAVE
+                        // else (input == SaveMenuInput.NoSave)
+                        // {
+                        //     m_game.Status == "Delete"
+                        // }
+
+                        m_game.Status = "TEST CHANGE";
+                        return false;
+
+                    default:
+                        Console.WriteLine("\nERROR: menu input not recognised");
+                        Thread.Sleep(3000);
+                        return true;
+                }
             }
 
-            string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
-            
-            // FOR TESTING
-            File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
-
-            m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex);
-            m_view.DisplayGameMenu(rollsLeft);
-
-            var input = m_view.GetGameInput();
-
-            switch (input)
-            {
-                case GameMenuInput.Roll:
-                    m_game.GamerRolls();                 
-
-                    // FOR TESTING
-                    File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
-                
-                    return true;
-
-                case GameMenuInput.HoldDie1:
-                    m_game.GamerHoldsDie(0);
-                    return true;
-                
-                case GameMenuInput.HoldDie2:
-                    m_game.GamerHoldsDie(1);
-                    return true;
-                
-                case GameMenuInput.HoldDie3:
-                    m_game.GamerHoldsDie(2);
-                    return true;
-                
-                case GameMenuInput.HoldDie4:
-                    m_game.GamerHoldsDie(3);
-                    return true;
-                
-                case GameMenuInput.HoldDie5:
-                    m_game.GamerHoldsDie(4);
-                    return true;
-
-                case GameMenuInput.ChooseCat:
-                    GamerChoosesCategory(gameJson);
-                    m_game.UpdateGameProgress();
-
-                    // FOR TESTING
-                    File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
-
-                    return false;
-
-                case GameMenuInput.Quit:
-                    // m_view.DisplaySaveOption()
-                    // var input = m_view.GetSaveDecision();
-
-                    // QUIT GAME - WITH SAVE
-                    // if (input == SaveMenuInput.Save)
-                    // {
-                    //     m_game.Status == "Saved"
-                    //     m_game.SaveGame();
-                    // }
-                    // QUIT GAME / WITHOUT SAVE
-                    // else (input == SaveMenuInput.NoSave)
-                    // {
-                    //     m_game.Status == "Delete"
-                    // }
-
-                    m_game.Status = "TEST CHANGE";
-                    return false;
-
-                default:
-                    Console.WriteLine("\nERROR: menu input not recognised");
-                    Thread.Sleep(3000);
-                    return true;
-            }
+            return false;
         }
 
         public void GamerChoosesCategory(string gameJson)
         {
-            m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex);
+            m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.Round);
             m_view.DisplayCategoryMenu();
 
             var input = m_view.GetCatInput();

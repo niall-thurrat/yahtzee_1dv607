@@ -80,6 +80,12 @@ namespace Yahtzee.model
             }
         }
 
+        public bool GamerNext()
+        {
+            var player = m_players[CurrentPlayerIndex];
+            return player.PlayerType == Player.Type.Gamer ? true : false;
+        }
+
         public void GamerRolls()
         {
             var player = m_players[CurrentPlayerIndex]; // should this be a property on the game class?  in play above also
