@@ -94,7 +94,7 @@ namespace Yahtzee.model
 
         public void GamerHoldsDie(int dieIndex)
         {
-            var player = m_players[CurrentPlayerIndex];
+            var player = m_players[CurrentPlayerIndex]; // handle invalid arg
             player.HoldDie(dieIndex);
         }
 
@@ -120,10 +120,8 @@ namespace Yahtzee.model
                 }
                 return false;                
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"\nERROR: {ex}"); // violates MVC structure
-                Thread.Sleep(3000);
                 return false;
             }
         }

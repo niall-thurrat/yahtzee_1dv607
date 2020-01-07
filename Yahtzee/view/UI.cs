@@ -35,7 +35,7 @@ namespace Yahtzee.view
 
         public enum CatMenuInput
         {
-            Ones = 1,
+            Ones = 0,
             Twos,
             Threes,
             Fours,
@@ -310,7 +310,7 @@ namespace Yahtzee.view
         public void DisplayGameOver()
         {
             Console.Write("\n\n  GAME OVER" +
-                "\n\nYour game has been save to the 10 game log book." +
+                "\n\nYour game has been saved to the 10 game log book." +
                 "\nPress any key to continue... ");
             Console.ReadKey();
         }
@@ -424,8 +424,16 @@ namespace Yahtzee.view
             {
                 JObject scoreCard = (JObject)player.SelectToken("ScoreCard");
                 JObject cat = (JObject)scoreCard.SelectToken(category);
-                int score = (int)cat.SelectToken("Score");
-                Console.Write($"|{score, -13}");
+                Nullable<int> score = ( Nullable<int>)cat.SelectToken("Score");
+
+                if (score.HasValue)
+                {
+                    Console.Write($"|{score, -13}");
+                }
+                else
+                {
+                    Console.Write($"|             ");
+                }
             }
         }
 

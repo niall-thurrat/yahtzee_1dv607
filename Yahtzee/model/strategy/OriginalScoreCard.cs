@@ -65,10 +65,20 @@ namespace Yahtzee.model.strategy
 
                 foreach (Category c in cats)
                 {
-                    totalScore += c.Score;
+                    if (c.Score.HasValue)
+                    {
+                        totalScore += (int)c.Score;
+                    }
+                }
+                if (cat_UpperBonus.Score.HasValue)
+                {
+                    totalScore += (int)cat_UpperBonus.Score;
                 }
 
-                totalScore += cat_UpperBonus.Score + cat_YahtzeeBonus.Score;
+                if (cat_YahtzeeBonus.Score.HasValue)
+                {
+                    totalScore += (int)cat_UpperBonus.Score;
+                }
 
                 return totalScore;
             }
@@ -223,7 +233,10 @@ namespace Yahtzee.model.strategy
 
             foreach (Category cat in upperCategories)
             {
-                upperSectionScore += cat.Score;
+                if (cat.Score.HasValue)
+                {
+                    upperSectionScore += (int)cat.Score;
+                }
             }
 
             return upperSectionScore >= 63;

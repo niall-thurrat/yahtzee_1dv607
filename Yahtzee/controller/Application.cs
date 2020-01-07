@@ -153,7 +153,7 @@ namespace Yahtzee.controller
                         return false;
 
                     default:
-                        Console.WriteLine("\nERROR: menu input not recognised");
+                        Console.WriteLine("\nERROR: menu input not recognised"); // move to view
                         Thread.Sleep(3000);
                         return true;
                 }

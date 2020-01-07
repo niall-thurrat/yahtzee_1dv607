@@ -17,7 +17,6 @@ namespace Yahtzee.model
 			Fours,
 			Fives,
 			Sixes,
-			UpperBonus,
 			x3,
 			x4,
 			FullHouse,
@@ -25,11 +24,12 @@ namespace Yahtzee.model
 			Large,
 			Yahtzee,
 			Chance,
+			UpperBonus,
 			YahtzeeBonus,
 			NoCategory
         }
 
-		private int m_score;
+		private Nullable<int> m_score = null;
 		private bool m_isUsed = false;
 		
 		public Category(Type a_type, Nullable<int> a_upperValue)
@@ -44,7 +44,7 @@ namespace Yahtzee.model
 		public Nullable<int> UpperValue { get; }
 
 		[JsonProperty]
-		public int Score
+		public Nullable<int> Score
 		{
 			get =>  m_score; 
 			set
