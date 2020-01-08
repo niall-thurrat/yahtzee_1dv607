@@ -5,185 +5,215 @@
       "PlayerType": 0,
       "Dice": [
         {
-          "m_value": 5,
+          "Value": 6,
           "IsHeld": false
         },
         {
-          "m_value": 5,
+          "Value": 3,
           "IsHeld": false
         },
         {
-          "m_value": 3,
+          "Value": 4,
           "IsHeld": false
         },
         {
-          "m_value": 4,
+          "Value": 4,
           "IsHeld": false
         },
         {
-          "m_value": 5,
+          "Value": 4,
           "IsHeld": false
         }
       ],
       "ScoreCard": {
         "cat_Ones": {
           "CatType": 0,
+          "IsUsed": false,
           "Score": null
         },
         "cat_Twos": {
           "CatType": 1,
+          "IsUsed": false,
           "Score": null
         },
         "cat_Threes": {
           "CatType": 2,
+          "IsUsed": false,
           "Score": null
         },
         "cat_Fours": {
           "CatType": 3,
-          "Score": null
+          "IsUsed": true,
+          "Score": 12
         },
         "cat_Fives": {
           "CatType": 4,
-          "Score": 15
+          "IsUsed": false,
+          "Score": null
         },
         "cat_Sixes": {
           "CatType": 5,
+          "IsUsed": false,
           "Score": null
         },
         "cat_UpperBonus": {
           "CatType": 13,
+          "IsUsed": false,
           "Score": null
         },
         "cat_x3": {
           "CatType": 6,
+          "IsUsed": false,
           "Score": null
         },
         "cat_x4": {
           "CatType": 7,
+          "IsUsed": false,
           "Score": null
         },
         "cat_FullHouse": {
           "CatType": 8,
+          "IsUsed": false,
           "Score": null
         },
         "cat_Small": {
           "CatType": 9,
-          "Score": null
+          "IsUsed": true,
+          "Score": 30
         },
         "cat_Large": {
           "CatType": 10,
+          "IsUsed": false,
           "Score": null
         },
         "cat_Yahtzee": {
           "CatType": 11,
+          "IsUsed": false,
           "Score": null
         },
         "cat_Chance": {
           "CatType": 12,
+          "IsUsed": false,
           "Score": null
         },
         "cat_YahtzeeBonus": {
           "CatType": 14,
+          "IsUsed": false,
           "Score": null
         },
-        "TotalScore": 15
+        "TotalScore": 42
       },
       "RollsLeft": 0
     },
     {
-      "Name": "dffdfd",
+      "Name": "nally",
       "PlayerType": 1,
       "Dice": [
         {
-          "m_value": 6,
+          "Value": 2,
           "IsHeld": false
         },
         {
-          "m_value": 1,
+          "Value": 1,
           "IsHeld": false
         },
         {
-          "m_value": 3,
+          "Value": 4,
           "IsHeld": false
         },
         {
-          "m_value": 3,
+          "Value": 1,
           "IsHeld": false
         },
         {
-          "m_value": 6,
+          "Value": 2,
           "IsHeld": false
         }
       ],
       "ScoreCard": {
         "cat_Ones": {
           "CatType": 0,
+          "IsUsed": false,
           "Score": null
         },
         "cat_Twos": {
           "CatType": 1,
+          "IsUsed": false,
           "Score": null
         },
         "cat_Threes": {
           "CatType": 2,
+          "IsUsed": false,
           "Score": null
         },
         "cat_Fours": {
           "CatType": 3,
+          "IsUsed": false,
           "Score": null
         },
         "cat_Fives": {
           "CatType": 4,
-          "Score": null
+          "IsUsed": true,
+          "Score": 20
         },
         "cat_Sixes": {
           "CatType": 5,
+          "IsUsed": false,
           "Score": null
         },
         "cat_UpperBonus": {
           "CatType": 13,
+          "IsUsed": false,
           "Score": null
         },
         "cat_x3": {
           "CatType": 6,
+          "IsUsed": false,
           "Score": null
         },
         "cat_x4": {
           "CatType": 7,
+          "IsUsed": false,
           "Score": null
         },
         "cat_FullHouse": {
           "CatType": 8,
+          "IsUsed": false,
           "Score": null
         },
         "cat_Small": {
           "CatType": 9,
+          "IsUsed": false,
           "Score": null
         },
         "cat_Large": {
           "CatType": 10,
+          "IsUsed": false,
           "Score": null
         },
         "cat_Yahtzee": {
           "CatType": 11,
+          "IsUsed": false,
           "Score": null
         },
         "cat_Chance": {
           "CatType": 12,
+          "IsUsed": false,
           "Score": null
         },
         "cat_YahtzeeBonus": {
           "CatType": 14,
+          "IsUsed": false,
           "Score": null
         },
-        "TotalScore": 0
+        "TotalScore": 20
       },
       "RollsLeft": 2
     }
   ],
-  "CreatedDate": "2020-01-08T12:53:52.1103922+01:00",
+  "CreatedDate": "2020-01-08T14:16:07.8754894+01:00",
   "RollsPerRound": 3,
   "Status": "InProgress",
-  "CurrentRound": 1,
+  "CurrentRound": 2,
   "CurrentPlayerIndex": 1
 }

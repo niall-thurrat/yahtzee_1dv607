@@ -56,12 +56,24 @@ namespace Yahtzee.controller
                     return true;
 
                 case MainMenuInput.Continue:
-                    // get/deserialize saved json object
-                    // parse necesary info
-                    // initialize and instanciate game object with info
+                    string gameString = File.ReadAllText(
+                            @"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json");
 
+                    if (gameString != "")
+                    {
+                        JObject gameObject = JsonConvert.DeserializeObject<JObject>(gameString);
+                        m_game.Status = "InProgress";
+
+                        goto case MainMenuInput.Play;
+                    }
+                    else
+                    {
+                        m_view.TextToConsole($"ELSE RUNNING");
+                        m_view.TextToConsole("Sorry, there is no saved game");
+                    }
+                    
                     return true;
-
+                        
                 case MainMenuInput.ViewPrevious:
                     // menu to choose full details or short list
                     // access data to display
@@ -147,8 +159,7 @@ namespace Yahtzee.controller
                         return false;
 
                     default:
-                        Console.WriteLine("\nERROR: menu input not recognised"); // move to view
-                        Thread.Sleep(3000);
+                        m_view.TextToConsole("\nERROR: menu input not recognised");
                         return true;
                 }
             }
