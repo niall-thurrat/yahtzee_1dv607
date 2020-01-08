@@ -51,6 +51,13 @@ namespace Yahtzee.view
             InvalidEntry
         }
 
+        public enum ListInput
+        {
+            ShortList = 0,
+            FullList,
+            InvalidEntry
+        }
+
         public void DisplayMainMenu()
         {
             Console.Clear();
@@ -330,6 +337,45 @@ namespace Yahtzee.view
             }
 
             return players;
+        }
+
+        public ListInput GetListType()
+        {
+            ListInput type = ListInput.ShortList;
+            bool tryAgain = true;
+
+            while(tryAgain)
+            {
+                try
+                {
+                    Console.Clear();
+                    Console.Write("\nSelect which list of previous 10 games you want to see:" +
+                    "\n  1 Short list" +
+                    "\n  2 Full details list" +
+                    "\n\nSELECTION: ");
+
+                    int listType = int.Parse(Console.ReadLine());
+
+                    if (listType < 1 || listType > 2)
+                    {
+                        throw new Exception("\nYou didn't enter either number 1 or 2!");
+                    }
+                    else
+                    {
+                        type = listType == 1 ? ListInput.ShortList : ListInput.FullList;
+                        tryAgain = false;
+                    }
+                }
+                catch (FormatException)
+                {
+                    TextToConsole("\nYou didn't give a valid entry! START AGAIN");
+                }
+                catch (Exception ex)
+                {
+                    TextToConsole(ex.Message);
+                }
+            }
+            return type;
         }
 
         public void DisplayGameOver()

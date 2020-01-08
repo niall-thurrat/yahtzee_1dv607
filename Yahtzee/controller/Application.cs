@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using MainMenuInput = Yahtzee.view.UI.MainMenuInput;
 using GameMenuInput = Yahtzee.view.UI.GameMenuInput;
+using ListInput = Yahtzee.view.UI.ListInput;
 
 
 namespace Yahtzee.controller
@@ -61,6 +62,11 @@ namespace Yahtzee.controller
 
                     if (gameString != "")
                     {
+                        //
+                        //
+                        // THIS DOESNT WORK!!! FIND ANOTHER SOLUTION
+                        //
+                        //
                         JObject gameObject = JsonConvert.DeserializeObject<JObject>(gameString);
                         m_game.Status = "InProgress";
 
@@ -68,13 +74,13 @@ namespace Yahtzee.controller
                     }
                     else
                     {
-                        m_view.TextToConsole($"ELSE RUNNING");
                         m_view.TextToConsole("Sorry, there is no saved game");
                     }
                     
                     return true;
                         
                 case MainMenuInput.ViewPrevious:
+                    var listInput = m_view.GetListType();
                     // menu to choose full details or short list
                     // access data to display
 
