@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using MainMenuInput = Yahtzee.view.UI.MainMenuInput;
 using GameMenuInput = Yahtzee.view.UI.GameMenuInput;
-using CatMenuInput = Yahtzee.view.UI.CatMenuInput;
+
 
 namespace Yahtzee.controller
 {
@@ -174,8 +174,8 @@ namespace Yahtzee.controller
                 gameJson, m_game.CurrentPlayerIndex, m_game.CurrentRound, rollsLeft);
             m_view.DisplayCategoryMenu();
 
-            var catMenuinput = m_view.GetCatInput();
-            return m_game.GamerSelectsCat((int)catMenuinput);
+            var CatMenuInput = m_view.GetCatInput();
+            return m_game.GamerSelectsCat((int)CatMenuInput);
         }
 
         public void SaveUnfinishedGame(string gameJson)
