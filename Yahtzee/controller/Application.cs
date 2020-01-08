@@ -71,9 +71,7 @@ namespace Yahtzee.controller
                     return true;
 
                 case MainMenuInput.Quit:
-                    // display some sort of thanks for playing message
-                    // thread.sleep
-                    // clear
+                    m_view.TextToConsole("Thanks for playing Yahtzee. Goodbye!");
                     return false;
 
                 default:

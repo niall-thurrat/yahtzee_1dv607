@@ -10,7 +10,6 @@ namespace Yahtzee.view
 {
     class UI
     {
-        // //////////////////////////////////// can this be done with menu items???
         public enum MainMenuInput
         {
             Play = 0,
@@ -471,7 +470,7 @@ namespace Yahtzee.view
             }
         }
 
-        private void TextToConsole(string text)
+        public void TextToConsole(string text)
         {
             Console.Clear();
             Console.WriteLine(text);
