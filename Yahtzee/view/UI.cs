@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Yahtzee.view
@@ -143,7 +140,7 @@ namespace Yahtzee.view
             }
         }
 
-        // handle roll and hold being selected when they shouldn't - if statements required in case 1-6 !!!!!!!!!!!!!!!!!!!
+        // handle roll and hold being selected when they shouldn't - if statements required in case 1-6 of GetGameInput below
 
         public GameMenuInput GetGameInput()
         {
@@ -291,7 +288,7 @@ namespace Yahtzee.view
                                 if (playerType == 1)
                                 {
                                     playerName = $"Computer #{comNumber}";
-                                    playerType = 0; /////////////////////////////// feels like this should be an enum / feels very weird changing playerType from 1 to 0 also, but 0 in menu would be weird and enum should start with 0 i guess
+                                    playerType = 0;
 
                                     players.Add(playerName, playerType);
 
@@ -315,7 +312,7 @@ namespace Yahtzee.view
                                     }
                                     else
                                     {
-                                        playerType = 1; /////////////////////////////// as above
+                                        playerType = 1;
                                         players.Add(playerName, playerType);
                                     }
                                 }
@@ -389,7 +386,7 @@ namespace Yahtzee.view
         public void DisplayGameDetails(string gameJson, int playerIndex, int round, int rollsLeft)
         {
             JObject o = JObject.Parse(gameJson);
-            JArray players = (JArray)o.SelectToken("m_players"); // use this array to iterate through????????????
+            JArray players = (JArray)o.SelectToken("m_players");
             int playersCount = players.Count;
 
             Console.Clear();

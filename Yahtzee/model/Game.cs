@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.IO;
 using Newtonsoft.Json;
 
 namespace Yahtzee.model
@@ -89,13 +86,13 @@ namespace Yahtzee.model
 
         public void GamerRolls()
         {
-            var player = m_players[CurrentPlayerIndex]; // should this be a property on the game class?  in play above also
+            var player = m_players[CurrentPlayerIndex];
             player.RollDice();
         }
 
         public void GamerHoldsDie(int dieIndex)
         {
-            var player = m_players[CurrentPlayerIndex]; // handle invalid arg
+            var player = m_players[CurrentPlayerIndex];
             player.HoldDie(dieIndex);
         }
 
@@ -111,7 +108,7 @@ namespace Yahtzee.model
                 {
                     if ((int)c.CatType == categoryIndex)
                     {
-                        player.ScoreCard.Update(dice, c.CatType); // HANDLE IF CATEGORY IS ALREAD TAKEN + BONUS YAHTZEES
+                        player.ScoreCard.Update(dice, c.CatType);
                         UpdateGameProgress();
                         player.ResetRollsLeft();
                         player.UnholdAllDice();

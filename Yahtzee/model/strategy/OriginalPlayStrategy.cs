@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Cat = Yahtzee.model.Category.Type;
 
 namespace Yahtzee.model.strategy
@@ -79,7 +78,7 @@ namespace Yahtzee.model.strategy
                 }
 
                 // AS A LAST RESORT - USE THE FIRST EMPTY CATEGORY FOUND ON SCORECARD
-                Cat firstUnusedCat = GetFirstUnusedCat(player); //////////////////////////////////////////////// is this necessary here?
+                Cat firstUnusedCat = GetFirstUnusedCat(player);
                 return firstUnusedCat;
             }
             // ELSE IF ROLLSLEFT > 0
@@ -88,7 +87,7 @@ namespace Yahtzee.model.strategy
                 // IF 3 OR 4 OF A KIND - HOLD THEM AND ROLL AGAIN
                 if (scoreCard.IsThreeOfAKind(dice) || scoreCard.IsFourOfAKind(dice))
                 {
-                    int commonValue; // some copy and paste here with no rolls left scenario above - refactor? 
+                    int commonValue;
                     int[] values = new int [5];
 
                     for (int i = 0; i < values.Count(); i++)
@@ -272,7 +271,7 @@ namespace Yahtzee.model.strategy
 
             for (int i = 0; i < values.Count(); i++)
             {
-                values[i] = dice[i].Value; // getting array of values replicated in scorecard funcs - refactor??
+                values[i] = dice[i].Value;
             }
 
             int count = 1, tempCount;

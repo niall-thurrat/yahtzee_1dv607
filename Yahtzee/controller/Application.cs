@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.IO;
 using MainMenuInput = Yahtzee.view.UI.MainMenuInput;
 using GameMenuInput = Yahtzee.view.UI.GameMenuInput;
@@ -161,8 +156,8 @@ namespace Yahtzee.controller
                         // QUIT GAME - WITH SAVE
                         // if (input == SaveMenuInput.Save)
                         // {
-                            m_game.Status = "Unfinished";
-                            SaveUnfinishedGame(gameJson);
+                                m_game.Status = "Unfinished";
+                                SaveUnfinishedGame(gameJson);
                         // }
                         // QUIT GAME / WITHOUT SAVE
                         // else (input == SaveMenuInput.NoSave)
@@ -184,11 +179,13 @@ namespace Yahtzee.controller
         public bool GamerSelectsCat(string gameJson)
         {
             int rollsLeft = m_game.GetRollsLeft();
+
             m_view.DisplayGameDetails(
                 gameJson, m_game.CurrentPlayerIndex, m_game.CurrentRound, rollsLeft);
             m_view.DisplayCategoryMenu();
 
             var CatMenuInput = m_view.GetCatInput();
+
             return m_game.GamerSelectsCat((int)CatMenuInput);
         }
 
@@ -209,12 +206,9 @@ namespace Yahtzee.controller
             // serialise/send to file
 
 
-            // string json = JsonConvert.SerializeObject(this, Formatting.Indented);
-            // File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", json);
-
+            // use something like...
             // string appendText = "This is extra text" + Environment.NewLine;
             // File.AppendAllText(path, appendText);
-
         }
     }
 }

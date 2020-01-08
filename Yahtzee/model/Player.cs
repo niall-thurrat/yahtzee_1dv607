@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using Newtonsoft.Json;
 using Cat = Yahtzee.model.Category.Type;
 
@@ -45,7 +43,7 @@ namespace Yahtzee.model
         }        
 
         [JsonProperty]
-        public strategy.IScoreCard ScoreCard { get; } // TIDY UP PROPERTIES WITH GETTERS AND SETTERS
+        public strategy.IScoreCard ScoreCard { get; }
 
         [JsonProperty]
         public int RollsLeft { get; private set; }
@@ -101,7 +99,7 @@ namespace Yahtzee.model
 
         public void HoldDie(int dieIndex)
         {
-            var die = Dice[dieIndex]; // should comp strategy be using this?
+            var die = Dice[dieIndex];
             die.IsHeld = die.IsHeld ? false : true;
         }
 
@@ -118,7 +116,7 @@ namespace Yahtzee.model
 
         public void ResetRollsLeft()
         {
-            RollsLeft = RollsPerRound; // better if this is private somehow
+            RollsLeft = RollsPerRound;
         }
     }
 }

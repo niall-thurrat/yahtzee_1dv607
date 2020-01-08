@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Newtonsoft.Json;
 using Cat = Yahtzee.model.Category.Type;
 
@@ -60,7 +59,7 @@ namespace Yahtzee.model.strategy
         {
             get
             {
-                var cats = GetCategories(); // should this become private?
+                var cats = GetCategories();
                 int totalScore = 0;
 
                 foreach (Category c in cats)
@@ -185,9 +184,7 @@ namespace Yahtzee.model.strategy
                         else
                         {
                             cat_YahtzeeBonus.Score += 100;
-                            this.Update(dice, chosenCat); // does this properly handle if chosenCat already taken? 
-                        // Simply won't update selected cat at present. Is this enough?
-                        // will have to give this some thought later if user can select already chosen sections
+                            this.Update(dice, chosenCat);
                         }
                     }
                 }
@@ -215,8 +212,7 @@ namespace Yahtzee.model.strategy
                 {
                     cat.Score = score;
                 }
-            }
-            // throw new Exception("Dice value not recognised"); if no cat matches this just dies. OK? Switch handled this                 
+            }                
         
             if (CheckUpperBonus() && !cat_UpperBonus.IsUsed)
             {
@@ -246,7 +242,7 @@ namespace Yahtzee.model.strategy
         {
             if (!cat_x3.IsUsed && IsThreeOfAKind(dice))
             {
-                int score = AddDiceValues(dice); //////////////////////////////// somehow refactor for x3, x4 and chance (sum of all values) to merge
+                int score = AddDiceValues(dice);
                 cat_x3.Score = score;
             }
 
@@ -254,8 +250,6 @@ namespace Yahtzee.model.strategy
             {
                 cat_x3.Score = 0;
             }
-
-            // ////////////////////////////////////////////////////// else - handle if x3 used?
         }
 
         private void UpdateX4(List<Die> dice)
@@ -270,8 +264,6 @@ namespace Yahtzee.model.strategy
             {
                 cat_x4.Score = 0;
             }
-
-            // ////////////////////////////////////////////////////// else - handle if x4 used
         }
 
         private void UpdateFullHouse(List<Die> dice)
@@ -283,10 +275,8 @@ namespace Yahtzee.model.strategy
 
             if (!cat_FullHouse.IsUsed && !IsFullHouse(dice))
             {
-                cat_FullHouse.Score = 0; // can be shortened if no third scenario, ie tries to use a used cat. Maybe a better way to write these anyhow?
+                cat_FullHouse.Score = 0;
             }
-
-            // ////////////////////////////////////////////////////// else - handle if fullHouse used
         }
 
         private void UpdateSmall(List<Die> dice)
@@ -300,8 +290,6 @@ namespace Yahtzee.model.strategy
             {
                 cat_Small.Score = 0;
             }
-
-            // ////////////////////////////////////////////////////// else - handle if small used
         }
 
         private void UpdateLarge(List<Die> dice)
@@ -315,9 +303,6 @@ namespace Yahtzee.model.strategy
             {
                 cat_Large.Score = 0;
             }
-
-            // ////////////////////////////////////////////////////// else - handle if large used
-            /// // if (cat_Large.IsUsed { throw new Exception ("Tried to use a category which has alread been used"); } SOMETHING LIKE THIS - USE?
         }
 
 
@@ -332,8 +317,6 @@ namespace Yahtzee.model.strategy
             {
                 cat_Yahtzee.Score = 0;
             }
-
-            // ////////////////////////////////////////////////////// else - handle if yahtzee used
         }
 
         private void UpdateChance(List<Die> dice)
@@ -343,7 +326,6 @@ namespace Yahtzee.model.strategy
                 int score = AddDiceValues(dice);
                 cat_Chance.Score = score;
             }
-            // ////////////////////////////////////////////////////// else - handle if chance used
         }
 
         public bool IsThreeOfAKind(List<Die> dice)
@@ -374,12 +356,12 @@ namespace Yahtzee.model.strategy
 
         public bool IsFourOfAKind(List<Die> dice)
         {
-            int[] values = new int [5]; ///////////////////////////////// refactor with 3 of a kind if you have time (incorporate so 2 possible? only useful in strategy)
+            int[] values = new int [5];
             int count = 0;
 
             for (int i = 0; i < values.Count(); i++)
             {
-                values[i] = dice[i].Value; // getting array of values replicated in x3, x4, small, large, - refactor?? // also replicated in PlayStrategy
+                values[i] = dice[i].Value;
             }
 
             int mode = values.GroupBy(v => v)
@@ -404,7 +386,7 @@ namespace Yahtzee.model.strategy
 
             for (int i = 0; i < values.Count(); i++)
             {
-                values[i] = dice[i].Value; // getting array of values replicated in x3, x4, small, large, - refactor??
+                values[i] = dice[i].Value;
             }
 
             var query = from i in values
@@ -482,7 +464,7 @@ namespace Yahtzee.model.strategy
         public bool IsUsed(Cat queriedCatType)
         {
             var cats = GetCategories();
-            bool isUsed = false; // not sure here how to get away will having this false - should return error instead of false if no cat matches
+            bool isUsed = false;
 
             foreach (Category c in cats)
             {
@@ -493,7 +475,6 @@ namespace Yahtzee.model.strategy
             }
 
             return isUsed;
-            // throw Exception("Category parameter not recognised"); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
 
         private int AddDiceValues(List<Die> dice)
