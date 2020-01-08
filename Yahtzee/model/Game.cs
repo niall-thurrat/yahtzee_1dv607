@@ -126,26 +126,10 @@ namespace Yahtzee.model
             }
         }
 
-        // TEST CODE
-        // Console.WriteLine($"NEXT PLAYER INDEX: {NextPlayerIndex}");
-        // Thread.Sleep(1500);
-
         public int GetRollsLeft()
         {
             var player = m_players[CurrentPlayerIndex];
             return player.RollsLeft;
-        }
-
-        public void SaveGame()
-        {
-            // if (game not finished)
-            string json = JsonConvert.SerializeObject(this, Formatting.Indented);
-            File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", json);
-
-            // else (ie game complete)
-            // string appendText = "This is extra text" + Environment.NewLine;
-            // File.AppendAllText(path, appendText);
-
         }
     }
 }

@@ -44,13 +44,10 @@ namespace Yahtzee.controller
                     }
 
                     if (m_game.Status == "Finished")
-                    {
-                        string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
-                        
-                        // SAVE GAME  - THIS MUST CHANGE TO SAVE LIST OF GAMES!!!!!!!!!!!!!!!!!
-                        // ERASE A GAME FROM FILE IF 10 EXIST ALREADY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! THIS IS REPEATED IN 
-                        File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
+                    {                        
+                        SaveFinishedGame();
 
+                        string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
                         m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.Round, 0);
                         m_view.DisplayGameOver();                   
                     }
@@ -138,8 +135,8 @@ namespace Yahtzee.controller
                         // QUIT GAME - WITH SAVE
                         // if (input == SaveMenuInput.Save)
                         // {
-                        //     m_game.Status == "Saved"
-                        //     m_game.SaveGame();
+                            m_game.Status = "Unfinished";
+                            SaveUnfinishedGame(gameJson);
                         // }
                         // QUIT GAME / WITHOUT SAVE
                         // else (input == SaveMenuInput.NoSave)
@@ -147,7 +144,6 @@ namespace Yahtzee.controller
                         //     m_game.Status == "Delete"
                         // }
 
-                        m_game.Status = "TEST CHANGE";
                         return false;
 
                     default:
@@ -168,6 +164,30 @@ namespace Yahtzee.controller
 
             var catMenuinput = m_view.GetCatInput();
             return m_game.GamerSelectsCat((int)catMenuinput);
+        }
+
+        public void SaveUnfinishedGame(string gameJson)
+        {
+            File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
+        }
+
+        public void SaveFinishedGame()
+        {
+            // get/parse object from file
+            // check if there are 10 entries
+
+            // IF NOT 10 add
+            // IF 10, remove oldest then add
+
+            // serialise/send to file
+
+
+            // string json = JsonConvert.SerializeObject(this, Formatting.Indented);
+            // File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", json);
+
+            // string appendText = "This is extra text" + Environment.NewLine;
+            // File.AppendAllText(path, appendText);
+
         }
     }
 }
