@@ -48,7 +48,8 @@ namespace Yahtzee.controller
                         SaveFinishedGame();
 
                         string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
-                        m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.CurrentRound, 0);
+                        m_view.DisplayGameDetails(
+                            gameJson, m_game.CurrentPlayerIndex, m_game.CurrentRound, 0);
                         m_view.DisplayGameOver();                   
                     }
 
@@ -72,21 +73,19 @@ namespace Yahtzee.controller
                     return false;
 
                 default:
-                // should this (and other switch error handling) be passsed to the UI to be thrown????????????????????????????
-                    Console.WriteLine("\nERROR: menu input not recognised");
-                    Thread.Sleep(3000);
+                    m_view.TextToConsole("\nERROR: menu input not recognised");
                     return true;
             }
         }
 
-        // RETURNS FALSE WHEN GAMER ROUND FINISHED
+        // RETURNS FALSE WHEN GAMER ROUND IS FINISHED
         public bool GamerPlaysRound()
         {
             if (m_game.IsGamerNext() && m_game.Status == "InProgress")
             {
                 int rollsLeft = m_game.GetRollsLeft();
 
-                // Gamer gets initial dice rolled
+                // First roll completes automatically for gamer
                 if (rollsLeft == m_game.RollsPerRound)
                 {
                     m_game.GamerRolls();
@@ -94,7 +93,8 @@ namespace Yahtzee.controller
 
                 string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
 
-                m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.CurrentRound, m_game.GetRollsLeft());
+                m_view.DisplayGameDetails(
+                    gameJson, m_game.CurrentPlayerIndex, m_game.CurrentRound, m_game.GetRollsLeft());
                 m_view.DisplayGameMenu(rollsLeft);
 
                 var input = m_view.GetGameInput();
@@ -159,7 +159,8 @@ namespace Yahtzee.controller
         public bool GamerSelectsCat(string gameJson)
         {
             int rollsLeft = m_game.GetRollsLeft();
-            m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.CurrentRound, rollsLeft);
+            m_view.DisplayGameDetails(
+                gameJson, m_game.CurrentPlayerIndex, m_game.CurrentRound, rollsLeft);
             m_view.DisplayCategoryMenu();
 
             var catMenuinput = m_view.GetCatInput();
@@ -168,7 +169,9 @@ namespace Yahtzee.controller
 
         public void SaveUnfinishedGame(string gameJson)
         {
-            File.WriteAllText(@"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json", gameJson);
+            File.WriteAllText(
+                @"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json",
+                gameJson);
         }
 
         public void SaveFinishedGame()
