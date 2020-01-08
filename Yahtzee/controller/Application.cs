@@ -81,6 +81,13 @@ namespace Yahtzee.controller
                         
                 case MainMenuInput.ViewPrevious:
                     var listInput = m_view.GetListType();
+                    //
+                    // THIS PART OF THE GAME IS NOT COMPLETE!!!
+                    //
+                    m_view.TextToConsole("\nSORRY! THIS PART OF THE GAME IS NOT COMPLETE!!!");
+                    //
+                    //
+                    //
                     // menu to choose full details or short list
                     // access data to display
 
