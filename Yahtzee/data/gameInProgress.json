@@ -5,19 +5,19 @@
       "PlayerType": 0,
       "Dice": [
         {
-          "m_value": 2,
+          "m_value": 5,
           "IsHeld": false
         },
         {
-          "m_value": 3,
+          "m_value": 5,
           "IsHeld": false
         },
         {
-          "m_value": 2,
+          "m_value": 5,
           "IsHeld": false
         },
         {
-          "m_value": 6,
+          "m_value": 5,
           "IsHeld": false
         },
         {
@@ -32,101 +32,11 @@
         },
         "cat_Twos": {
           "CatType": 1,
-          "Score": 6
+          "Score": 4
         },
         "cat_Threes": {
           "CatType": 2,
-          "Score": 9
-        },
-        "cat_Fours": {
-          "CatType": 3,
           "Score": 12
-        },
-        "cat_Fives": {
-          "CatType": 4,
-          "Score": 20
-        },
-        "cat_Sixes": {
-          "CatType": 5,
-          "Score": 12
-        },
-        "cat_UpperBonus": {
-          "CatType": 13,
-          "Score": null
-        },
-        "cat_x3": {
-          "CatType": 6,
-          "Score": 12
-        },
-        "cat_x4": {
-          "CatType": 7,
-          "Score": 0
-        },
-        "cat_FullHouse": {
-          "CatType": 8,
-          "Score": 25
-        },
-        "cat_Small": {
-          "CatType": 9,
-          "Score": 30
-        },
-        "cat_Large": {
-          "CatType": 10,
-          "Score": 0
-        },
-        "cat_Yahtzee": {
-          "CatType": 11,
-          "Score": 0
-        },
-        "cat_Chance": {
-          "CatType": 12,
-          "Score": 15
-        },
-        "cat_YahtzeeBonus": {
-          "CatType": 14,
-          "Score": null
-        },
-        "TotalScore": 144
-      },
-      "RollsLeft": 0
-    },
-    {
-      "Name": "niall",
-      "PlayerType": 1,
-      "Dice": [
-        {
-          "m_value": 6,
-          "IsHeld": false
-        },
-        {
-          "m_value": 6,
-          "IsHeld": false
-        },
-        {
-          "m_value": 1,
-          "IsHeld": false
-        },
-        {
-          "m_value": 3,
-          "IsHeld": false
-        },
-        {
-          "m_value": 4,
-          "IsHeld": false
-        }
-      ],
-      "ScoreCard": {
-        "cat_Ones": {
-          "CatType": 0,
-          "Score": 1
-        },
-        "cat_Twos": {
-          "CatType": 1,
-          "Score": 6
-        },
-        "cat_Threes": {
-          "CatType": 2,
-          "Score": 3
         },
         "cat_Fours": {
           "CatType": 3,
@@ -142,15 +52,15 @@
         },
         "cat_UpperBonus": {
           "CatType": 13,
-          "Score": null
+          "Score": 35
         },
         "cat_x3": {
           "CatType": 6,
-          "Score": 15
+          "Score": 23
         },
         "cat_x4": {
           "CatType": 7,
-          "Score": 0
+          "Score": 10
         },
         "cat_FullHouse": {
           "CatType": 8,
@@ -162,7 +72,7 @@
         },
         "cat_Large": {
           "CatType": 10,
-          "Score": 0
+          "Score": 40
         },
         "cat_Yahtzee": {
           "CatType": 11,
@@ -170,18 +80,108 @@
         },
         "cat_Chance": {
           "CatType": 12,
-          "Score": 14
+          "Score": 20
         },
         "cat_YahtzeeBonus": {
           "CatType": 14,
           "Score": null
         },
-        "TotalScore": 189
+        "TotalScore": 297
       },
-      "RollsLeft": 3
+      "RollsLeft": 0
+    },
+    {
+      "Name": "Computer #2",
+      "PlayerType": 0,
+      "Dice": [
+        {
+          "m_value": 4,
+          "IsHeld": false
+        },
+        {
+          "m_value": 4,
+          "IsHeld": false
+        },
+        {
+          "m_value": 4,
+          "IsHeld": false
+        },
+        {
+          "m_value": 4,
+          "IsHeld": false
+        },
+        {
+          "m_value": 1,
+          "IsHeld": false
+        }
+      ],
+      "ScoreCard": {
+        "cat_Ones": {
+          "CatType": 0,
+          "Score": 3
+        },
+        "cat_Twos": {
+          "CatType": 1,
+          "Score": 6
+        },
+        "cat_Threes": {
+          "CatType": 2,
+          "Score": 3
+        },
+        "cat_Fours": {
+          "CatType": 3,
+          "Score": 12
+        },
+        "cat_Fives": {
+          "CatType": 4,
+          "Score": 15
+        },
+        "cat_Sixes": {
+          "CatType": 5,
+          "Score": 24
+        },
+        "cat_UpperBonus": {
+          "CatType": 13,
+          "Score": 35
+        },
+        "cat_x3": {
+          "CatType": 6,
+          "Score": 25
+        },
+        "cat_x4": {
+          "CatType": 7,
+          "Score": 26
+        },
+        "cat_FullHouse": {
+          "CatType": 8,
+          "Score": 0
+        },
+        "cat_Small": {
+          "CatType": 9,
+          "Score": 30
+        },
+        "cat_Large": {
+          "CatType": 10,
+          "Score": 40
+        },
+        "cat_Yahtzee": {
+          "CatType": 11,
+          "Score": 50
+        },
+        "cat_Chance": {
+          "CatType": 12,
+          "Score": 16
+        },
+        "cat_YahtzeeBonus": {
+          "CatType": 14,
+          "Score": null
+        },
+        "TotalScore": 285
+      },
+      "RollsLeft": 0
     }
   ],
-  "CreatedDate": "2020-01-07T16:44:59.376572+01:00",
+  "CreatedDate": "2020-01-08T11:16:18.9147542+01:00",
   "RollsPerRound": 3,
   "Status": "Finished",
   "Round": 14,

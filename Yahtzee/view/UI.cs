@@ -245,88 +245,89 @@ namespace Yahtzee.view
         {
             var players = new Dictionary<string, int>();
             int playerAmount;
-            int comNumber = 1;
+            int comNumber;
+            bool tryAgain = true;
 
-            try
+            while(tryAgain)
             {
-                Console.Clear();
-                Console.Write("\nSelect how many players (1-5) you would like to play: ");
-                playerAmount = int.Parse(Console.ReadLine());
+                try
+                {
+                    comNumber = 1;
 
-                if (playerAmount < 1 || playerAmount > 5)
-                {
-                    TextToConsole("\nYou didn't enter a number between 1-5!");//  refactor this into handelError() or throw custom error - prob better as func so other errors in catch blocks can call it
-                    this.GetPlayers();
-                }
-                else
-                {
-                    for (int i = 0; i < playerAmount; i++)
+                    Console.Clear();
+                    Console.Write("\nSelect how many players (1-5) you would like to play: ");
+                    playerAmount = int.Parse(Console.ReadLine());
+
+                    if (playerAmount < 1 || playerAmount > 5)
                     {
-                        string playerName = "";
-                        int playerType = 0;
-
-                        Console.Clear();
-                        Console.Write($"\nSelect whether you want Player #{i + 1} to be:" +
-                        "\n  1 Computer" +
-                        "\n  2 Gamer" +
-                        "\n\nSELECTION: ");
-                        playerType = int.Parse(Console.ReadLine());
-
-                        if (playerType < 1 || playerType > 2)
-                        {
-                            TextToConsole("\nYou didn't enter either number 1 or 2.... START AGAIN!");
-                            this.GetPlayers();
-                        }
-                        else
-                        {
-                            if (playerType == 1)
-                            {
-                                playerName = $"Computer #{comNumber}";
-                                playerType = 0; /////////////////////////////// feels like this should be an enum / feels very weird changing playerType from 1 to 0 also, but 0 in menu would be weird and enum should start with 0 i guess
-
-                                players.Add(playerName, playerType);
-
-                                comNumber++;
-                            }
-                            else if (playerType == 2)
-                            {
-                                Console.Clear();
-                                Console.Write($"\nEnter the name (1-11 letters) for Player #{i + 1}: ");
-                                playerName = Console.ReadLine();
-
-                                if (playerName.Length < 1 || playerName.Length > 11)
-                                {
-                                    TextToConsole("\nYour name is not the right length! START AGAIN.");
-                                    players.Clear();
-                                    this.GetPlayers();
-                                }
-                                else if (players.ContainsKey(playerName))
-                                {
-                                    TextToConsole("\nThis name has been used! START AGAIN.");
-                                    players.Clear();
-                                    this.GetPlayers();
-                                }
-                                else
-                                {
-                                    playerType = 1; /////////////////////////////// as above
-                                    players.Add(playerName, playerType);
-                                }
-                            }
-                        }
+                        throw new Exception("\nYou didn't enter a number between 1-5!");
                     }
+                    else
+                    {
+                        for (int i = 0; i < playerAmount; i++)
+                        {
+                            string playerName = "";
+                            int playerType = 0;
 
-                    TextToConsole("\nOK!! Now lets play yahtzee :)");
+                            Console.Clear();
+                            Console.Write($"\nSelect whether you want Player #{i + 1} to be:" +
+                            "\n  1 Computer" +
+                            "\n  2 Gamer" +
+                            "\n\nSELECTION: ");
+                            playerType = int.Parse(Console.ReadLine());
+
+                            if (playerType < 1 || playerType > 2)
+                            {
+                                throw new Exception("\nYou didn't enter either number 1 or 2.... START AGAIN!");
+                            }
+                            else
+                            {
+                                if (playerType == 1)
+                                {
+                                    playerName = $"Computer #{comNumber}";
+                                    playerType = 0; /////////////////////////////// feels like this should be an enum / feels very weird changing playerType from 1 to 0 also, but 0 in menu would be weird and enum should start with 0 i guess
+
+                                    players.Add(playerName, playerType);
+
+                                    comNumber++;
+                                }
+                                else if (playerType == 2)
+                                {
+                                    Console.Clear();
+                                    Console.Write($"\nEnter the name (1-11 characters) for Player #{i + 1}: ");
+                                    playerName = Console.ReadLine();
+
+                                    if (playerName.Length < 1 || playerName.Length > 11)
+                                    {
+                                        players.Clear();
+                                        throw new Exception("\nYour name is not the right length! START AGAIN.");
+                                    }
+                                    else if (players.ContainsKey(playerName))
+                                    {
+                                        players.Clear();
+                                        throw new Exception("\nThis name has been used! START AGAIN.");
+                                    }
+                                    else
+                                    {
+                                        playerType = 1; /////////////////////////////// as above
+                                        players.Add(playerName, playerType);
+                                    }
+                                }
+                            }
+                        }
+
+                        TextToConsole("\nOK!! Now lets play yahtzee :)");
+                        tryAgain = false;
+                    }
                 }
-            }
-            catch (FormatException)
-            {
-                TextToConsole("\nYou didn't give a valid entry! START AGAIN");
-                this.GetPlayers();
-            }
-            catch (Exception ex)
-            {
-                TextToConsole(ex.Message);
-                this.GetPlayers();
+                catch (FormatException)
+                {
+                    TextToConsole("\nYou didn't give a valid entry! START AGAIN");
+                }
+                catch (Exception ex)
+                {
+                    TextToConsole(ex.Message);
+                }
             }
 
             return players;
