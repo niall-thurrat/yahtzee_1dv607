@@ -420,19 +420,19 @@ namespace Yahtzee.view
             {
                 string name = (string)o.SelectToken($"m_players[{playerIndex}].Name");
 
-                string d1Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[0].m_value");
+                string d1Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[0].Value");
                 bool d1Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[0].IsHeld");
 
-                string d2Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[1].m_value");
+                string d2Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[1].Value");
                 bool d2Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[1].IsHeld");
 
-                string d3Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[2].m_value");
+                string d3Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[2].Value");
                 bool d3Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[2].IsHeld");
 
-                string d4Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[3].m_value");
+                string d4Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[3].Value");
                 bool d4Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[3].IsHeld");
 
-                string d5Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[4].m_value");
+                string d5Value = (string)o.SelectToken($"m_players[{playerIndex}].Dice[4].Value");
                 bool d5Hold = (bool)o.SelectToken($"m_players[{playerIndex}].Dice[4].IsHeld");
 
                 Console.WriteLine($"\n\nPLAYER: {name}   ROUND: {round}   ROLLS LEFT: {rollsLeft}");

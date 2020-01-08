@@ -30,12 +30,12 @@ namespace Yahtzee.model
         }
 
 		private Nullable<int> m_score = null;
-		private bool m_isUsed = false;
 		
 		public Category(Type a_type, Nullable<int> a_upperValue)
 		{
 			CatType = a_type;
             UpperValue = a_upperValue;
+			IsUsed = false;
 		}
 
 		[JsonProperty]
@@ -44,15 +44,18 @@ namespace Yahtzee.model
 		public Nullable<int> UpperValue { get; }
 
 		[JsonProperty]
+		public bool IsUsed { get; private set;}
+
+		[JsonProperty]
 		public Nullable<int> Score
 		{
 			get =>  m_score; 
 			set
 			{
-				if (!m_isUsed && CatType != Type.YahtzeeBonus)
+				if (!IsUsed && CatType != Type.YahtzeeBonus)
 				{
 					m_score = value;
-					m_isUsed = true;
+					IsUsed = true;
 				}
 				else if (CatType == Type.YahtzeeBonus)
 				{
@@ -62,11 +65,6 @@ namespace Yahtzee.model
 					}
 				}
 			}
-		}
-
-		public bool IsUsed()
-		{
-			return m_isUsed ? true : false; /////////////////////// can Nullable<int>.HasValue replace this???
 		}
 	}
 }

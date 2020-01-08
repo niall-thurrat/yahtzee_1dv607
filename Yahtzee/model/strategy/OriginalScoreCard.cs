@@ -156,10 +156,10 @@ namespace Yahtzee.model.strategy
             
                 foreach (Category cat in iterableCats)
                 {
-                    if ((cat.CatType == chosenCat) && !cat.IsUsed())
+                    if ((cat.CatType == chosenCat) && !cat.IsUsed)
                     {
                         if ((chosenCat == Cat.FullHouse || chosenCat == Cat.Small
-                            || chosenCat == Cat.Large) && !cat.IsUsed())
+                            || chosenCat == Cat.Large) && !cat.IsUsed)
                         {
                             switch (chosenCat)
                             {
@@ -211,14 +211,14 @@ namespace Yahtzee.model.strategy
             
             foreach (Category cat in iterableCats)
             {
-                if ((cat.CatType == catToUpdate) && !cat.IsUsed())
+                if ((cat.CatType == catToUpdate) && !cat.IsUsed)
                 {
                     cat.Score = score;
                 }
             }
             // throw new Exception("Dice value not recognised"); if no cat matches this just dies. OK? Switch handled this                 
         
-            if (CheckUpperBonus() && !cat_UpperBonus.IsUsed())
+            if (CheckUpperBonus() && !cat_UpperBonus.IsUsed)
             {
                 cat_UpperBonus.Score = 35;
             }
@@ -244,13 +244,13 @@ namespace Yahtzee.model.strategy
 
         private void UpdateX3(List<Die> dice)
         {
-            if (!cat_x3.IsUsed() && IsThreeOfAKind(dice))
+            if (!cat_x3.IsUsed && IsThreeOfAKind(dice))
             {
                 int score = AddDiceValues(dice); //////////////////////////////// somehow refactor for x3, x4 and chance (sum of all values) to merge
                 cat_x3.Score = score;
             }
 
-            if (!cat_x3.IsUsed() && !IsThreeOfAKind(dice))
+            if (!cat_x3.IsUsed && !IsThreeOfAKind(dice))
             {
                 cat_x3.Score = 0;
             }
@@ -260,13 +260,13 @@ namespace Yahtzee.model.strategy
 
         private void UpdateX4(List<Die> dice)
         {
-            if (!cat_x4.IsUsed() && IsFourOfAKind(dice))
+            if (!cat_x4.IsUsed && IsFourOfAKind(dice))
             {
                 int score = AddDiceValues(dice);
                 cat_x4.Score = score;
             }
 
-            if (!cat_x4.IsUsed() && !IsFourOfAKind(dice))
+            if (!cat_x4.IsUsed && !IsFourOfAKind(dice))
             {
                 cat_x4.Score = 0;
             }
@@ -276,12 +276,12 @@ namespace Yahtzee.model.strategy
 
         private void UpdateFullHouse(List<Die> dice)
         {
-            if (!cat_FullHouse.IsUsed() && IsFullHouse(dice))
+            if (!cat_FullHouse.IsUsed && IsFullHouse(dice))
             {
                 cat_FullHouse.Score = 25;
             }
 
-            if (!cat_FullHouse.IsUsed() && !IsFullHouse(dice))
+            if (!cat_FullHouse.IsUsed && !IsFullHouse(dice))
             {
                 cat_FullHouse.Score = 0; // can be shortened if no third scenario, ie tries to use a used cat. Maybe a better way to write these anyhow?
             }
@@ -291,12 +291,12 @@ namespace Yahtzee.model.strategy
 
         private void UpdateSmall(List<Die> dice)
         {
-            if (!cat_Small.IsUsed() && IsSequence(dice, 4))
+            if (!cat_Small.IsUsed && IsSequence(dice, 4))
             {
                 cat_Small.Score = 30;
             }
 
-            if (!cat_Small.IsUsed() && !IsSequence(dice, 4))
+            if (!cat_Small.IsUsed && !IsSequence(dice, 4))
             {
                 cat_Small.Score = 0;
             }
@@ -306,29 +306,29 @@ namespace Yahtzee.model.strategy
 
         private void UpdateLarge(List<Die> dice)
         {
-            if (!cat_Large.IsUsed() && IsSequence(dice, 5))
+            if (!cat_Large.IsUsed && IsSequence(dice, 5))
             {
                 cat_Large.Score = 40;
             }
 
-            if (!cat_Large.IsUsed() && !IsSequence(dice, 5))
+            if (!cat_Large.IsUsed && !IsSequence(dice, 5))
             {
                 cat_Large.Score = 0;
             }
 
             // ////////////////////////////////////////////////////// else - handle if large used
-            /// // if (cat_Large.IsUsed()) { throw new Exception ("Tried to use a category which has alread been used"); } SOMETHING LIKE THIS - USE?
+            /// // if (cat_Large.IsUsed { throw new Exception ("Tried to use a category which has alread been used"); } SOMETHING LIKE THIS - USE?
         }
 
 
         private void UpdateYahtzee(List<Die> dice)
         {
-            if (!cat_Yahtzee.IsUsed() && IsYahtzee(dice))
+            if (!cat_Yahtzee.IsUsed && IsYahtzee(dice))
             {
                 cat_Yahtzee.Score = 50;
             }
 
-            if (!cat_Yahtzee.IsUsed() && !IsYahtzee(dice))
+            if (!cat_Yahtzee.IsUsed && !IsYahtzee(dice))
             {
                 cat_Yahtzee.Score = 0;
             }
@@ -338,7 +338,7 @@ namespace Yahtzee.model.strategy
 
         private void UpdateChance(List<Die> dice)
         {
-            if (!cat_Chance.IsUsed())
+            if (!cat_Chance.IsUsed)
             {
                 int score = AddDiceValues(dice);
                 cat_Chance.Score = score;
@@ -472,7 +472,7 @@ namespace Yahtzee.model.strategy
 
         public bool IsBonusYahtzee(List<Die> dice)
         {
-            if (IsYahtzee(dice) && cat_Yahtzee.IsUsed())
+            if (IsYahtzee(dice) && cat_Yahtzee.IsUsed)
             {
                 return true;
             }
@@ -488,7 +488,7 @@ namespace Yahtzee.model.strategy
             {
                 if (c.CatType == queriedCatType)
                 {
-                    isUsed = c.IsUsed();
+                    isUsed = c.IsUsed;
                 }
             }
 

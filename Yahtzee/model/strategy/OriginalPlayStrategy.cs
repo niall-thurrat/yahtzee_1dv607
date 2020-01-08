@@ -143,7 +143,7 @@ namespace Yahtzee.model.strategy
 
                     foreach (Category c in iterableCats)
                     {
-                        if ((pairValue == c.UpperValue) && !c.IsUsed())
+                        if ((pairValue == c.UpperValue) && !c.IsUsed)
                         {
                             foreach (Die d in dice)
                             {
@@ -232,7 +232,7 @@ namespace Yahtzee.model.strategy
 
             foreach (Category c in iterableCats)
             {
-                if (!c.IsUsed())
+                if (!c.IsUsed)
                 {
                     cat = c.CatType;
                     break;
