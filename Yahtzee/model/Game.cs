@@ -26,7 +26,7 @@ namespace Yahtzee.model
             CreatedDate = DateTime.Now;
             RollsPerRound = a_rollsPerRound;
             Status = "InProgress";
-            Round = 1;
+            CurrentRound = 1;
             CurrentPlayerIndex = 0;
         }
 
@@ -40,7 +40,7 @@ namespace Yahtzee.model
         public string Status { get; set; }
 
         [JsonProperty]
-        public int Round { get; private set; }
+        public int CurrentRound { get; private set; }
 
         [JsonProperty]
         public int CurrentPlayerIndex { get; private set; }
@@ -69,11 +69,12 @@ namespace Yahtzee.model
             // else start a new round
             else
             {   
-                Round++;
+                CurrentRound++;
                 CurrentPlayerIndex = 0;
 
-                // game is finished after 13 rounds ///hard coded 13 round here !!!!!!!!!!!!!!!!
-                if (Round == 14)
+                // game is finished after 13 rounds 
+                /// HARDCODED 13 ROUNDS
+                if (CurrentRound == 14)
                 {
                     Status = "Finished";
                 }

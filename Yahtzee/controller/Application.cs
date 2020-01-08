@@ -48,7 +48,7 @@ namespace Yahtzee.controller
                         SaveFinishedGame();
 
                         string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
-                        m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.Round, 0);
+                        m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.CurrentRound, 0);
                         m_view.DisplayGameOver();                   
                     }
 
@@ -94,7 +94,7 @@ namespace Yahtzee.controller
 
                 string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
 
-                m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.Round, m_game.GetRollsLeft());
+                m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.CurrentRound, m_game.GetRollsLeft());
                 m_view.DisplayGameMenu(rollsLeft);
 
                 var input = m_view.GetGameInput();
@@ -159,7 +159,7 @@ namespace Yahtzee.controller
         public bool GamerSelectsCat(string gameJson)
         {
             int rollsLeft = m_game.GetRollsLeft();
-            m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.Round, rollsLeft);
+            m_view.DisplayGameDetails(gameJson, m_game.CurrentPlayerIndex, m_game.CurrentRound, rollsLeft);
             m_view.DisplayCategoryMenu();
 
             var catMenuinput = m_view.GetCatInput();
