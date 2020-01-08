@@ -93,7 +93,7 @@ namespace Yahtzee.model.strategy
 
                     for (int i = 0; i < values.Count(); i++)
                     {
-                        values[i] = dice[i].GetValue();
+                        values[i] = dice[i].Value;
                     }
 
                     commonValue = values.GroupBy(v => v)
@@ -103,7 +103,7 @@ namespace Yahtzee.model.strategy
 
                     foreach (Die d in dice)
                     {
-                        if (d.GetValue() == commonValue)
+                        if (d.Value == commonValue)
                         {
                             d.IsHeld = true;
                         }
@@ -147,7 +147,7 @@ namespace Yahtzee.model.strategy
                         {
                             foreach (Die d in dice)
                             {
-                                if (d.GetValue() == pairValue)
+                                if (d.Value == pairValue)
                                 {
                                     d.IsHeld = true;
                                 }
@@ -203,7 +203,7 @@ namespace Yahtzee.model.strategy
 
             for (int i = 0; i < values.Count(); i++)
             {
-                values[i] = dice[i].GetValue();
+                values[i] = dice[i].Value;
             }
 
             commonValue = values.GroupBy(v => v)
@@ -247,7 +247,7 @@ namespace Yahtzee.model.strategy
  
             for (int i = 0; i < values.Count(); i++)
             {
-                values[i] = dice[i].GetValue();
+                values[i] = dice[i].Value;
             }
 
             Array.Sort(values);
@@ -256,7 +256,7 @@ namespace Yahtzee.model.strategy
             {
                 for (int i = 0; i < sequenceAmount; i++)
                 {
-                    if (d.GetValue() == values[i])
+                    if (d.Value == values[i])
                     {
                         d.IsHeld = true;
                         // stops value holding multiple dice
@@ -272,7 +272,7 @@ namespace Yahtzee.model.strategy
 
             for (int i = 0; i < values.Count(); i++)
             {
-                values[i] = dice[i].GetValue(); // getting array of values replicated in scorecard funcs - refactor??
+                values[i] = dice[i].Value; // getting array of values replicated in scorecard funcs - refactor??
             }
 
             int count = 1, tempCount;

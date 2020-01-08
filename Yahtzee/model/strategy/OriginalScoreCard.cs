@@ -201,7 +201,7 @@ namespace Yahtzee.model.strategy
 
             foreach (Die die in dice)
             {
-                if (die.GetValue() == targetValue)
+                if (die.Value == targetValue)
                 {
                     score += targetValue;
                 }
@@ -353,7 +353,7 @@ namespace Yahtzee.model.strategy
 
             for (int i = 0; i < values.Count(); i++)
             {
-                values[i] = dice[i].GetValue();
+                values[i] = dice[i].Value;
             }
 
             int mode = values.GroupBy(v => v)
@@ -363,7 +363,7 @@ namespace Yahtzee.model.strategy
 
             foreach (Die d in dice)
             {
-                if (d.GetValue() == mode)
+                if (d.Value == mode)
                 {
                     count++; 
                 }
@@ -379,7 +379,7 @@ namespace Yahtzee.model.strategy
 
             for (int i = 0; i < values.Count(); i++)
             {
-                values[i] = dice[i].GetValue(); // getting array of values replicated in x3, x4, small, large, - refactor?? // also replicated in PlayStrategy
+                values[i] = dice[i].Value; // getting array of values replicated in x3, x4, small, large, - refactor?? // also replicated in PlayStrategy
             }
 
             int mode = values.GroupBy(v => v)
@@ -389,7 +389,7 @@ namespace Yahtzee.model.strategy
 
             foreach (Die d in dice)
             {
-                if (d.GetValue() == mode)
+                if (d.Value == mode)
                 {
                     count++; 
                 }
@@ -404,7 +404,7 @@ namespace Yahtzee.model.strategy
 
             for (int i = 0; i < values.Count(); i++)
             {
-                values[i] = dice[i].GetValue(); // getting array of values replicated in x3, x4, small, large, - refactor??
+                values[i] = dice[i].Value; // getting array of values replicated in x3, x4, small, large, - refactor??
             }
 
             var query = from i in values
@@ -430,7 +430,7 @@ namespace Yahtzee.model.strategy
 
             for (int i = 0; i < values.Count(); i++)
             {
-                values[i] = dice[i].GetValue();
+                values[i] = dice[i].Value;
             }
 
             Array.Sort(values);
@@ -456,12 +456,12 @@ namespace Yahtzee.model.strategy
 
         public bool IsYahtzee(List<Die> dice)
         {
-            int value = dice[0].GetValue();
+            int value = dice[0].Value;
             int count = 0;
 
             foreach (Die die in dice)
             {
-                if (die.GetValue() == value)
+                if (die.Value == value)
                 {
                     count += 1;
                 }
@@ -502,7 +502,7 @@ namespace Yahtzee.model.strategy
 
             foreach (Die die in dice)
             {
-                score += die.GetValue();
+                score += die.Value;
             }
 
             return score;

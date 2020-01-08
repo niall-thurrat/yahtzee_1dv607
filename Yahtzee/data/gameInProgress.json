@@ -9,7 +9,7 @@
           "IsHeld": false
         },
         {
-          "m_value": 1,
+          "m_value": 5,
           "IsHeld": false
         },
         {
@@ -17,7 +17,7 @@
           "IsHeld": false
         },
         {
-          "m_value": 5,
+          "m_value": 4,
           "IsHeld": false
         },
         {
@@ -40,7 +40,7 @@
         },
         "cat_Fours": {
           "CatType": 3,
-          "Score": 12
+          "Score": null
         },
         "cat_Fives": {
           "CatType": 4,
@@ -86,32 +86,32 @@
           "CatType": 14,
           "Score": null
         },
-        "TotalScore": 27
+        "TotalScore": 15
       },
       "RollsLeft": 0
     },
     {
-      "Name": "ksjdhfjkds",
+      "Name": "dffdfd",
       "PlayerType": 1,
       "Dice": [
+        {
+          "m_value": 6,
+          "IsHeld": false
+        },
+        {
+          "m_value": 1,
+          "IsHeld": false
+        },
+        {
+          "m_value": 3,
+          "IsHeld": false
+        },
         {
           "m_value": 3,
           "IsHeld": false
         },
         {
           "m_value": 6,
-          "IsHeld": false
-        },
-        {
-          "m_value": 2,
-          "IsHeld": false
-        },
-        {
-          "m_value": 3,
-          "IsHeld": false
-        },
-        {
-          "m_value": 2,
           "IsHeld": false
         }
       ],
@@ -162,7 +162,7 @@
         },
         "cat_Large": {
           "CatType": 10,
-          "Score": 40
+          "Score": null
         },
         "cat_Yahtzee": {
           "CatType": 11,
@@ -176,14 +176,14 @@
           "CatType": 14,
           "Score": null
         },
-        "TotalScore": 40
+        "TotalScore": 0
       },
       "RollsLeft": 2
     }
   ],
-  "CreatedDate": "2020-01-08T12:19:26.9283587+01:00",
+  "CreatedDate": "2020-01-08T12:53:52.1103922+01:00",
   "RollsPerRound": 3,
   "Status": "InProgress",
-  "Round": 2,
+  "CurrentRound": 1,
   "CurrentPlayerIndex": 1
 }
