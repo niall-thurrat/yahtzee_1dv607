@@ -5,23 +5,23 @@
       "PlayerType": 0,
       "Dice": [
         {
-          "Value": 6,
+          "Value": 2,
           "IsHeld": false
         },
         {
-          "Value": 3,
+          "Value": 1,
           "IsHeld": false
         },
         {
-          "Value": 4,
+          "Value": 5,
           "IsHeld": false
         },
         {
-          "Value": 4,
+          "Value": 5,
           "IsHeld": false
         },
         {
-          "Value": 4,
+          "Value": 5,
           "IsHeld": false
         }
       ],
@@ -43,13 +43,13 @@
         },
         "cat_Fours": {
           "CatType": 3,
-          "IsUsed": true,
-          "Score": 12
+          "IsUsed": false,
+          "Score": null
         },
         "cat_Fives": {
           "CatType": 4,
-          "IsUsed": false,
-          "Score": null
+          "IsUsed": true,
+          "Score": 15
         },
         "cat_Sixes": {
           "CatType": 5,
@@ -78,8 +78,8 @@
         },
         "cat_Small": {
           "CatType": 9,
-          "IsUsed": true,
-          "Score": 30
+          "IsUsed": false,
+          "Score": null
         },
         "cat_Large": {
           "CatType": 10,
@@ -101,12 +101,12 @@
           "IsUsed": false,
           "Score": null
         },
-        "TotalScore": 42
+        "TotalScore": 15
       },
       "RollsLeft": 0
     },
     {
-      "Name": "nally",
+      "Name": "fdfd",
       "PlayerType": 1,
       "Dice": [
         {
@@ -114,15 +114,15 @@
           "IsHeld": false
         },
         {
-          "Value": 1,
+          "Value": 3,
+          "IsHeld": false
+        },
+        {
+          "Value": 5,
           "IsHeld": false
         },
         {
           "Value": 4,
-          "IsHeld": false
-        },
-        {
-          "Value": 1,
           "IsHeld": false
         },
         {
@@ -153,8 +153,8 @@
         },
         "cat_Fives": {
           "CatType": 4,
-          "IsUsed": true,
-          "Score": 20
+          "IsUsed": false,
+          "Score": null
         },
         "cat_Sixes": {
           "CatType": 5,
@@ -206,14 +206,14 @@
           "IsUsed": false,
           "Score": null
         },
-        "TotalScore": 20
+        "TotalScore": 0
       },
       "RollsLeft": 2
     }
   ],
-  "CreatedDate": "2020-01-08T14:16:07.8754894+01:00",
+  "CreatedDate": "2020-01-08T21:23:58.0068171+01:00",
   "RollsPerRound": 3,
   "Status": "InProgress",
-  "CurrentRound": 2,
+  "CurrentRound": 1,
   "CurrentPlayerIndex": 1
 }

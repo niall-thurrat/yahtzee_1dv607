@@ -57,8 +57,8 @@ namespace Yahtzee.controller
                     return true;
 
                 case MainMenuInput.Continue:
-                    string gameString = File.ReadAllText(
-                            @"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json");
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "data/gameInProgress.json");
+                    string gameString = File.ReadAllText(path);
 
                     if (gameString != "")
                     {
@@ -194,9 +194,8 @@ namespace Yahtzee.controller
 
         public void SaveUnfinishedGame(string gameJson)
         {
-            File.WriteAllText(
-                @"c:\Users\amids\1dv607\yahtzee_1dv607\Yahtzee\data\gameInProgress.json",
-                gameJson);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "data/gameInProgress.json");
+            File.WriteAllText(path, gameJson);
         }
 
         public void SaveFinishedGame()
