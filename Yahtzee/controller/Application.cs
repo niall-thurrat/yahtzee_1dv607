@@ -67,10 +67,11 @@ namespace Yahtzee.controller
                         // THIS DOESNT WORK!!! FIND ANOTHER SOLUTION
                         //
                         //
-                        JObject gameObject = JsonConvert.DeserializeObject<JObject>(gameString);
-                        m_game.Status = "InProgress";
+                        // JObject gameObject = JsonConvert.DeserializeObject<JObject>(gameString);
+                        // m_game.Status = "InProgress";
+                        // goto case MainMenuInput.Play;
 
-                        goto case MainMenuInput.Play;
+                        m_view.TextToConsole("\nSORRY! THIS PART OF THE GAME IS NOT COMPLETE!!!");
                     }
                     else
                     {
