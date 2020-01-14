@@ -1,10 +1,10 @@
-
 using Newtonsoft.Json;
 using System.IO;
 using MainMenuInput = Yahtzee.view.UI.MainMenuInput;
 using GameMenuInput = Yahtzee.view.UI.GameMenuInput;
 using ListInput = Yahtzee.view.UI.ListInput;
-
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Yahtzee.controller
 {
@@ -27,8 +27,12 @@ namespace Yahtzee.controller
             switch (input)
             {
                 case MainMenuInput.Play:
-                    var players = m_view.GetPlayers();
-                    m_game = new model.Game(players, 3);
+                    // SKIPS PLAYER/GAME CREATION IF CONTINUING SAVED GAME // for this to work the object will need deleted when saved! otherwise only 1 game can be played because of this if statement
+                    if (m_game == null)
+                    {
+                        var players = m_view.GetPlayers();
+                        m_game = new model.Game(players, 3);
+                    }
                     
                     while (m_game.Status == "InProgress")
                     {
@@ -52,40 +56,38 @@ namespace Yahtzee.controller
                     return true;
 
                 case MainMenuInput.Continue:
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "data/gameInProgress.json");
-                    string gameString = File.ReadAllText(path);
+                    // DESERIALIZE
+                    string workingDirectory = Directory.GetCurrentDirectory();
+                    string path = Path.Combine(workingDirectory, @"data\gameInProgress.txt");
 
-                    if (gameString != "")
+                    IFormatter formatter = new BinaryFormatter();
+                    Stream stream = new FileStream(path, FileMode.Open, FileAccess.Read);
+
+                    // NEED SOME SORT OF  if (stream != nuthin)....
+                    
+                    m_game = (model.Game)formatter.Deserialize(stream);
+                    stream.Close();
+
+                    m_game.Status = "InProgress";
+                    goto case MainMenuInput.Play;
+
+                    // else
+                    // {
+                    //     m_view.TextToConsole("Sorry, there is no saved game");
+                    // }
+                    // return true;
+                        
+                case MainMenuInput.ViewPrevious:
+                    var listType = m_view.GetListType();
+                    
+                    if (listType == ListInput.ShortList)
                     {
-                        //
-                        //
-                        // THIS DOESNT WORK!!! FIND ANOTHER SOLUTION
-                        //
-                        //
-                        // JObject gameObject = JsonConvert.DeserializeObject<JObject>(gameString);
-                        // m_game.Status = "InProgress";
-                        // goto case MainMenuInput.Play;
-
-                        m_view.TextToConsole("\nSORRY! THIS PART OF THE GAME IS NOT COMPLETE!!!");
+                        m_view.TextToConsole("THIS AIN'T BEEN DEVELOPED YET BOSS");
                     }
                     else
                     {
-                        m_view.TextToConsole("Sorry, there is no saved game");
+                        m_view.TextToConsole("THIS AIN'T BEEN DEVELOPED EITHER BOSS");
                     }
-                    
-                    return true;
-                        
-                case MainMenuInput.ViewPrevious:
-                    var listInput = m_view.GetListType();
-                    //
-                    // THIS PART OF THE GAME IS NOT COMPLETE!!!
-                    //
-                    m_view.TextToConsole("\nSORRY! THIS PART OF THE GAME IS NOT COMPLETE!!!");
-                    //
-                    //
-                    //
-                    // menu to choose full details or short list
-                    // access data to display
 
                     return true;
 
@@ -157,7 +159,7 @@ namespace Yahtzee.controller
                         // if (input == SaveMenuInput.Save)
                         // {
                                 m_game.Status = "Unfinished";
-                                SaveUnfinishedGame(gameJson);
+                                SaveUnfinishedGame();
                         // }
                         // QUIT GAME / WITHOUT SAVE
                         // else (input == SaveMenuInput.NoSave)
@@ -189,26 +191,27 @@ namespace Yahtzee.controller
             return m_game.GamerSelectsCat((int)CatMenuInput);
         }
 
-        public void SaveUnfinishedGame(string gameJson)
+        public void SaveUnfinishedGame()
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "data/gameInProgress.json");
-            File.WriteAllText(path, gameJson);
+            string workingDirectory = Directory.GetCurrentDirectory();
+            string path = Path.Combine(workingDirectory, @"data\gameInProgress.txt");
+
+            if (!File.Exists(path))
+            {
+                string newDir = Path.Combine(workingDirectory, "data");
+                Directory.CreateDirectory(newDir);
+            }
+
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(path, FileMode.Create, FileAccess.Write);
+
+            formatter.Serialize(stream, m_game);
+            stream.Close();
         }
 
         public void SaveFinishedGame()
         {
-            // get/parse object from file
-            // check if there are 10 entries
-
-            // IF NOT 10 add
-            // IF 10, remove oldest then add
-
-            // serialise/send to file
-
-
-            // use something like...
-            // string appendText = "This is extra text" + Environment.NewLine;
-            // File.AppendAllText(path, appendText);
+            // NEED TO WORK OUT A WAY TO SERIALIZE MULTIPLE GAMES
         }
     }
 }

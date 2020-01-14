@@ -6,6 +6,7 @@ using Cat = Yahtzee.model.Category.Type;
 
 namespace Yahtzee.model.strategy
 {
+    [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
 	class OriginalScoreCard : IScoreCard
 	{   

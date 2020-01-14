@@ -6,6 +6,7 @@ using Cat = Yahtzee.model.Category.Type;
 
 namespace Yahtzee.model
 {
+    [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
     class Player
     {

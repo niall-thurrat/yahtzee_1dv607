@@ -5,6 +5,7 @@ using Cat = Yahtzee.model.Category.Type;
 
 namespace Yahtzee.model.strategy
 {
+    [Serializable]
     class OriginalPlayStrategy : IPlayStrategy
     {
         /// returns a Category.Type which informs Player which category to use on

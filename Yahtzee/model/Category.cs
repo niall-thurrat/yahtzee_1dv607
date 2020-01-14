@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 
 namespace Yahtzee.model
 {
+	[Serializable]
 	[JsonObject(MemberSerialization.OptIn)]
 	class Category
 	{
