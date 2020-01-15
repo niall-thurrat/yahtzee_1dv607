@@ -28,8 +28,8 @@ namespace Yahtzee.controller
             switch (input)
             {
                 case MainMenuInput.Play:
-                    // SKIPS PLAYER/GAME CREATION IF CONTINUING SAVED GAME // for this to work the object will need deleted when saved! otherwise only 1 game can be played because of this if statement
-                    if (m_game == null)
+                    // GENERATE PLAYERS + GAME IF NOT CONTINUING SAVED GAME
+                    if (m_game == null || m_game.Status != GameStatus.InProgress)
                     {
                         var players = m_view.GetPlayers();
                         m_game = new model.Game(players, 3);
