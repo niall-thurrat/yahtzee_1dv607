@@ -124,7 +124,7 @@ namespace Yahtzee.controller
         }
 
         // RETURNS FALSE WHEN GAMER ROUND IS FINISHED
-        public bool GamerPlaysRound()
+        private bool GamerPlaysRound()
         {
             if (m_game.IsGamerNext() && m_game.Status == GameStatus.InProgress)
             {
@@ -200,7 +200,7 @@ namespace Yahtzee.controller
             return false;
         }
 
-        public bool GamerSelectsCat(string gameJson)
+        private bool GamerSelectsCat(string gameJson)
         {
             int rollsLeft = m_game.GetRollsLeft();
 
@@ -213,7 +213,7 @@ namespace Yahtzee.controller
             return m_game.GamerSelectsCat((int)CatMenuInput);
         }
 
-        public void SaveUnfinishedGame()
+        private void SaveUnfinishedGame()
         {
             string workingDirectory = Directory.GetCurrentDirectory();
             string path = Path.Combine(workingDirectory, @"data\gameInProgress.txt");
@@ -231,7 +231,7 @@ namespace Yahtzee.controller
             stream.Close();
         }
 
-        public void SaveFinishedGame()
+        private void SaveFinishedGame()
         {
             // NEED TO WORK OUT A WAY TO SERIALIZE MULTIPLE GAMES
         }

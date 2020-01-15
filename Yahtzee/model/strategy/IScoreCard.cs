@@ -5,7 +5,6 @@ namespace Yahtzee.model.strategy
     interface IScoreCard
     {
         IEnumerable<Category> GetCategories();
-        int GetTotalScore();
         void Update(List<Die> dice, Category.Type cat);
         void UpdateYahtzeeBonus(List<Die> dice, Category.Type chosenCat);
         bool IsThreeOfAKind(List<Die> dice);

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Yahtzee
+﻿namespace Yahtzee
 {
     class Program
     {

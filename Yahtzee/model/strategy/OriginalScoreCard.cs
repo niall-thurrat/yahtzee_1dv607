@@ -95,11 +95,6 @@ namespace Yahtzee.model.strategy
             return catList.Cast<Category>();
         }
 
-        public int GetTotalScore()
-        {
-            return TotalScore;
-        }
-
         public void Update(List<Die> dice, Cat category)
         {
             switch (category)

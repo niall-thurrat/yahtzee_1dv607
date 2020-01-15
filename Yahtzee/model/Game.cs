@@ -65,7 +65,7 @@ namespace Yahtzee.model
             return false;
         }
 
-        public void UpdateGameProgress()
+        private void UpdateGameProgress()
         {
             // If there's another player to play in this round
             if (CurrentPlayerIndex < m_players.Count - 1)
