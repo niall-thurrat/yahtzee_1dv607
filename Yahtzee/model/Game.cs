@@ -117,12 +117,15 @@ namespace Yahtzee.model
                 {
                     if ((int)c.CatType == categoryIndex)
                     {
-                        player.ScoreCard.Update(dice, c.CatType);
-                        UpdateGameProgress();
-                        player.ResetRollsLeft();
-                        player.UnholdAllDice();
+                        // UPDATE GAME IF CATEGORY NOT ALREADY SELECTED
+                        if (player.ScoreCard.Update(dice, c.CatType))
+                        {
+                            UpdateGameProgress();
+                            player.ResetRollsLeft();
+                            player.UnholdAllDice();
 
-                        return true;
+                            return true;
+                        }                
                     }
                 }
                 return false;                

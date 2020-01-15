@@ -95,51 +95,52 @@ namespace Yahtzee.model.strategy
             return catList.Cast<Category>();
         }
 
-        public void Update(List<Die> dice, Cat category)
+        public bool Update(List<Die> dice, Cat category)
         {
             switch (category)
             {
                 case Cat.Ones:
-                    UpdateUpperSection(dice, 1, Cat.Ones);
-                    break;
+                    return UpdateUpperSection(dice, 1, Cat.Ones);
+                    
                 case Cat.Twos:
-                    UpdateUpperSection(dice, 2, Cat.Twos);
-                    break;
+                    return UpdateUpperSection(dice, 2, Cat.Twos);
+                    
                 case Cat.Threes:
-                    UpdateUpperSection(dice, 3, Cat.Threes);
-                    break;
+                    return UpdateUpperSection(dice, 3, Cat.Threes);
+                    
                 case Cat.Fours:
-                    UpdateUpperSection(dice, 4, Cat.Fours);
-                    break;
+                    return UpdateUpperSection(dice, 4, Cat.Fours);
+                    
                 case Cat.Fives:
-                    UpdateUpperSection(dice, 5, Cat.Fives);
-                    break;
+                    return UpdateUpperSection(dice, 5, Cat.Fives);
+                    
                 case Cat.Sixes:
-                    UpdateUpperSection(dice, 6, Cat.Sixes);
-                    break;
+                    return UpdateUpperSection(dice, 6, Cat.Sixes);
+                    
                 case Cat.x3:
-                    UpdateX3(dice);
-                    break;
+                    return UpdateX3(dice);
+                    
                 case Cat.x4:
-                    UpdateX4(dice);
-                    break;
+                    return UpdateX4(dice);
+                    
                 case Cat.FullHouse:
-                    UpdateFullHouse(dice);
-                    break;
+                    return UpdateFullHouse(dice);
+                    
                 case Cat.Small:
-                    UpdateSmall(dice);
-                    break;
+                    return UpdateSmall(dice);
+                    
                 case Cat.Large:
-                    UpdateLarge(dice);
-                    break;
+                    return UpdateLarge(dice);
+                    
                 case Cat.Yahtzee:
-                    UpdateYahtzee(dice);
-                    break;
+                    return UpdateYahtzee(dice);
+                    
                 case Cat.Chance:
-                    UpdateChance(dice);
-                    break;
+                    return UpdateChance(dice);
+                    
                 default:
-                    throw new Exception("Scorecard category not recognised");
+                    // no exception or message here?
+                    return false;
             }
         }
 
@@ -180,7 +181,8 @@ namespace Yahtzee.model.strategy
                         else
                         {
                             cat_YahtzeeBonus.Score += 100;
-                            this.Update(dice, chosenCat);
+                            // /////////////////////////////////////////////////////////// xxx use Update bool to handle if cat has been chosen alread
+                            Update(dice, chosenCat);
                         }
                     }
                 }
@@ -188,7 +190,7 @@ namespace Yahtzee.model.strategy
             else throw new Exception("Error: Dice do not give Yahtzee bonus");
         }
 
-        private void UpdateUpperSection(List<Die> dice, int targetValue, Cat catToUpdate)
+        private bool UpdateUpperSection(List<Die> dice, int targetValue, Cat catToUpdate)
         {
             int score = 0;     
 
@@ -207,13 +209,17 @@ namespace Yahtzee.model.strategy
                 if ((cat.CatType == catToUpdate) && !cat.IsUsed)
                 {
                     cat.Score = score;
+
+                    if (CheckUpperBonus() && !cat_UpperBonus.IsUsed)
+                    {
+                        cat_UpperBonus.Score = 35;
+                    }
+
+                    return true;
                 }
             }                
         
-            if (CheckUpperBonus() && !cat_UpperBonus.IsUsed)
-            {
-                cat_UpperBonus.Score = 35;
-            }
+            return false;
         }
 
         private bool CheckUpperBonus()
@@ -234,94 +240,134 @@ namespace Yahtzee.model.strategy
             return upperSectionScore >= 63;
         }
 
-        private void UpdateX3(List<Die> dice)
+        private bool UpdateX3(List<Die> dice)
         {
-            if (!cat_x3.IsUsed && IsThreeOfAKind(dice))
+            if (!cat_x3.IsUsed)
             {
-                int score = AddDiceValues(dice);
-                cat_x3.Score = score;
-            }
+                if (IsThreeOfAKind(dice))
+                {
+                    int score = AddDiceValues(dice);
+                    cat_x3.Score = score;
+                }
+                else
+                {
+                    cat_x3.Score = 0;
+                }
 
-            if (!cat_x3.IsUsed && !IsThreeOfAKind(dice))
-            {
-                cat_x3.Score = 0;
+                return true;
             }
+            
+            return false;
         }
 
-        private void UpdateX4(List<Die> dice)
+        private bool UpdateX4(List<Die> dice)
         {
-            if (!cat_x4.IsUsed && IsFourOfAKind(dice))
+            if (!cat_x4.IsUsed)
             {
-                int score = AddDiceValues(dice);
-                cat_x4.Score = score;
+                if (IsFourOfAKind(dice))
+                {
+                    int score = AddDiceValues(dice);
+                    cat_x4.Score = score;
+                }
+                else
+                {
+                    cat_x4.Score = 0;
+                }
+
+                return true;
             }
 
-            if (!cat_x4.IsUsed && !IsFourOfAKind(dice))
-            {
-                cat_x4.Score = 0;
-            }
+            return false;
         }
 
-        private void UpdateFullHouse(List<Die> dice)
+        private bool UpdateFullHouse(List<Die> dice)
         {
-            if (!cat_FullHouse.IsUsed && IsFullHouse(dice))
+            if (!cat_FullHouse.IsUsed)
             {
-                cat_FullHouse.Score = 25;
+                if (IsFullHouse(dice))
+                {
+                    cat_FullHouse.Score = 25;
+                }
+                else
+                {
+                    cat_FullHouse.Score = 0;
+                }
+
+                return true;
             }
 
-            if (!cat_FullHouse.IsUsed && !IsFullHouse(dice))
-            {
-                cat_FullHouse.Score = 0;
-            }
+            return false;
         }
 
-        private void UpdateSmall(List<Die> dice)
+        private bool UpdateSmall(List<Die> dice)
         {
-            if (!cat_Small.IsUsed && IsSequence(dice, 4))
+            if (!cat_Small.IsUsed)
             {
-                cat_Small.Score = 30;
+                if (IsSequence(dice, 4))
+                {
+                    cat_Small.Score = 30;
+                }
+                else
+                {
+                    cat_Small.Score = 0;
+                }
+
+                return true;
             }
 
-            if (!cat_Small.IsUsed && !IsSequence(dice, 4))
-            {
-                cat_Small.Score = 0;
-            }
+            return false;
         }
 
-        private void UpdateLarge(List<Die> dice)
+        private bool UpdateLarge(List<Die> dice)
         {
-            if (!cat_Large.IsUsed && IsSequence(dice, 5))
+            if (!cat_Large.IsUsed)
             {
-                cat_Large.Score = 40;
+                if (IsSequence(dice, 5))
+                {
+                    cat_Large.Score = 40;
+                }
+                else
+                {
+                    cat_Large.Score = 0;
+                }
+
+                return true;
             }
 
-            if (!cat_Large.IsUsed && !IsSequence(dice, 5))
-            {
-                cat_Large.Score = 0;
-            }
+            return false;
         }
 
 
-        private void UpdateYahtzee(List<Die> dice)
+        private bool UpdateYahtzee(List<Die> dice)
         {
-            if (!cat_Yahtzee.IsUsed && IsYahtzee(dice))
+            if (!cat_Yahtzee.IsUsed)
             {
-                cat_Yahtzee.Score = 50;
+                if (IsYahtzee(dice))
+                {
+                    cat_Yahtzee.Score = 50;
+                }
+                else
+                {
+                    cat_Yahtzee.Score = 0;
+                }
+
+                return true;
             }
 
-            if (!cat_Yahtzee.IsUsed && !IsYahtzee(dice))
-            {
-                cat_Yahtzee.Score = 0;
-            }
+            return false;
         }
 
-        private void UpdateChance(List<Die> dice)
+        private bool UpdateChance(List<Die> dice)
         {
             if (!cat_Chance.IsUsed)
             {
                 int score = AddDiceValues(dice);
                 cat_Chance.Score = score;
+
+                return true;
             }
+
+            return false;
         }
 
         public bool IsThreeOfAKind(List<Die> dice)
