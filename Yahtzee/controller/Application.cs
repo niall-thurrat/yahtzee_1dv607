@@ -1,10 +1,11 @@
-using Newtonsoft.Json;
 using System.IO;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using MainMenuInput = Yahtzee.view.UI.MainMenuInput;
 using GameMenuInput = Yahtzee.view.UI.GameMenuInput;
 using ListInput = Yahtzee.view.UI.ListInput;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using GameStatus = Yahtzee.model.Game.GameStatus;
 
 namespace Yahtzee.controller
 {
@@ -34,7 +35,7 @@ namespace Yahtzee.controller
                         m_game = new model.Game(players, 3);
                     }
                     
-                    while (m_game.Status == "InProgress")
+                    while (m_game.Status == GameStatus.InProgress)
                     {
                         // COMPUTER PLAYERS PLAY (until it's a gamer's turn or game ends)
                         while(m_game.ComputerPlays());
@@ -43,7 +44,7 @@ namespace Yahtzee.controller
                         while(GamerPlaysRound());
                     }
 
-                    if (m_game.Status == "Finished")
+                    if (m_game.Status == GameStatus.Finished)
                     {                        
                         SaveFinishedGame();
 
@@ -68,7 +69,7 @@ namespace Yahtzee.controller
                     m_game = (model.Game)formatter.Deserialize(stream);
                     stream.Close();
 
-                    m_game.Status = "InProgress";
+                    m_game.Status = GameStatus.InProgress;
                     goto case MainMenuInput.Play;
 
                     // else
@@ -104,7 +105,7 @@ namespace Yahtzee.controller
         // RETURNS FALSE WHEN GAMER ROUND IS FINISHED
         public bool GamerPlaysRound()
         {
-            if (m_game.IsGamerNext() && m_game.Status == "InProgress")
+            if (m_game.IsGamerNext() && m_game.Status == GameStatus.InProgress)
             {
                 int rollsLeft = m_game.GetRollsLeft();
 
@@ -158,13 +159,13 @@ namespace Yahtzee.controller
                         // QUIT GAME - WITH SAVE
                         // if (input == SaveMenuInput.Save)
                         // {
-                                m_game.Status = "Unfinished";
+                                m_game.Status = GameStatus.Unfinished;
                                 SaveUnfinishedGame();
                         // }
                         // QUIT GAME / WITHOUT SAVE
                         // else (input == SaveMenuInput.NoSave)
                         // {
-                        //     m_game.Status == "Delete"
+                        //     m_game.Status == GameStatus.Discarded;
                         // }
 
                         return false;

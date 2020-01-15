@@ -9,6 +9,14 @@ namespace Yahtzee.model
     [JsonObject(MemberSerialization.OptIn)]
     class Game
     {
+        public enum GameStatus
+        {
+            InProgress = 0,
+            Finished,
+            Unfinished,
+            Discarded
+        }
+
         [JsonProperty]
         private List<Player> m_players = new List<Player>();
 
@@ -23,7 +31,7 @@ namespace Yahtzee.model
 
             CreatedDate = DateTime.Now;
             RollsPerRound = a_rollsPerRound;
-            Status = "InProgress";
+            Status = GameStatus.InProgress;
             CurrentRound = 1;
             CurrentPlayerIndex = 0;
         }
@@ -35,7 +43,7 @@ namespace Yahtzee.model
         public int RollsPerRound { get; }
 
         [JsonProperty]
-        public string Status { get; set; }
+        public GameStatus Status { get; set; }
 
         [JsonProperty]
         public int CurrentRound { get; private set; }
@@ -47,7 +55,7 @@ namespace Yahtzee.model
         {
             var player = m_players[CurrentPlayerIndex];
 
-            if (player.PlayerType == Player.Type.Computer && Status == "InProgress")
+            if (player.PlayerType == Player.Type.Computer && Status == GameStatus.InProgress)
             {
                 player.ComputerPlaysRound();
                 UpdateGameProgress();
@@ -74,7 +82,7 @@ namespace Yahtzee.model
                 /// HARDCODED 13 ROUNDS
                 if (CurrentRound == 14)
                 {
-                    Status = "Finished";
+                    Status = GameStatus.Finished;
                 }
             }
         }
