@@ -28,68 +28,24 @@ namespace Yahtzee.controller
             switch (input)
             {
                 case MainMenuInput.Play:
-                    // GENERATE PLAYERS + GAME IF NOT CONTINUING SAVED GAME
-                    if (m_game == null || m_game.Status != GameStatus.InProgress)
-                    {
-                        var players = m_view.GetPlayers();
-                        m_game = new model.Game(players, 3);
-                    }
-                    
-                    while (m_game.Status == GameStatus.InProgress)
-                    {
-                        // COMPUTER PLAYERS PLAY (until it's a gamer's turn or game ends)
-                        while(m_game.ComputerPlays());
-
-                        // GAMER PLAYER PLAYS ONE ROUND
-                        while(GamerPlaysRound());
-                    }
-
-                    if (m_game.Status == GameStatus.Finished)
-                    {                        
-                        SaveFinishedGame();
-
-                        string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
-                        m_view.DisplayGameDetails(
-                            gameJson, m_game.CurrentPlayerIndex, m_game.CurrentRound, 0);
-                        m_view.DisplayGameOver();                   
-                    }
-
+                    PlayGame();
                     return true;
 
                 case MainMenuInput.Continue:
-                    // DESERIALIZE
-                    string workingDirectory = Directory.GetCurrentDirectory();
-                    string path = Path.Combine(workingDirectory, @"data\gameInProgress.txt");
-
-                    IFormatter formatter = new BinaryFormatter();
-                    Stream stream = new FileStream(path, FileMode.Open, FileAccess.Read);
-
-                    // NEED SOME SORT OF  if (stream != nuthin)....
-                    
-                    m_game = (model.Game)formatter.Deserialize(stream);
-                    stream.Close();
-
-                    m_game.Status = GameStatus.InProgress;
-                    goto case MainMenuInput.Play;
-
-                    // else
-                    // {
-                    //     m_view.TextToConsole("Sorry, there is no saved game");
-                    // }
-                    // return true;
-                        
-                case MainMenuInput.ViewPrevious:
-                    var listType = m_view.GetListType();
-                    
-                    if (listType == ListInput.ShortList)
+                    if (ContinueGame())
                     {
-                        m_view.TextToConsole("THIS AIN'T BEEN DEVELOPED YET BOSS");
+                        goto case MainMenuInput.Play;
                     }
                     else
                     {
-                        m_view.TextToConsole("THIS AIN'T BEEN DEVELOPED EITHER BOSS");
+                        m_view.TextToConsole("Sorry, there is no saved game");
                     }
 
+                    return true;
+                        
+                case MainMenuInput.ViewPrevious:
+                    var listType = m_view.GetListType();
+                    ViewPastGames(listType);
                     return true;
 
                 case MainMenuInput.Quit:
@@ -99,6 +55,71 @@ namespace Yahtzee.controller
                 default:
                     m_view.TextToConsole("\nERROR: menu input not recognised");
                     return true;
+            }
+        }
+
+        private void PlayGame()
+        {
+            // GENERATE PLAYERS + GAME IF NOT CONTINUING SAVED GAME
+            if (m_game == null || m_game.Status != GameStatus.InProgress)
+            {
+                var players = m_view.GetPlayers();
+                m_game = new model.Game(players, 3);
+            }
+            
+            while (m_game.Status == GameStatus.InProgress)
+            {
+                // COMPUTER PLAYERS PLAY (until it's a gamer's turn or game ends)
+                while(m_game.ComputerPlays());
+
+                // GAMER PLAYER PLAYS ONE ROUND
+                while(GamerPlaysRound());
+            }
+
+            if (m_game.Status == GameStatus.Finished)
+            {                        
+                SaveFinishedGame();
+
+                string gameJson = JsonConvert.SerializeObject(m_game, Formatting.Indented);
+                m_view.DisplayGameDetails(
+                    gameJson, m_game.CurrentPlayerIndex, m_game.CurrentRound, 0);
+                m_view.DisplayGameOver();                   
+            }
+        }
+
+        private bool ContinueGame()
+        {
+            string workingDirectory = Directory.GetCurrentDirectory();
+            string path = Path.Combine(workingDirectory, @"data\gameInProgress.txt");
+
+            // if a saved game exists
+            if (new FileInfo(path).Length != 0){
+                // deserialize
+                IFormatter formatter = new BinaryFormatter();
+                Stream stream = new FileStream(path, FileMode.Open, FileAccess.Read);
+
+                m_game = (model.Game)formatter.Deserialize(stream);
+                stream.Close();
+
+                m_game.Status = GameStatus.InProgress;
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void ViewPastGames(ListInput listType)
+        {
+            if (listType == ListInput.ShortList)
+            {
+                m_view.TextToConsole("THIS AIN'T BEEN DEVELOPED YET BOSS");
+            }
+            else
+            {
+                m_view.TextToConsole("THIS AIN'T BEEN DEVELOPED EITHER BOSS");
             }
         }
 
