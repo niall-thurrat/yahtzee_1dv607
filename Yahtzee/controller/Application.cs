@@ -142,14 +142,10 @@ namespace Yahtzee.controller
                     gameJson, m_game.CurrentPlayerIndex, m_game.CurrentRound, m_game.GetRollsLeft());
                 m_view.DisplayGameMenu(rollsLeft);
 
-                var input = m_view.GetGameInput();
+                var input = m_view.GetGameInput(rollsLeft);
 
                 switch (input)
                 {
-                    case GameMenuInput.Roll:
-                        m_game.GamerRolls();                    
-                        return true;
-
                     case GameMenuInput.HoldDie1:
                         m_game.GamerHoldsDie(0);
                         return true;
@@ -168,6 +164,10 @@ namespace Yahtzee.controller
                     
                     case GameMenuInput.HoldDie5:
                         m_game.GamerHoldsDie(4);
+                        return true;
+                    
+                    case GameMenuInput.Roll:
+                        m_game.GamerRolls();                    
                         return true;
 
                     case GameMenuInput.ChooseCat:

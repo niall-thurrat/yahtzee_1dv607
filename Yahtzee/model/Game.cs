@@ -117,8 +117,20 @@ namespace Yahtzee.model
                 {
                     if ((int)c.CatType == categoryIndex)
                     {
+                        // DOES PLAYER HAVE A BONUS YAHTZEE
+                        if (player.ScoreCard.IsBonusYahtzee(dice))
+                        {
+                            if (player.ScoreCard.UpdateYahtzeeBonus(dice, c.CatType))
+                            {
+                                UpdateGameProgress();
+                                player.ResetRollsLeft();
+                                player.UnholdAllDice();
+
+                                return true;
+                            }
+                        }
                         // UPDATE GAME IF CATEGORY NOT ALREADY SELECTED
-                        if (player.ScoreCard.Update(dice, c.CatType))
+                        else if (player.ScoreCard.Update(dice, c.CatType))
                         {
                             UpdateGameProgress();
                             player.ResetRollsLeft();
@@ -128,6 +140,7 @@ namespace Yahtzee.model
                         }                
                     }
                 }
+
                 return false;                
             }
             catch (Exception)

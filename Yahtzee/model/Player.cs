@@ -67,17 +67,15 @@ namespace Yahtzee.model
                     {
                         Cat chosenBonusCat = m_playStrategy.UseYahtzeeBonus(this);
                         ScoreCard.UpdateYahtzeeBonus(Dice, chosenBonusCat);
+
+                        RollsLeft = 0;
+                        UnholdAllDice();
                     }
                     else if (ScoreCard.Update(Dice, chosenCat))
                     {
                         RollsLeft = 0;
                         UnholdAllDice();
                     }
-                    else
-                    {
-                        throw new Exception ("ERROR: category selection error by computer");
-                    }
-                    
                 }
             }
         }

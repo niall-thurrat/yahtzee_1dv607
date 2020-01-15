@@ -140,9 +140,7 @@ namespace Yahtzee.view
             }
         }
 
-        // handle roll and hold being selected when they shouldn't - if statements required in case 1-6 of GetGameInput below
-
-        public GameMenuInput GetGameInput()
+        public GameMenuInput GetGameInput(int rollsLeft)
         {
             try
             {            
@@ -151,22 +149,46 @@ namespace Yahtzee.view
                 switch (input)
                 {
                     case 1:
-                        return GameMenuInput.HoldDie1;
+                        if (rollsLeft > 0)
+                        {
+                            return GameMenuInput.HoldDie1;
+                        }
+                        goto default;
 
                     case 2:
-                        return GameMenuInput.HoldDie2;
+                        if (rollsLeft > 0)
+                        {
+                            return GameMenuInput.HoldDie2;
+                        }
+                        goto default;
                     
                     case 3:
-                        return GameMenuInput.HoldDie3;
+                        if (rollsLeft > 0)
+                        {
+                            return GameMenuInput.HoldDie3;
+                        }
+                        goto default;
                     
                     case 4:
-                        return GameMenuInput.HoldDie4;
+                        if (rollsLeft > 0)
+                        {
+                            return GameMenuInput.HoldDie4;
+                        }
+                        goto default;
                     
                     case 5:
-                        return GameMenuInput.HoldDie5;
+                        if (rollsLeft > 0)
+                        {
+                            return GameMenuInput.HoldDie5;
+                        }
+                        goto default;
                     
                     case 6:
-                        return GameMenuInput.Roll;
+                        if (rollsLeft > 0)
+                        {
+                            return GameMenuInput.Roll;
+                        }
+                        goto default;
                     
                     case 7:
                         return GameMenuInput.ChooseCat;

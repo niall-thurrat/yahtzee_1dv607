@@ -6,7 +6,7 @@ namespace Yahtzee.model.strategy
     {
         IEnumerable<Category> GetCategories();
         bool Update(List<Die> dice, Category.Type cat);
-        void UpdateYahtzeeBonus(List<Die> dice, Category.Type chosenCat);
+        bool UpdateYahtzeeBonus(List<Die> dice, Category.Type chosenCat);
         bool IsThreeOfAKind(List<Die> dice);
         bool IsFourOfAKind(List<Die> dice);
         bool IsFullHouse(List<Die> dice);

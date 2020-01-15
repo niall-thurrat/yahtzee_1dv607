@@ -77,7 +77,7 @@ namespace Yahtzee.model.strategy
 
                 if (cat_YahtzeeBonus.Score.HasValue)
                 {
-                    totalScore += (int)cat_UpperBonus.Score;
+                    totalScore += (int)cat_YahtzeeBonus.Score;
                 }
 
                 return totalScore;
@@ -144,7 +144,7 @@ namespace Yahtzee.model.strategy
             }
         }
 
-        public void UpdateYahtzeeBonus(List<Die> dice, Cat chosenCat)
+        public bool UpdateYahtzeeBonus(List<Die> dice, Cat chosenCat)
         {
             if (IsBonusYahtzee(dice))
             {
@@ -159,35 +159,44 @@ namespace Yahtzee.model.strategy
                         {
                             switch (chosenCat)
                             {
+                                /// FIX BUGG HERE - YAHTZEE BONUS DOES NOT TALLY IN TOTAL SCORE
+                                ///     PERHAPS BECAUSE I MADE CAT.SCORE A NULLABLE<INT> ????????????
                                 case Cat.FullHouse:
                                         cat_FullHouse.Score = 25;
                                         cat_YahtzeeBonus.Score += 100;
-                                    break;
+                                        return true;
                                     
                                 case Cat.Small:
                                         cat_Small.Score = 30;
                                         cat_YahtzeeBonus.Score += 100;
-                                    break;
+                                        return true;
 
                                 case Cat.Large:
                                         cat_Large.Score = 40;
                                         cat_YahtzeeBonus.Score += 100;
-                                    break;
+                                        return true;
 
                                 default:
-                                    throw new Exception("Bonus Yahtzee category error");
+                                    return false;
                             }
                         }
                         else
-                        {
-                            cat_YahtzeeBonus.Score += 100;
-                            // /////////////////////////////////////////////////////////// xxx use Update bool to handle if cat has been chosen alread
-                            Update(dice, chosenCat);
+                        {  
+                            if (Update(dice, chosenCat))
+                            {
+                                cat_YahtzeeBonus.Score += 100;
+                                return true;
+                            }
                         }
                     }
                 }
+
+                return false;
             }
-            else throw new Exception("Error: Dice do not give Yahtzee bonus");
+            else
+            {
+                return false;
+            }
         }
 
         private bool UpdateUpperSection(List<Die> dice, int targetValue, Cat catToUpdate)
